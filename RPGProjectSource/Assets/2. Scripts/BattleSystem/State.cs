@@ -66,19 +66,30 @@ public class AttackState : IState
     private Animator animator;
     private static readonly int Attack = Animator.StringToHash("Attack");
 
+    private NavMeshAgent navMeshAgent;
     private HitBox hitbox;
+
+    public AttackStrategy attackStrategy;
+    
     public AttackState(StateMachine newStateMachine) : base(newStateMachine)
     {
         animator = stateMachine.GetComponent<Animator>();
         hitbox = stateMachine.GetComponentInChildren<HitBox>(true);
+        navMeshAgent = stateMachine.GetComponent<NavMeshAgent>();
+
+        attackStrategy = stateMachine.GetComponent<AttackStrategy>();
     }
 
     public override void Enter()
     {
-        Debug.Log("enter attack State");
-        hitbox.gameObject.SetActive(true);
-        animator.SetBool(Attack, true);
+        navMeshAgent.velocity = Vector3.zero;
+        // navMeshAgent.isStopped = true;
+        
 
+        attackStrategy.Attack();
+        // hitbox.gameObject.SetActive(true);
+        
+        animator.SetBool(Attack, true);
     }
 
     public override void Update()

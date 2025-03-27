@@ -4,8 +4,18 @@ using UnityEngine.InputSystem;
 // 상하좌우 와 클릭
 public class PlayerController: MonoBehaviour
 {
+    private static readonly int Run = Animator.StringToHash("Run");
+    private static readonly int Attack = Animator.StringToHash("Attack");
+    
     private Vector2 moveDirection = Vector2.zero;
     public int moveSpeed = 8;
+    
+    private Animator animator;
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     private void Update()
     {
@@ -24,5 +34,13 @@ public class PlayerController: MonoBehaviour
     public void OnMove(InputValue value)
     {
         moveDirection = value.Get<Vector2>();
+        
+        if(moveDirection == Vector2.zero) animator.SetBool(Run, false);
+        else animator.SetBool(Run, true);
+    }
+    
+    public void OnAttack(InputValue value)
+    {
+        animator.SetTrigger(Attack);
     }
 }

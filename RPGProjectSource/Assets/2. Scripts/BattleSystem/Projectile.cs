@@ -2,23 +2,22 @@ using UnityEngine;
 
 public class Projectile: MonoBehaviour
 {
-    [HideInInspector] public ProjectileManager projectileManager;
-    
     public float duration;
     private float currentDuration;
-    
-    
     public float moveSpeed;
+    
     public void Update()
     {
         currentDuration += Time.deltaTime;
         if (currentDuration >= duration)
         {
-            projectileManager.Destory();
+            ProjectileManager.instance.DestoryProjectile(this);
+            Destroy(gameObject);
+            
             return;
         }
         
-        transform.Translate(transform.forward * Time.deltaTime);
+        transform.Translate(transform.forward * (Time.deltaTime * moveSpeed));
     }
 }
 

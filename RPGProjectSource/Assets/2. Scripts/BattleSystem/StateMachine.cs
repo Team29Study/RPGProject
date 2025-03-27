@@ -27,6 +27,11 @@ public class StateMachine : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
 
+        // 프리팹 정보 외 씬의 플레이어 인스턴스 등록할 방법이 없음
+        if (target == null)
+        {
+            target = GameObject.FindGameObjectWithTag("Player").transform;
+        }
     }
 
     private void Start()
