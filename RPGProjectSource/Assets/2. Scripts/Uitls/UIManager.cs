@@ -5,16 +5,19 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     private UIManager instance;
-    public UIManager Instance
+    public UIManager Instance { get { return instance; } }
+
+    private BaseUI baseUI;
+    public BaseUI BaseUI
     {
-        get
-        {
-            return instance;
-        }
-        private set
-        {
-            instance = value;
-        }
+        get { return baseUI; }
+        private set { baseUI = value; } }
+
+    private ShopUI shopUI;
+    public ShopUI ShopUI
+    {
+        get { return shopUI; }
+        private set { shopUI = value; }
     }
 
     private void Awake()
@@ -23,7 +26,7 @@ public class UIManager : MonoBehaviour
         {
             instance = this;
         }
-        else
+        else if (Instance != this)
         {
             Destroy(gameObject);
         }

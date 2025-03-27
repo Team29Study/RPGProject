@@ -926,7 +926,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1924886683}
   m_Layer: 5
-  m_Name: BasicUI
+  m_Name: BaseUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
