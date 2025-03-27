@@ -1,0 +1,35 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerStateMachine : StateMachine
+{
+
+    // 플레이어 상태들이 받아갈 값들 세팅
+    public Player Player { get; }
+    
+    // TODO : 적절한 위치가 어디인지 고민한번 해보자
+    // 움직임 입력 값
+    public Vector2 MovementInput { get; set; }
+    public float MovementSpeed { get; private set; }
+    public float RotationDamping { get; private set; }
+    public float MovementSpeedModifier { get; set; } = 1f;
+
+    public Transform MainCamTransform { get; set; }
+
+    // 플레이어 상태들
+    public PlayerIdleState IdleState { get; set; }
+
+    // 클래스 초기화
+    public PlayerStateMachine(Player player)
+    {
+        Player = player;
+
+        MainCamTransform = Camera.main.transform;
+
+        MovementSpeed = Player.Data.GroundData.BaseSpeed;
+        RotationDamping = Player.Data.GroundData.BaseRotationDamping;
+
+        IdleState = new PlayerIdleState(this);
+    }
+}

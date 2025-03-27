@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     public PlayerInputs.PlayerActions PlayerActions { get; private set; }
 
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         PlayerInputs = new PlayerInputs();
         // InputActions의 Player 맵에 접근
