@@ -5,11 +5,11 @@ using UnityEngine;
 public class PlayerStateMachine : StateMachine
 {
 
-    // ÇÃ·¹ÀÌ¾î »óÅÂµéÀÌ ¹Ş¾Æ°¥ °ªµé ¼¼ÆÃ
+    // í”Œë ˆì´ì–´ ìƒíƒœë“¤ì´ ë°›ì•„ê°ˆ ê°’ë“¤ ì„¸íŒ…
     public Player Player { get; }
     
-    // TODO : ÀûÀıÇÑ À§Ä¡°¡ ¾îµğÀÎÁö °í¹ÎÇÑ¹ø ÇØº¸ÀÚ
-    // ¿òÁ÷ÀÓ ÀÔ·Â °ª
+    // TODO : ì ì ˆí•œ ìœ„ì¹˜ê°€ ì–´ë””ì¸ì§€ ê³ ë¯¼í•œë²ˆ í•´ë³´ì
+    // ì›€ì§ì„ ì…ë ¥ ê°’
     public Vector2 MovementInput { get; set; }
     public float MovementSpeed { get; private set; }
     public float RotationDamping { get; private set; }
@@ -17,19 +17,24 @@ public class PlayerStateMachine : StateMachine
 
     public Transform MainCamTransform { get; set; }
 
-    // ÇÃ·¹ÀÌ¾î »óÅÂµé
-    public PlayerIdleState IdleState { get; set; }
+    // í”Œë ˆì´ì–´ ìƒíƒœë“¤
+    public PlayerIdleState IdleState { get; private set; }
+    public PlayerWalkState WalkState { get; private set; }
+    public PlayerRunState RunState { get; private set; }
 
-    // Å¬·¡½º ÃÊ±âÈ­
+    // í´ë˜ìŠ¤ ì´ˆê¸°í™”
     public PlayerStateMachine(Player player)
     {
         Player = player;
 
         MainCamTransform = Camera.main.transform;
 
+        IdleState = new PlayerIdleState(this);
+        WalkState = new PlayerWalkState(this);
+        RunState = new PlayerRunState(this);
+
         MovementSpeed = Player.Data.GroundData.BaseSpeed;
         RotationDamping = Player.Data.GroundData.BaseRotationDamping;
 
-        IdleState = new PlayerIdleState(this);
     }
 }

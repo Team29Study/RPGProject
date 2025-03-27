@@ -24,5 +24,12 @@ public class PlayerIdleState : PlayerGroundState
     public override void Update()
     {
         base.Update();
+
+        // 방향키 입력이 있으면 walk 상태로 전환
+        if(stateMachine.MovementInput != Vector2.zero)
+        {
+            stateMachine.ChangeState(stateMachine.WalkState);
+            return;
+        }
     }
 }

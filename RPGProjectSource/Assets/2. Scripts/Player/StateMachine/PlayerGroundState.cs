@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerGroundState : PlayerBaseState
 {
@@ -28,5 +29,16 @@ public class PlayerGroundState : PlayerBaseState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+    }
+
+    protected override void OnMovementCanceled(InputAction.CallbackContext context)
+    {
+        // 원래 방향키 입력이 없었다면 실행하지 않음
+        if (stateMachine.MovementInput == Vector2.zero) return;
+
+        // 기존에 입력이 있었다면 Idle로 전환
+        stateMachine.ChangeState(stateMachine.IdleState);
+
+        base.OnMovementCanceled(context);
     }
 }

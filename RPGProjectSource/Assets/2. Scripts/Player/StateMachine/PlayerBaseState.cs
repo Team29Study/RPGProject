@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-// °øÅëµÈ ±â´ÉÀ» °¡Áø BaseState
+// ê³µí†µëœ ê¸°ëŠ¥ì„ ê°€ì§„ BaseState
 public class PlayerBaseState : IPlayerState
 {
     protected PlayerStateMachine stateMachine;
@@ -17,10 +18,28 @@ public class PlayerBaseState : IPlayerState
 
     public virtual void Enter()
     {
+        AddInputActionCallbacks();
     }
 
     public virtual void Exit()
     {
+        RemoveInputActionCallbacks();
+    }
+
+    protected virtual void AddInputActionCallbacks()
+    {
+        PlayerController input = stateMachine.Player.InputController;
+        input.PlayerActions.Move.canceled += OnMovementCanceled;
+        input.PlayerActions.Run.started += OnRunStarted;
+        input.PlayerActions.Run.canceled += OnRunCanceled;
+    }
+
+    protected virtual void RemoveInputActionCallbacks()
+    {
+        PlayerController input = stateMachine.Player.InputController;
+        input.PlayerActions.Move.canceled -= OnMovementCanceled;
+        input.PlayerActions.Run.started -= OnRunStarted;
+        input.PlayerActions.Run.canceled -= OnRunCanceled;
     }
 
     public virtual void HandleInput()
@@ -36,9 +55,23 @@ public class PlayerBaseState : IPlayerState
     {
         Move();
     }
+    protected virtual void OnMovementCanceled(InputAction.CallbackContext context)
+    {
+
+    }
+
+    protected virtual void OnRunStarted(InputAction.CallbackContext context)
+    {
+
+    }
+
+    protected virtual void OnRunCanceled(InputAction.CallbackContext context)
+    {
+
+    }
     
-    // ¸ğµç »óÅÂ¿¡ ÇÊ¿äÇÑ °Íµé
-    // ¾Ö´Ï¸ŞÀÌ¼Ç ÀüÈ¯
+    // ëª¨ë“  ìƒíƒœì— í•„ìš”í•œ ê²ƒë“¤
+    // ì• ë‹ˆë©”ì´ì…˜ ì „í™˜
     protected void StartAnimation(int animatorHash)
     {
         stateMachine.Player.Animator.SetBool(animatorHash, true);
@@ -48,7 +81,7 @@ public class PlayerBaseState : IPlayerState
         stateMachine.Player.Animator.SetBool(animatorHash, false);
     }
 
-    // ¿òÁ÷ÀÌ´Â ÀÔ·Â°ªÀ» ¹ŞÀ½
+    // ì›€ì§ì´ëŠ” ì…ë ¥ê°’ì„ ë°›ìŒ
     private void ReadMovementInput()
     {
         stateMachine.MovementInput = stateMachine.Player.InputController.PlayerActions.Move.ReadValue<Vector2>();
@@ -63,22 +96,22 @@ public class PlayerBaseState : IPlayerState
         Rotate(movementDirection);
     }
 
-    // ¿òÁ÷ÀÏ ¹æÇâÀ» ±¸ÇØÁÖ´Â ÇÔ¼ö
+    // ì›€ì§ì¼ ë°©í–¥ì„ êµ¬í•´ì£¼ëŠ” í•¨ìˆ˜
     private Vector3 GetMovementDirection()
     {
-        // ¸ŞÀÎ Ä«¸Ş¶óÀÇ forward, right ¹æÇâÀ» ¹Ş¾Æ¿È
+        // ë©”ì¸ ì¹´ë©”ë¼ì˜ forward, right ë°©í–¥ì„ ë°›ì•„ì˜´
         Vector3 forward = stateMachine.MainCamTransform.forward;
         Vector3 right = stateMachine.MainCamTransform.right;
 
-        // forward, rightÀÇ y¹æÇâÀ» ¾ø¾Ú
+        // forward, rightì˜ yë°©í–¥ì„ ì—†ì•°
         forward.y = 0;
         right.y = 0;
 
-        // ´ÜÀ§ º¤ÅÍ·Î ¸¸µé¾î ÁÜ
+        // ë‹¨ìœ„ ë²¡í„°ë¡œ ë§Œë“¤ì–´ ì¤Œ
         forward.Normalize();
         right.Normalize();
 
-        // ÀÔ·Â¹ŞÀº °ª¿¡ ¹æÇâÀ» °öÇØÁÜ
+        // ì…ë ¥ë°›ì€ ê°’ì— ë°©í–¥ì„ ê³±í•´ì¤Œ
         return forward * stateMachine.MovementInput.y + right * stateMachine.MovementInput.x;
     }
 
@@ -93,10 +126,10 @@ public class PlayerBaseState : IPlayerState
         return stateMachine.MovementSpeed * stateMachine.MovementSpeedModifier;
     }
 
-    // Ä³¸¯ÅÍ È¸Àü
+    // ìºë¦­í„° íšŒì „
     private void Rotate(Vector3 direction)
     {
-        // ¹æÇâÅ° ÀÔ·ÂÀÌ ÀÖ´Ù¸é
+        // ë°©í–¥í‚¤ ì…ë ¥ì´ ìˆë‹¤ë©´
         if(direction != Vector3.zero)
         {
             Transform playerTransform = stateMachine.Player.transform;
