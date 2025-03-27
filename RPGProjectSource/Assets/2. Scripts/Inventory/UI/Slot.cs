@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,6 +10,10 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
 {
     [SerializeField] private Image iconImage;
     [SerializeField] private TextMeshProUGUI countText;
+
+    public event Action OnSlotPointerDownEvent = delegate { };
+    public event Action OnSlotPointerUpEvent = delegate { };
+    public event Action OnDragEvent = delegate { };
 
     void Awake()
     {
@@ -30,22 +35,22 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
         }
 
         countText.gameObject.SetActive(true);
-        iconImage.sprite ??= item.itemData.icon;
-        countText.text ??= item.quantity.ToString();
+        iconImage.sprite = item.itemData.icon;
+        countText.text = item.quantity.ToString();
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("OnDrag");
+        OnDragEvent?.Invoke();
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("OnPointerDown");
+        OnSlotPointerDownEvent?.Invoke();
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        Debug.Log("OnPointerExit");
+        OnSlotPointerUpEvent?.Invoke();
     }
 }

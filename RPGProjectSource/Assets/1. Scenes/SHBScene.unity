@@ -248,6 +248,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxCapacity: 10
   view: {fileID: 701512978}
+  __debugItems:
+  - {fileID: 11400000, guid: 49e29357a17807b4ab8dbb798aa28175, type: 2}
 --- !u!4 &375219010
 Transform:
   m_ObjectHideFlags: 0

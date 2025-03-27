@@ -11,8 +11,19 @@ public class Inventory : MonoBehaviour
 
     private InventoryPresenter presenter;
 
+    [SerializeField, Header("Debug")]
+    private ItemData[] __debugItems;
+
     void Awake()
     {
         presenter = new InventoryPresenter.Builder(view).WithCapacity(maxCapacity).Build();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            presenter.model.TryAdd(__debugItems[Random.Range(0, __debugItems.Length)], 6);
+        }
     }
 }

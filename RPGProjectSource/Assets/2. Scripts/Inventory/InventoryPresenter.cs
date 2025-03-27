@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class InventoryPresenter
 {
-    private readonly InventoryModel model;
+    //Test
+    public readonly InventoryModel model;
     private readonly InventoryView view;
     private readonly int capacity;
 
@@ -24,10 +25,11 @@ public class InventoryPresenter
     {
         view.InitializeView(model);
 
-        model.OnValueChanged += HandleModelChanged;
+        model.OnValueChanged += OnModelChanged;
+        view.OnSlotEvent += OnViewSlotEvent;
     }
 
-    private void HandleModelChanged(IList<Item> items)
+    private void OnModelChanged(IList<Item> items)
     {
         for (int i = 0; i < items.Count; i++)
         {
@@ -35,6 +37,11 @@ public class InventoryPresenter
 
             view.Slots[i].Set(item);
         }
+    }
+
+    private void OnViewSlotEvent(Slot source, Slot target)
+    {
+
     }
 
     public class Builder

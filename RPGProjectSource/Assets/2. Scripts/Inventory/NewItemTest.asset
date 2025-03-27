@@ -15,4 +15,4 @@ MonoBehaviour:
   icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   itemName: New Item
   description: test item
-  maxStack: 10
+  maxStack: 99

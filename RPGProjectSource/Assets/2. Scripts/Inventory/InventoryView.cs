@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,21 +13,42 @@ public class InventoryView : MonoBehaviour
     private List<Slot> slotsCache = new();
     public List<Slot> Slots => slotsCache;
 
-    void Start()
-    {
+    private int pointIndex = -1;
 
-    }
+    public event Action<Slot, Slot> OnSlotEvent = delegate { };
 
     public void InitializeView(InventoryModel model)
     {
         for (int i = 0; i < model.Count(); i++)
         {
+            int indexCache = i;
+
             var go = Instantiate(slotPrefab, slotParent);
+
             go.gameObject.SetActive(true);
             go.Set(model.Get(i));
+            go.OnSlotPointerDownEvent += () => OnSlotPointerDown(indexCache);
+            go.OnSlotPointerDownEvent += () => Debug.Log("pointer down " + indexCache);
+            go.OnSlotPointerUpEvent += () => OnSlotPointerUp(indexCache);
+            go.OnSlotPointerUpEvent += () => Debug.Log("pointer up " + indexCache);
 
             slotsCache.Add(go);
         }
+    }
+
+    private void OnSlotPointerDown(int index)
+    {
+
+    }
+
+    private void OnSlotPointerUp(int index)
+    {
+
+    }
+
+    private void OnSlotDrag()
+    {
+
     }
 }
 
