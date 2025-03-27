@@ -247,8 +247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxCapacity: 10
-  itemDataTest:
-  - {fileID: 11400000, guid: 49e29357a17807b4ab8dbb798aa28175, type: 2}
+  view: {fileID: 701512978}
 --- !u!4 &375219010
 Transform:
   m_ObjectHideFlags: 0
@@ -353,7 +352,7 @@ GameObject:
   - component: {fileID: 701512977}
   - component: {fileID: 701512976}
   m_Layer: 5
-  m_Name: Scroll View
+  m_Name: InventoryUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -452,6 +451,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba2d6957bc00314479cbc69eee62e0c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slotParent: {fileID: 1531798556}
+  slotPrefab: {fileID: 883313970}
 --- !u!222 &701512979
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -471,13 +472,14 @@ GameObject:
   - component: {fileID: 883313967}
   - component: {fileID: 883313969}
   - component: {fileID: 883313968}
+  - component: {fileID: 883313970}
   m_Layer: 5
   m_Name: Slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &883313967
 RectTransform:
   m_ObjectHideFlags: 0
@@ -494,10 +496,10 @@ RectTransform:
   - {fileID: 1723108375}
   m_Father: {fileID: 1531798556}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 60, y: -60}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &883313968
 MonoBehaviour:
@@ -537,6 +539,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 883313966}
   m_CullTransparentMesh: 1
+--- !u!114 &883313970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883313966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef2a66a85f6f61a44a44232dc884fb27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 1756919621}
+  countText: {fileID: 1723108376}
 --- !u!1 &956359780
 GameObject:
   m_ObjectHideFlags: 0
