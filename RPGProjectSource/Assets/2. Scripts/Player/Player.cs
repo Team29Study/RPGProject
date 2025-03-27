@@ -5,6 +5,9 @@ using UnityEngine;
 // 플레이어의 Component들을 관리하는 클래스
 public class Player : MonoBehaviour
 {
+    // 플레이어 상태별 데이터
+    [field: SerializeField] public PlayerSO Data { get; private set; }
+
     [field:Header("Animations")]
     [field: SerializeField] public PlayerAnimationData AnimationData { get; private set; } 
 
