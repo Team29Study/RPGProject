@@ -21,7 +21,7 @@ public class BaseUI : MonoBehaviour
 
     void OpenShop()
     {
-        UIManager
+
     }
 
     private void SetHpBar()
