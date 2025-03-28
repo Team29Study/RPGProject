@@ -12,8 +12,12 @@ public class RoonGenerator: MonoBehaviour
     public List<GameObject> walls;
     public GameObject corner;
     
+    public List<GameObject> items;
+    
     private int tileSize = 2;
     private int wallSize = 4;
+    
+    // 장애물 갯수(정확히 2의 배수로 배치됨)
 
     public void Generate(Rect room)
     {
@@ -31,10 +35,9 @@ public class RoonGenerator: MonoBehaviour
             }
         }
         
-        // roomObject 참조 필요함
-        // float wallThickness = 0.2f; // 벽 두께
-        // Vector2 roomCenter = room.position; // 방의 중심 좌표
 
+        // 벽설치 2군데 정도는 출입 문
+        
         // 맨 앞 설치 - 맵 사이즈가 4의 배수만 가능한 현상 발생
         for (int index = 0; index < room.size.x; index+= 4)
         {
@@ -78,23 +81,15 @@ public class RoonGenerator: MonoBehaviour
         d.transform.localPosition = new Vector3(room.size.x - 0.5f, 0, room.size.y - 0.5f);
         d.transform.rotation = Quaternion.Euler(0, 180, 0);
         d.name = "d";
-    }
 
-    public void GenerateWall(Rect room)
-    {
-    
+        // 아이템 생성
+        int num = 10;
+        for (int idex = 0; idex < num; idex++)
+        {
+            var item = Instantiate(items[Random.Range(0, items.Count)], roomObject.transform);
+            // 해당 물건의 사이즈 만큼은 제외 - 예를 들어 10
+            item.transform.localPosition = new Vector3(Random.Range(1, room.size.x - 1), 0 , Random.Range(1, room.size.y - 1));
 
-        // CreateWall(new Vector2(roomCenter.x, roomCenter.y + roomSize.y / 2), new Vector2(roomSize.x, wallThickness)); // 상단 벽
-        // CreateWall(new Vector2(roomCenter.x, roomCenter.y - roomSize.y / 2), new Vector2(roomSize.x, wallThickness)); // 하단 벽
-        // CreateWall(new Vector2(roomCenter.x - roomSize.x / 2, roomCenter.y), new Vector2(wallThickness, roomSize.y)); // 좌측 벽
-        // CreateWall(new Vector2(roomCenter.x + roomSize.x / 2, roomCenter.y), new Vector2(wallThickness, roomSize.y)); 
-    }
-    
-    void CreateWall(Vector2 position, Vector2 size)
-    {
-        // GameObject wall = Instantiate(this.walls);
-        // wall.transform.localPosition = new Vector3(position.x, position.y, 0);
-        // var collider = wall.AddComponent<BoxCollider2D>();
-        // GetComponent<Collider>().size = new Vector2(size.x, size.y);
+        }
     }
 }

@@ -20,7 +20,9 @@ public class ProjectileManager: MonoBehaviour
 
     public void Generate(Transform target)
     {
-        Instantiate(projectiles[Random.Range(0, projectiles.Count)], target.position + Vector3.up, target.rotation);
+        var instance = Instantiate(projectiles[Random.Range(0, projectiles.Count)], target.position + Vector3.up, target.rotation);
+        // instance.transform.SetParent(transform);
+        
     }
     
     public void Generate(Vector3 position, Quaternion rotation)
@@ -30,8 +32,10 @@ public class ProjectileManager: MonoBehaviour
 
 
     // 삭제하지 않고 비활성화
+    // projectile이 본인에게도 맞는 상황
     public void DestoryProjectile(Projectile projectile)
     {
-        projectile.gameObject.SetActive(false);
+        // Destroy(projectile.gameObject);
+        // projectile.gameObject.SetActive(false);
     }
 }

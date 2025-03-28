@@ -56,11 +56,13 @@ public class EnemyGenerateArea: MonoBehaviour
     // 영역 체크로 동적으로 관리
     public void OnTriggerEnter(Collider other)
     {
+        Debug.Log("OnTriggerEnter");
         
         if (other.CompareTag("Player"))
         {
             if (isGenerated == false)
             {
+                Debug.Log("entered");
                 isGenerated = true;
                 Generate();   
             }

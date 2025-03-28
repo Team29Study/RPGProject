@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class Projectile: MonoBehaviour
 {
-    public float duration;
+    public float duration = 1;
     private float currentDuration;
-    public float moveSpeed;
+    public float moveSpeed = 20;
 
     public Transform target;
     
