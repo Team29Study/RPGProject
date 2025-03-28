@@ -68,9 +68,11 @@ public class EnemyGenerateArea: MonoBehaviour
     }
     
     // 삭제 후 매니저에서 처리
-    public void DestoryEnemy()
+    public void DestroyEnemy(GameObject gameObject)
     {
-        
+        var selectedEnemy = currentEnemies.Find(enemy => enemy == gameObject);
+        currentEnemies.Remove(selectedEnemy);
+        Destroy(gameObject);
     }
 
     private void OnTriggerExit(Collider other)

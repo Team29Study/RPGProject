@@ -1,14 +1,10 @@
 using UnityEngine;
 
-public abstract class AttackType : MonoBehaviour
-{
-    public abstract void Enter();
-    public abstract void Excute();
-}
-
 public class MeleeAttack : AttackType
 {
     private GameObject hitBox;
+    
+    // 동적처리가 맞을 지 생각해보기
     public override void Enter()
     {
         // transform.GetComponentInChildren<HitBox>(true);
@@ -18,8 +14,12 @@ public class MeleeAttack : AttackType
         
         hitBox.transform.parent = transform;
         hitBox.transform.localPosition = new Vector3(0, 1, 1);
+
+        hitBox.AddComponent<BoxCollider>().isTrigger = true;
     }
 
-    public override void Excute() { }
+    public override void Excute()
+    {
+        hitBox.SetActive(true);
+    }
 }
-

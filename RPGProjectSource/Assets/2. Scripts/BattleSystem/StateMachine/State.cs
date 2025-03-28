@@ -97,3 +97,49 @@ public class AttackState : IState
     }
     public override void Exit() {}
 }
+
+public class HitState : IState
+{
+    private float knockBackDuration = 1f;
+    private float curerntKnockBackDuration = 0;
+    
+    public HitState(StateMachine newStateMachine) : base(newStateMachine)
+    {
+    }
+
+    public override void Enter()
+    {
+        stateMachine.agent.velocity = Vector3.zero;
+    }
+
+    public override void Update()
+    {
+        curerntKnockBackDuration += Time.deltaTime;
+        if (curerntKnockBackDuration >= knockBackDuration)
+        {
+            return;
+        }
+
+        stateMachine.transform.position += -stateMachine.transform.forward * 0.1f;
+    }
+
+    public override void Exit()
+    {
+    }
+}
+
+public class RushState : IState
+{
+    public RushState(StateMachine newStateMachine) : base(newStateMachine)
+    {
+    }
+
+    public override void Enter() {}
+    public override void Update()
+    {
+    }
+
+    public override void Exit()
+    {
+    }
+}

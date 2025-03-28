@@ -5,6 +5,8 @@ public class Projectile: MonoBehaviour
     public float duration;
     private float currentDuration;
     public float moveSpeed;
+
+    public Transform target;
     
     public void Update()
     {
@@ -17,7 +19,7 @@ public class Projectile: MonoBehaviour
             return;
         }
         
-        transform.Translate(transform.forward * (Time.deltaTime * moveSpeed));
+        transform.position += transform.forward * (Time.deltaTime * moveSpeed);
     }
 }
 

@@ -13,6 +13,8 @@ public class EnemyController: MonoBehaviour
         if (other.GetComponent<HitBox>())
         {
             Debug.Log("enemy hitted box");
+            
+            // stateMachine.ChangeState(new HitState(stateMachine));
             return;
         }
     }
