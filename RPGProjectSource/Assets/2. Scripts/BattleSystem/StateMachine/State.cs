@@ -24,7 +24,11 @@ public class IdleState : IState
     {
         Debug.Log("Entered Idle State");
     }
-    public override void Update() {}
+
+    public override void Update()
+    {
+        Debug.Log("Updated Idle State");
+    }
     public override void Exit() {}
 }
 

@@ -6,6 +6,7 @@ public class AreaSkillProjectile: AttackType
 
     public override void Enter()
     {
+        // 동적 생성이 맞는 지?
         hitBox = new GameObject("HitBox");
         hitBox.SetActive(false);
         hitBox.AddComponent<HitBox>();

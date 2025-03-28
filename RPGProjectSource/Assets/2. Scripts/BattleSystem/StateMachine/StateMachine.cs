@@ -41,7 +41,7 @@ public class StateMachine : MonoBehaviour
         tracingState = new TracingState(this);
         attackState = new AttackState(this);
         
-        currentState = idleState;
+        ChangeState(idleState);
     }
 
     // 여기서 관리하면? 몬스터마다 상태가 달라질 수 있음(의존성이 떨어짐)

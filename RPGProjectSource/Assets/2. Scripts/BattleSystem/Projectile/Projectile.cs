@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Projectile: MonoBehaviour
@@ -14,12 +15,15 @@ public class Projectile: MonoBehaviour
         if (currentDuration >= duration)
         {
             ProjectileManager.instance.DestoryProjectile(this);
-            Destroy(gameObject);
-            
             return;
         }
         
         transform.position += transform.forward * (Time.deltaTime * moveSpeed);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        ProjectileManager.instance.DestoryProjectile(this);
     }
 }
 

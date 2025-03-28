@@ -5,6 +5,7 @@ public class ProjectileManager: MonoBehaviour
 {
     public static ProjectileManager instance { get; private set; }
     public List<GameObject> projectiles = new();
+    private int maxProjectiles;
 
     private void Awake()
     {
@@ -28,7 +29,9 @@ public class ProjectileManager: MonoBehaviour
     }
 
 
+    // 삭제하지 않고 비활성화
     public void DestoryProjectile(Projectile projectile)
     {
+        projectile.gameObject.SetActive(false);
     }
 }

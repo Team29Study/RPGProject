@@ -10,10 +10,11 @@ public class EnemyController: MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<HitBox>())
+        if (other.TryGetComponent(out HitBox hitBox))
         {
+            if (hitBox.owner == "enemy") return;
             
-            return;
+            // stateMachine.ChangeState(new HitState(stateMachine));
         }
     }
 }
