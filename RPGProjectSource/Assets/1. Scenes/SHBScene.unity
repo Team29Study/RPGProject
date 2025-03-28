@@ -246,11 +246,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bf960a8efb215940b46f29466da05f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCapacity: 10
+  maxCapacity: 100
   view: {fileID: 701512978}
   __debugItems:
   - {fileID: 11400000, guid: 49e29357a17807b4ab8dbb798aa28175, type: 2}
   - {fileID: 11400000, guid: 83b68dd251ccb5d44931f962dff59c29, type: 2}
+  __removeItem: {fileID: 11400000, guid: 49e29357a17807b4ab8dbb798aa28175, type: 2}
 --- !u!4 &375219010
 Transform:
   m_ObjectHideFlags: 0
@@ -456,7 +457,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotParent: {fileID: 1531798556}
   slotPrefab: {fileID: 883313970}
-  currentSlotIndex: -1
 --- !u!222 &701512979
 CanvasRenderer:
   m_ObjectHideFlags: 0

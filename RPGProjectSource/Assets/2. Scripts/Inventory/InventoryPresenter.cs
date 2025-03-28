@@ -37,6 +37,7 @@ public class InventoryPresenter
 
     private void OnViewSlotSwapped(int index1, int index2)
     {
+        //Combine 추가
         model.Swap(index1, index2);
     }
 

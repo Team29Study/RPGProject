@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Linq;
+using static UnityEditor.Progress;
 
 public class InventoryModel
 {
@@ -32,25 +33,33 @@ public class InventoryModel
         return false;
     }
 
-    public bool CanAdd(ItemData data, int quantity = 1)
+    public bool CanAdd(ItemData item, int quantity = 1)
     {
         int remaining = quantity;
 
-        remaining -= Items.items.Where(i => i?.itemData == data).Sum(i => Mathf.Min(data.maxStack -
+        remaining -= Items.items.Where(i => i?.itemData == item).Sum(i => Mathf.Min(item.maxStack -
             i.quantity, remaining));
 
         if (remaining <= 0) return true;
 
         int emptySlotCount = Items.items.Count(i => i == null);
-        return remaining <= emptySlotCount * data.maxStack;
+        return remaining <= emptySlotCount * item.maxStack;
     }
 
     public void RemoveAt(int index) => Items.TryRemoveAt(index);
 
     public bool TryRemove(ItemData item, int quantity)
     {
+        if (CanRemove(item, quantity))
+        {
+            RemoveItem(item, quantity);
+        }
         return false;
     }
+
+    public bool CanRemove(ItemData item, int quantity) => ItemCount(item) >= quantity;
+
+    public int ItemCount(ItemData item) => Items.items.Where(i => i != null && i.itemData == item).Sum(i => i.quantity);
 
     public void Clear() => Items.Clear();
 
@@ -83,6 +92,34 @@ public class InventoryModel
         }
 
         Invoke();
+    }
+
+    private void RemoveItem(ItemData item, int quantity)
+    {
+        int remaining = quantity;
+
+        for (int i = Items.Count - 1; i >= 0; i--)
+        {
+            var current = Items[i];
+
+            if (current != null && current.itemData == item)
+            {
+                if (current.quantity <= remaining)
+                {
+                    remaining -= current.quantity;
+                    RemoveAt(i);
+                }
+                else
+                {
+                    current.quantity -= remaining;
+                    Invoke();
+                    return;
+                }
+            }
+
+            if (remaining <= 0)
+                return;
+        }
     }
 
     private void Invoke() => Items.Invoke();

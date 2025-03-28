@@ -13,6 +13,8 @@ public class Inventory : MonoBehaviour
 
     [SerializeField, Header("Debug")]
     private ItemData[] __debugItems;
+    [SerializeField]
+    private ItemData __removeItem;
 
     void Awake()
     {
@@ -24,6 +26,11 @@ public class Inventory : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I))
         {
             presenter.model.TryAdd(__debugItems[Random.Range(0, __debugItems.Length)], 6);
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            presenter.model.TryRemove(__removeItem, 5);
         }
     }
 }
