@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: MpPotion
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  itemName: 
-  type: 
-  description: 
+  itemName: "MP\uD3EC\uC158"
+  type: 1
+  description: "MP\uB97C \uD68C\uBCF5\uD560 \uC218 \uC788\uB294 \uD3EC\uC158\uC774\uB2E4."
