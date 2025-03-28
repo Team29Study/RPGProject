@@ -10,10 +10,38 @@ public class BaseUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI gold;
     [SerializeField] private TextMeshProUGUI level;
     [SerializeField] private TextMeshProUGUI expText;
+    [SerializeField] private Button shopBtn;
 
-    void Start()
+    private void Start()
     {
         // UIManager에 BaseUI 연결
         UIManager.Instance.SetBaseUI(this);
     }
+
+    private void SetHpBar()
+    {
+
+    }
+    
+    private void SetMpBar()
+    {
+
+    }
+
+    private void SetExpBar()
+    {
+
+    }
+
+    private void SetGold()
+    {
+
+    }
+
+    private void SetLevel()
+    {
+
+    }
+
+
 }
