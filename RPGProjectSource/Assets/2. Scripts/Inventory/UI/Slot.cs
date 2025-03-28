@@ -6,14 +6,14 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Slot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
+public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler
 {
     [SerializeField] private Image iconImage;
     [SerializeField] private TextMeshProUGUI countText;
 
-    public event Action OnSlotPointerDownEvent = delegate { };
-    public event Action OnSlotPointerUpEvent = delegate { };
-    public event Action OnDragEvent = delegate { };
+    public event Action OnBeginDragEvent = delegate { };
+    public event Action OnDropEvent = delegate { };
+    public event Action<PointerEventData> OnDragEvent = delegate { };
 
     void Awake()
     {
@@ -39,18 +39,18 @@ public class Slot : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDrag
         countText.text = item.quantity.ToString();
     }
 
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        OnBeginDragEvent?.Invoke();
+    }
+
     public void OnDrag(PointerEventData eventData)
     {
-        OnDragEvent?.Invoke();
+        OnDragEvent?.Invoke(eventData);
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnDrop(PointerEventData eventData)
     {
-        OnSlotPointerDownEvent?.Invoke();
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        OnSlotPointerUpEvent?.Invoke();
+        OnDropEvent?.Invoke();
     }
 }

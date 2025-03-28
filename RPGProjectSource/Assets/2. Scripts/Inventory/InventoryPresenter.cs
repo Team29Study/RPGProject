@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class InventoryPresenter
 {
@@ -26,10 +27,20 @@ public class InventoryPresenter
         view.InitializeView(model);
 
         model.OnValueChanged += OnModelChanged;
-        view.OnSlotEvent += OnViewSlotEvent;
+        view.OnSlotSwap += OnViewSlotSwapped;
     }
 
     private void OnModelChanged(IList<Item> items)
+    {
+        RefreshView(items);
+    }
+
+    private void OnViewSlotSwapped(int index1, int index2)
+    {
+        model.Swap(index1, index2);
+    }
+
+    private void RefreshView(IList<Item> items)
     {
         for (int i = 0; i < items.Count; i++)
         {
@@ -37,11 +48,6 @@ public class InventoryPresenter
 
             view.Slots[i].Set(item);
         }
-    }
-
-    private void OnViewSlotEvent(Slot source, Slot target)
-    {
-
     }
 
     public class Builder
