@@ -19,7 +19,7 @@ public class BaseUI : MonoBehaviour
         shopBtn.onClick.AddListener(OpenShop);
     }
 
-    void OpenShop()
+    private void OpenShop()
     {
 
     }

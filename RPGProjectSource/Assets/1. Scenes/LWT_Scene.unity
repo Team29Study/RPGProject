@@ -291,8 +291,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 487dce833deafac499323bbd6d442fa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buyBtn: {fileID: 0}
-  sellBtn: {fileID: 0}
+  buyBtn: {fileID: 1585008479}
+  sellBtn: {fileID: 1212886820}
 --- !u!1 &110187499
 GameObject:
   m_ObjectHideFlags: 0
@@ -2031,7 +2031,6 @@ GameObject:
   - component: {fileID: 1253306387}
   - component: {fileID: 1253306386}
   - component: {fileID: 1253306385}
-  - component: {fileID: 1253306388}
   m_Layer: 5
   m_Name: ShopCanvas
   m_TagString: Untagged
@@ -2123,20 +2122,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &1253306388
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1253306383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 487dce833deafac499323bbd6d442fa7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buyBtn: {fileID: 0}
-  sellBtn: {fileID: 0}
 --- !u!1 &1267715845
 GameObject:
   m_ObjectHideFlags: 0
@@ -2865,6 +2850,7 @@ GameObject:
   - component: {fileID: 1543303786}
   - component: {fileID: 1543303785}
   - component: {fileID: 1543303784}
+  - component: {fileID: 1543303788}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2956,6 +2942,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1543303788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1543303783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eccb328b3b8937d4f88fed448afbb80c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseUI: {fileID: 1984248242}
+  shopUI: {fileID: 95050224}
 --- !u!1 &1585008477
 GameObject:
   m_ObjectHideFlags: 0
