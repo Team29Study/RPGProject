@@ -16,6 +16,12 @@ public class BaseUI : MonoBehaviour
     {
         // UIManager에 BaseUI 연결
         UIManager.Instance.SetBaseUI(this);
+        shopBtn.onClick.AddListener(OpenShop);
+    }
+
+    void OpenShop()
+    {
+        UIManager
     }
 
     private void SetHpBar()
@@ -42,6 +48,4 @@ public class BaseUI : MonoBehaviour
     {
 
     }
-
-
 }
