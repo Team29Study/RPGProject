@@ -15,7 +15,7 @@ public class SoundManager : Singleton<SoundManager>
     private readonly List<SoundEmitter> activeEmitters = new();
     public readonly LinkedList<SoundEmitter> frequentEmitters = new();
 
-    public SoundBuilder CreateSoundBuilder() => new SoundBuilder(this);
+    public SoundBuilder Builder() => new SoundBuilder(this);
 
     void Start() => InitializeSoundPool();
 

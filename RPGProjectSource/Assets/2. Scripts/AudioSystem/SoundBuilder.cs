@@ -5,7 +5,6 @@ public class SoundBuilder
     private readonly SoundManager soundManager;
 
     private Vector3 position = Vector3.zero;
-    private bool randomPitch;
 
     public SoundBuilder(SoundManager manager)
     {
@@ -15,13 +14,6 @@ public class SoundBuilder
     public SoundBuilder WithPosition(Vector3 pos)
     {
         position = pos;
-
-        return this;
-    }
-
-    public SoundBuilder WithRandomPitch()
-    {
-        randomPitch = true;
 
         return this;
     }

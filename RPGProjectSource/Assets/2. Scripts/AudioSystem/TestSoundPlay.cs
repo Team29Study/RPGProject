@@ -10,7 +10,7 @@ public class TestSoundPlay : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.Z))
         {
-            SoundManager.Instance.CreateSoundBuilder().Play(soundData);
+            SoundManager.Instance.Builder().Play(soundData);
         }
     }
 }

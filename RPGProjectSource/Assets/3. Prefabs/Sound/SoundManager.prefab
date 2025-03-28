@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1458731455592584772}
   - component: {fileID: 8553359985654585349}
-  - component: {fileID: 4253251074363985539}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -50,38 +49,3 @@ MonoBehaviour:
   initialCapacity: 10
   maxPoolSize: 100
   maxSoundInstance: 5
---- !u!114 &4253251074363985539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7081275093063342018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8c1519e8b44fd2409b4ded48423e232, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soundData:
-    clip: {fileID: 8300000, guid: f6b6bb1599b4b3140b783e292a01bbae, type: 3}
-    mixerGroup: {fileID: 24300002, guid: c61f26db6bce24c4cae134d98fe59b22, type: 2}
-    isLoop: 0
-    isPlayOnAwake: 0
-    frequentSound: 1
-    isMute: 0
-    bypassEffects: 0
-    bypassListenerEffects: 0
-    bypassReverbZones: 0
-    priority: 128
-    volume: 1
-    pitch: 1
-    panStereo: 0
-    spatialBlend: 0
-    reverbZoneMix: 1
-    dopplerLevel: 1
-    spread: 0
-    minDistance: 1
-    maxDistance: 500
-    ignoreListenerVolume: 0
-    ignoreListenerPause: 0
-    rolloffMode: 0
