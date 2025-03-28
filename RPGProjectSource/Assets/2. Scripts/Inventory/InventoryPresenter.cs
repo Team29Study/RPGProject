@@ -37,7 +37,7 @@ public class InventoryPresenter
 
     private void OnViewSlotSwapped(int index1, int index2)
     {
-        //Combine 추가
+        //Combine 추가해야됨
         model.Swap(index1, index2);
     }
 
@@ -45,7 +45,7 @@ public class InventoryPresenter
     {
         for (int i = 0; i < items.Count; i++)
         {
-            Item item = model.Get(i);
+            Item item = model.GetItemAt(i);
 
             view.Slots[i].Set(item);
         }

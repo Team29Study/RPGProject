@@ -25,12 +25,12 @@ public class Inventory : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            presenter.model.TryAdd(__debugItems[Random.Range(0, __debugItems.Length)], 6);
+            presenter.model.TryAdd(__debugItems[Random.Range(0, __debugItems.Length)], 1);
         }
 
         if (Input.GetKeyDown(KeyCode.K))
         {
-            presenter.model.TryRemove(__removeItem, 5);
+            presenter.model.TryRemove(__removeItem, 1);
         }
     }
 }

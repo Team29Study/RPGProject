@@ -29,7 +29,7 @@ public class InventoryView : MonoBehaviour
             go.OnDragEvent += OnSlotDrag;
             go.OnDropEvent += () => OnSlotDrop(indexCache);
             go.gameObject.SetActive(true);
-            go.Set(model.Get(i));
+            go.Set(model.GetItemAt(i));
 
             slotsCache.Add(go);
         }

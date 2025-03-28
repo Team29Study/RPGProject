@@ -22,7 +22,9 @@ public class InventoryModel
 
     public int Count() => Items.Count;
 
-    public Item Get(int index) => Items[index];
+    public Item GetItemAt(int index) => Items[index];
+
+    public ItemData GetItemDataAt(int index) => Items[index]?.itemData;
 
     public bool TryAdd(ItemData item, int quantity)
     {
@@ -65,6 +67,7 @@ public class InventoryModel
 
     public void Swap(int source, int target) => Items.Swap(source, target);
 
+    #region internal method
     private void AddItem(ItemData data, int quantity)
     {
         int remaining = quantity;
@@ -123,4 +126,5 @@ public class InventoryModel
     }
 
     private void Invoke() => Items.Invoke();
+    #endregion
 }
