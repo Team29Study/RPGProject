@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         AnimationData.Initialize();
-        Animator = GetComponent<Animator>();
+        Animator = GetComponentInChildren<Animator>();
         InputController = GetComponent<PlayerController>();
         CharController = GetComponent<CharacterController>();
         ForceReceiver = GetComponent<ForceReceiver>();
