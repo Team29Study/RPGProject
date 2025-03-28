@@ -118,7 +118,7 @@ public class PlayerBaseState : IPlayerState
     private void Move(Vector3 direction)
     {
         float movementSpeed = GetMovementSpeed();
-        stateMachine.Player.CharController.Move((direction * movementSpeed) * Time.deltaTime);
+        stateMachine.Player.CharController.Move(((direction * movementSpeed) + stateMachine.Player.ForceReceiver.Movement) * Time.deltaTime);
     }
 
     private float GetMovementSpeed()

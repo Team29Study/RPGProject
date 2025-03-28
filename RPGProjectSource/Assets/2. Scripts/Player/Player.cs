@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     public Animator Animator { get; private set; }
     public PlayerController InputController { get; private set; }
     public CharacterController CharController { get; private set; }
+    public ForceReceiver ForceReceiver { get; private set; }
 
     // 플레이어 상태 머신
     private PlayerStateMachine stateMachine;
@@ -24,6 +25,7 @@ public class Player : MonoBehaviour
         Animator = GetComponent<Animator>();
         InputController = GetComponent<PlayerController>();
         CharController = GetComponent<CharacterController>();
+        ForceReceiver = GetComponent<ForceReceiver>();
 
         // 상태머신 생성
         stateMachine = new PlayerStateMachine(this);

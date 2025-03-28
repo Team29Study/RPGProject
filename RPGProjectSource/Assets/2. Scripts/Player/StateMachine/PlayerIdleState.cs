@@ -12,13 +12,13 @@ public class PlayerIdleState : PlayerGroundState
     {
         stateMachine.MovementSpeedModifier = 0f;
         base.Enter();
-        //StartAnimation(stateMachine.Player.AnimationData.IdleParameterHash);
+        StartAnimation(stateMachine.Player.AnimationData.IdleParameterHash);
     }
 
     public override void Exit()
     {
         base.Exit();
-        //StopAnimation(stateMachine.Player.AnimationData.IdleParameterHash);
+        StopAnimation(stateMachine.Player.AnimationData.IdleParameterHash);
     }
 
     public override void Update()

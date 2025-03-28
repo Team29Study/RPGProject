@@ -13,13 +13,13 @@ public class PlayerWalkState : PlayerGroundState
     {
         stateMachine.MovementSpeedModifier = groundData.WalkSpeedModifier;
         base.Enter();
-        //StartAnimation(stateMachine.Player.AnimationData.WalkParameterHash);
+        StartAnimation(stateMachine.Player.AnimationData.WalkParameterHash);
     }
 
     public override void Exit()
     {
         base.Exit();
-        //StopAnimation(stateMachine.Player.AnimationData.WalkParameterHash);
+        StopAnimation(stateMachine.Player.AnimationData.WalkParameterHash);
     }
 
     // walk 상태일 때 run 입력이 들어오면 run 상태로 전환
