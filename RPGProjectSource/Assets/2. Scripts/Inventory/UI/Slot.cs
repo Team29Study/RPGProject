@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -24,19 +22,11 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler
             Debug.LogError("Reference not set");
     }
 
-    public void Set(Item item)
+    public void Set(Sprite icon, int count)
     {
-        if (item == null || item.itemData == null)
-        {
-            iconImage.sprite = null;
-            countText.gameObject.SetActive(false);
-
-            return;
-        }
-
-        countText.gameObject.SetActive(true);
-        iconImage.sprite = item.itemData.icon;
-        countText.text = item.quantity.ToString();
+        iconImage.sprite = icon;
+        countText.text = count.ToString();
+        countText.gameObject.SetActive(count > 1 ? true : false);
     }
 
     public void OnBeginDrag(PointerEventData eventData)

@@ -28,11 +28,13 @@ public class InventoryPresenter
 
         model.OnValueChanged += OnModelChanged;
         view.OnSlotSwap += OnViewSlotSwapped;
+
+        RefreshView();
     }
 
     private void OnModelChanged(IList<Item> items)
     {
-        RefreshView(items);
+        RefreshView();
     }
 
     private void OnViewSlotSwapped(int index1, int index2)
@@ -41,13 +43,13 @@ public class InventoryPresenter
         model.Swap(index1, index2);
     }
 
-    private void RefreshView(IList<Item> items)
+    private void RefreshView()
     {
-        for (int i = 0; i < items.Count; i++)
+        for (int i = 0; i < capacity; i++)
         {
-            Item item = model.GetItemAt(i);
+            var item = model.GetItemAt(i);
 
-            view.Slots[i].Set(item);
+            view.Slots[i].Set(item?.itemData.icon ?? null, item?.quantity ?? 0);
         }
     }
 
