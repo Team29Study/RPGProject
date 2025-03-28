@@ -22,6 +22,8 @@ public class PlayerStateMachine : StateMachine
     public PlayerWalkState WalkState { get; private set; }
     public PlayerRunState RunState { get; private set; }
 
+    public PlayerFallState FallState { get; private set; }
+
     // 클래스 초기화
     public PlayerStateMachine(Player player)
     {
@@ -32,6 +34,8 @@ public class PlayerStateMachine : StateMachine
         IdleState = new PlayerIdleState(this);
         WalkState = new PlayerWalkState(this);
         RunState = new PlayerRunState(this);
+
+        FallState = new PlayerFallState(this);
 
         MovementSpeed = Player.Data.GroundData.BaseSpeed;
         RotationDamping = Player.Data.GroundData.BaseRotationDamping;

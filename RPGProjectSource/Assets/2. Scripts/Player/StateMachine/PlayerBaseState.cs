@@ -69,6 +69,11 @@ public class PlayerBaseState : IPlayerState
     {
 
     }
+
+    protected virtual void OnLandStarted(InputAction.CallbackContext context)
+    {
+
+    }
     
     // 모든 상태에 필요한 것들
     // 애니메이션 전환
