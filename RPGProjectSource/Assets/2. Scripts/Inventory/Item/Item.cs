@@ -15,3 +15,8 @@ public class Item
         this.quantity = quantity;
     }
 }
+
+public interface IUsable
+{
+    void Use();
+}

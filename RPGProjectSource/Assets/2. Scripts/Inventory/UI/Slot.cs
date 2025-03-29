@@ -24,6 +24,7 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler
 
     public void Set(Sprite icon, int count)
     {
+        iconImage.gameObject.SetActive(icon != null ? true : false);
         iconImage.sprite = icon;
         countText.text = count.ToString();
         countText.gameObject.SetActive(count > 1 ? true : false);
