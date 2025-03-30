@@ -11,17 +11,25 @@ public class BaseUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI level;
     [SerializeField] private TextMeshProUGUI expText;
     [SerializeField] private Button shopBtn;
+    [SerializeField] private Button closeBtn;
 
     private void Start()
     {
         // UIManager에 BaseUI 연결
         UIManager.Instance.SetBaseUI(this);
         shopBtn.onClick.AddListener(OpenShop);
+        closeBtn.onClick.AddListener(CloseShop);
+        
     }
 
     private void OpenShop()
     {
+        UIManager.Instance.ShopUI.gameObject.SetActive(true);
+    }
 
+    private void CloseShop()
+    {
+        UIManager.Instance.ShopUI.gameObject.SetActive(false);
     }
 
     private void SetHpBar()
@@ -39,12 +47,12 @@ public class BaseUI : MonoBehaviour
 
     }
 
-    private void SetGold()
+    private void SetLevel()
     {
 
     }
 
-    private void SetLevel()
+    private void SetGold()
     {
 
     }
