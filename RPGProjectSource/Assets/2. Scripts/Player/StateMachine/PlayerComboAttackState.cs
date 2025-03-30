@@ -41,9 +41,7 @@ public class PlayerComboAttackState : PlayerAttackState
     {
         base.Update();
 
-        ForceMove();
-
-        float normalizedTime = GetNormalizedTime(stateMachine.Player.Animator, "Attack");
+        float normalizedTime = GetNormalizedTime(1, stateMachine.Player.Animator, "Attack");
 
         // 애니메이션이 끝나지 않았다면
         if(normalizedTime < 1f)
@@ -53,11 +51,6 @@ public class PlayerComboAttackState : PlayerAttackState
             {
                 TryComboAttack();
             }
-
-            if(normalizedTime >= attackInfoData.ForceTransitionTime)
-            {
-                TryApplyForce();
-            }
         }
         else
         {
@@ -66,21 +59,19 @@ public class PlayerComboAttackState : PlayerAttackState
             {
                 stateMachine.ComboIndex = attackInfoData.ComboStateIndex;
                 // 다시 콤보 어택 상태로 만들어 줌
-                stateMachine.ChangeState(stateMachine.ComboAttackState);
+                stateMachine.ChangeAttackState(stateMachine.ComboAttackState);
             }
             // 콤보가 진행 중이지 않다면
             else
             {
-                stateMachine.ChangeState(stateMachine.IdleState);
+                stateMachine.ChangeAttackState(stateMachine.NoneAttackState);
             }
+            stateMachine.IsAttacking = false;
         }
     }
 
     private void TryComboAttack()
     {
-        Debug.Log(alreadyAppliedCombo);
-        Debug.Log("공격 중인가?" + stateMachine.IsAttacking);
-
         // 이미 콤보가 진행 중이라면 실행 X
         if (alreadyAppliedCombo) return;
         
@@ -91,15 +82,5 @@ public class PlayerComboAttackState : PlayerAttackState
         if (!stateMachine.IsAttacking) return;
 
         alreadyAppliedCombo = true;
-    }
-
-    private void TryApplyForce()
-    {
-        if (alreadyApplyForce) return;
-        alreadyApplyForce = true;
-
-        stateMachine.Player.ForceReceiver.Reset();
-
-        stateMachine.Player.ForceReceiver.AddForce(stateMachine.Player.transform.forward * attackInfoData.Force);
     }
 }

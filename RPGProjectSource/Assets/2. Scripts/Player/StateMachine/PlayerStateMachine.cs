@@ -30,6 +30,7 @@ public class PlayerStateMachine : StateMachine
     public PlayerFallState FallState { get; private set; }
 
     public PlayerComboAttackState ComboAttackState { get; private set; }
+    public PlayerNoneAttackState NoneAttackState { get; private set; }
 
     // 클래스 초기화
     public PlayerStateMachine(Player player)
@@ -44,6 +45,7 @@ public class PlayerStateMachine : StateMachine
 
         FallState = new PlayerFallState(this);
 
+        NoneAttackState = new PlayerNoneAttackState(this);
         ComboAttackState = new PlayerComboAttackState(this);
 
         MovementSpeed = Player.Data.GroundData.BaseSpeed;

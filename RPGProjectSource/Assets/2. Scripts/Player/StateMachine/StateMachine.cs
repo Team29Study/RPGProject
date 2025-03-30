@@ -12,27 +12,49 @@ public interface IPlayerState
 public abstract class StateMachine
 {
     // 현재 상태
-    protected IPlayerState currentState;
+    //protected IPlayerState currentState;
+    protected IPlayerState currentMovementState;
+    protected IPlayerState currentAttackState;
 
     // 상태 변경
-    public void ChangeState(IPlayerState state)
+    //public void ChangeState(IPlayerState state)
+    //{
+    //    currentState?.Exit();
+    //    currentState = state;
+    //    currentState?.Enter();
+    //}
+    public void ChangeMovementState(IPlayerState state)
     {
-        currentState?.Exit();
-        currentState = state;
-        currentState?.Enter();
+        currentMovementState?.Exit();
+        currentMovementState = state;
+        currentMovementState?.Enter();
+    }
+    public void ChangeAttackState(IPlayerState state)
+    {
+        currentAttackState?.Exit();
+        currentAttackState = state;
+        currentAttackState?.Enter();
     }
 
     public void HandleInput()
     {
-        currentState?.HandleInput();
+        currentMovementState?.HandleInput();
+        currentAttackState?.HandleInput();
     }
 
     public void Update()
     {
-        currentState?.Update();
+        currentMovementState?.Update();
+        currentAttackState?.Update();
     }
     public void PhysicsUpdate()
     {
-        currentState?.PhysicsUpdate();
+        currentMovementState?.PhysicsUpdate();
+        currentAttackState?.PhysicsUpdate();
+    }
+
+    public bool IsGroundState()
+    {
+        return (currentMovementState is PlayerGroundState);
     }
 }

@@ -32,8 +32,9 @@ public class PlayerBaseState : IPlayerState
         input.PlayerActions.Move.canceled += OnMovementCanceled;
         input.PlayerActions.Run.started += OnRunStarted;
         input.PlayerActions.Run.canceled += OnRunCanceled;
-        input.PlayerActions.Attack.performed += OnAttackPerformed;
-        input.PlayerActions.Attack.canceled += OnAttackCanceled;
+        input.PlayerActions.Attack.started += OnAttackPerformed;
+        //input.PlayerActions.Attack.performed += OnAttackPerformed;
+        //input.PlayerActions.Attack.canceled += OnAttackCanceled;
     }
 
     protected virtual void RemoveInputActionCallbacks()
@@ -42,8 +43,9 @@ public class PlayerBaseState : IPlayerState
         input.PlayerActions.Move.canceled -= OnMovementCanceled;
         input.PlayerActions.Run.started -= OnRunStarted;
         input.PlayerActions.Run.canceled -= OnRunCanceled;
-        input.PlayerActions.Attack.performed -= OnAttackPerformed;
-        input.PlayerActions.Attack.canceled -= OnAttackCanceled;
+        input.PlayerActions.Attack.started -= OnAttackPerformed;
+        //input.PlayerActions.Attack.performed -= OnAttackPerformed;
+        //input.PlayerActions.Attack.canceled -= OnAttackCanceled;
     }
 
     public virtual void HandleInput()
@@ -163,18 +165,18 @@ public class PlayerBaseState : IPlayerState
         stateMachine.Player.CharController.Move(stateMachine.Player.ForceReceiver.Movement * Time.deltaTime);
     }
     // 애니메이션이 어느 정도 진행이 되는지 받아오는 함수
-    protected float GetNormalizedTime(Animator animator, string tag)
+    protected float GetNormalizedTime(int layerIndex,Animator animator, string tag)
     {
-        AnimatorStateInfo currentInfo = animator.GetCurrentAnimatorStateInfo(0);
-        AnimatorStateInfo nextInfo = animator.GetNextAnimatorStateInfo(0);
+        AnimatorStateInfo currentInfo = animator.GetCurrentAnimatorStateInfo(layerIndex);
+        AnimatorStateInfo nextInfo = animator.GetNextAnimatorStateInfo(layerIndex);
 
         // 애니메이션이 전환이 되는 중이고 다음 애니메이션이 tag라면
-        if (animator.IsInTransition(0) && nextInfo.IsTag(tag))
+        if (animator.IsInTransition(layerIndex) && nextInfo.IsTag(tag))
         {
             return nextInfo.normalizedTime;
         }
         // 전환되지 않을 때 현재 애니메이션이 tag라면
-        else if(!animator.IsInTransition(0) && currentInfo.IsTag(tag))
+        else if(!animator.IsInTransition(layerIndex) && currentInfo.IsTag(tag))
         {
             return currentInfo.normalizedTime;
         }
