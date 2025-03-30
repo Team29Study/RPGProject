@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: RogAnimator
+  m_Controller: {fileID: 9100000, guid: 42af48704672f45e483cc4da2e91bb3e, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 4057375184749903609, guid: c4e42a2cd220cd34da5520bbce8376e6, type: 3}
+    m_OverrideClip: {fileID: 7083891485487361019, guid: 778b9e6196ea0534f97acc34f1d9ad12, type: 3}
+  - m_OriginalClip: {fileID: -203655887218126122, guid: bfbcc5372eda3409dbc82403e4f55121, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: cd0a0f48259c4415784b62dea4577c08, type: 3}

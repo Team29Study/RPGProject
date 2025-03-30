@@ -26,4 +26,9 @@ public class EnemyController: MonoBehaviour
     {
         behaviourTree.Run();
     }
+
+    protected void OnTriggerEnter(Collider other)
+    {
+        behaviourTree.notify("HIT", true.ToString());
+    }
 }

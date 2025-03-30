@@ -65,4 +65,10 @@ public class BehaviourTree
         }
         if (isRunning) { currentnode?.Update(); }
     }
+
+    public void notify(string name, string value)
+    {
+        blackboard.SetData(name, value);
+        Reset();
+    }
 }

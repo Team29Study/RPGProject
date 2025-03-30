@@ -23,10 +23,4 @@ public class BlackBoard
     {
         data[name] = value;
     }
-
-    public void Notify(string name, string value)
-    {
-        SetData(name, value);
-        behaviourTree.Reset();
-    }
 }
