@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class ProjectileManager: Singleton<ProjectileManager> 
 {
-    public List<GameObject> projectiles = new();
-    private int maxProjectiles;
+    public List<GameObject> projectiles;
+    private int maxProjectiles = 5;
 
     private void Awake()
     {
@@ -17,11 +17,11 @@ public class ProjectileManager: Singleton<ProjectileManager>
         Destroy(gameObject);
     }
 
-    public void Generate(Transform target)
+    public void Generate(Transform target, HitBox.Caster caster)
     {
-        var instance = Instantiate(projectiles[Random.Range(0, projectiles.Count)], target.position + Vector3.up, target.rotation);
-        // instance.transform.SetParent(transform);
-        
+        var projectile = Instantiate(projectiles[Random.Range(0, projectiles.Count)], target.position + Vector3.up, target.rotation);
+        var hitBox = projectile.AddComponent<HitBox>(); // 또는 무기 종류가 각자 정해졌다면 인스펙터에서 직접 등록하도록 처리
+        hitBox.caster = caster;
     }
     
     public void Generate(Vector3 position, Quaternion rotation)

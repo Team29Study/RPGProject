@@ -16,6 +16,6 @@ public class RangeAttack: AttackType
 {
     public void Execute(Transform transform)
     {
-        ProjectileManager.Instance.Generate(transform);
+        ProjectileManager.Instance.Generate(transform, HitBox.Caster.Enemy);
     }
 }

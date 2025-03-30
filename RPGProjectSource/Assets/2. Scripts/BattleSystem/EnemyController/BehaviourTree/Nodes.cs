@@ -32,6 +32,16 @@ public class IdleNode : BTNode
     {
         currIntevalImte = 0;
     }
+
+    public override void OnAnimated(EnemyAnimationBehaviour.Status status, AnimatorStateInfo stateInfo)
+    {
+        Debug.Log(status);
+    }
+
+    public override void OnAttackAnimated(bool isAttacking)
+    {
+        Debug.Log(isAttacking);
+    }
 }
 
 public class PatrolNode : BTNode
@@ -154,9 +164,30 @@ public class AttackNode : BTNode
     }
 }
 
-public class DashAttackNode : BTNode
+public class DashAttackNode : BTNode // 점프든 대시든 같은 상황 돌진이므로
 {
-       
+    public override void Start()
+    {
+        agent.isStopped = true;
+        agent.velocity = Vector3.zero;
+    }
+    
+    public override void Update() // 애니메이션 끝날 때까지
+    {
+        Vector3 direction = (transform.position - target.position).normalized;
+        transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, 1f * Time.deltaTime);
+    }
+
+    public override void OnAttackAnimated(bool isAttacking)
+    {
+        if(!isAttacking) SetState(State.Success); // 공격 완료
+    }
+
+    
+    public override void End() // 끝나면 춫격파를 발사할 수도 있음
+    {
+        agent.isStopped = false;
+    }
 }
 
 
@@ -174,8 +205,12 @@ public class JumpAttackNode : BTNode
         Vector3 direction = (transform.position - target.position).normalized;
         transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, 1f * Time.deltaTime);
     }
-    
-    
+
+    public override void OnAttackAnimated(bool isAttacking)
+    {
+        if(!isAttacking) SetState(State.Success); // 공격 완료
+    }
+
     public override void End() // 끝나면 춫격파를 발사할 수도 있음
     {
         agent.isStopped = false;
@@ -200,7 +235,7 @@ public class HitNode : BTNode
     
     public override void Start()
     {
-        if (blackBoard.data["HIT"] == false.ToString())
+        if (blackBoard.data[BlackBoard.Trigger.Hit] == false.ToString())
         {
             SetState(State.Failure);
             return;
@@ -212,7 +247,7 @@ public class HitNode : BTNode
         controller.animationHandler.Set(EnemyAnimationHandler.Hit);
         controller.resourceHandler.health -= 10;
         
-        blackBoard.data["HIT"] = false.ToString();
+        blackBoard.data[BlackBoard.Trigger.Hit] = false.ToString();
     }
 
     public override void Update()

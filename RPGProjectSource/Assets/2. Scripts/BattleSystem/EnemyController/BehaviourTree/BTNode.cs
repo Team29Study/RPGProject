@@ -61,6 +61,9 @@ public abstract class BTNode
     public virtual void Start() {}
     public virtual void Update() {}
     public virtual void End() {}
+
+    public virtual void OnAnimated(EnemyAnimationBehaviour.Status status, AnimatorStateInfo stateInfo) { }
+    public virtual void OnAttackAnimated(bool isAttacking) { }
 }
 
 public class RootNode : BTNode

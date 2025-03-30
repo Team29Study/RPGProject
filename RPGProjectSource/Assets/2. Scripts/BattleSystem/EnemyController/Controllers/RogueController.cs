@@ -10,7 +10,7 @@ public class RogueController: EnemyController
         //     new SequenceNode(new TracingNode(), new AttackNode(new RangeAttack()))
         // ));
         
-        // behaviourTree.Generate(this, new BoundaryNode());
+        behaviourTree.Generate(this, new IdleNode());
     } 
 
     public void ShootArrow()

@@ -1,25 +1,21 @@
+using System;
 using System.Collections.Generic;
 
 public class BlackBoard
 {
-    private BehaviourTree behaviourTree;
-    public Dictionary<string, string> data = new();
-
-    public BlackBoard(BehaviourTree behaviourTree)
-    {
-        this.behaviourTree = behaviourTree;
-        data.Add("HIT", false.ToString());
-    }
+    public enum Trigger { Hit, Attack }
     
-    public void AddData(List<(string name, string value)> newData)
+    public Dictionary<Trigger, string> data = new();
+
+    public BlackBoard()
     {
-        newData.ForEach(data =>
-        { 
-            this.data.Add(data.name, data.value);
-        });
+        foreach (Trigger value in Enum.GetValues(typeof(Trigger)))
+        {
+            data.Add(value, false.ToString());
+        }
     }
 
-    public void SetData(string name, string value)
+    public void SetData(Trigger name, string value)
     {
         data[name] = value;
     }

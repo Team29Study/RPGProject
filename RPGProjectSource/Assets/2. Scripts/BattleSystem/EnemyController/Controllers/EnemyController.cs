@@ -8,8 +8,7 @@ public class EnemyController: MonoBehaviour
     public EnemyResourceHandler resourceHandler { get; private set; }
     public EnemyAnimationHandler animationHandler { get; private set; }
     // public EnemyRewardHandler rewardHandler { get; private set; }
-    
-    protected BehaviourTree behaviourTree;
+    public BehaviourTree behaviourTree { get; private set; } 
 
     private void Awake()
     {
@@ -29,6 +28,12 @@ public class EnemyController: MonoBehaviour
 
     protected void OnTriggerEnter(Collider other)
     {
-        behaviourTree.notify("HIT", true.ToString());
+        behaviourTree.notify(BlackBoard.Trigger.Hit, true.ToString());
+    }
+
+    // 애니메이션 이벤트랑 상호작용
+    public void OnAttackAnimated(int isAttacking)
+    {
+        behaviourTree.currentnode.OnAttackAnimated(isAttacking == 1);
     }
 }

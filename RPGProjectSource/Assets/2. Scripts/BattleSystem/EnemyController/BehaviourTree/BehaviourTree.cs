@@ -8,17 +8,12 @@ public class BehaviourTree
     
     private BTNode rootNode;
     public BTNode currentnode {get; private set;}
-    public BlackBoard blackboard { get; private set; }
+    public BlackBoard blackboard { get; private set; } = new();
     
     // status
     public bool isCycleEnd = true;
     public bool isRunning = true;
-
-    public BehaviourTree()
-    {
-        blackboard = new BlackBoard(this);
-    }
-
+    
     public void Generate(EnemyController controller, BTNode startNode)
     {
         this.controller = controller;
@@ -66,7 +61,7 @@ public class BehaviourTree
         if (isRunning) { currentnode?.Update(); }
     }
 
-    public void notify(string name, string value)
+    public void notify(BlackBoard.Trigger name, string value)
     {
         blackboard.SetData(name, value);
         Reset();
