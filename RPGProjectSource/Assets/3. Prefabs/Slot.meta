@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:RPGProjectSource/Assets/3. Prefabs/Slot.meta
 guid: e0958af25ecbfb54ab71f9897ac78588
+========
+guid: 163d5f1714d5842cbb60c2eea48f6ac0
+>>>>>>>> dev:RPGProjectSource/Assets/3. Prefabs/BattleSystem/Enemies.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

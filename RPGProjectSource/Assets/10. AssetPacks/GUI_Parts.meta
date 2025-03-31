@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:RPGProjectSource/Assets/10. AssetPacks/GUI_Parts.meta
 guid: a1033733942a7b34a90b0f6ef15473ba
+========
+guid: e5a07027cf19348a4ba26051382bf0a6
+>>>>>>>> dev:RPGProjectSource/Assets/3. Prefabs/BattleSystem/Dungeon.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
