@@ -209,5 +209,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f38993b090f474b4c9580aa4088e8dbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shopItemIcon: {fileID: 8472002527370870559}
+  shopItemIcon: {fileID: 21300000, guid: d659f7396cd57754eba78763cf986c51, type: 3}
   shopItemBtn: {fileID: 2388531501258583310}
+  itemData: {fileID: 11400000, guid: 4fae3659a32dc4b408335ffcb3fe8842, type: 2}

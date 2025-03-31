@@ -29,6 +29,4 @@ public class UIManager : Singleton<UIManager>
     {
         ShopUI = shopUI;
     }
-
-
 }

@@ -15,7 +15,7 @@ public class ShopSlot : MonoBehaviour
         shopItemBtn.onClick.AddListener(SelectShopItem);
     }
 
-    public void SetSlot(ItemData data)
+    public void SetShopItem(ItemData data)
     {
         itemData = data;
         shopItemIcon = itemData.icon;
