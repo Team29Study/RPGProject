@@ -9,6 +9,7 @@ public class ItemData : ScriptableObject
     public string itemName = "New Item";
     [TextArea]
     public string description;
+    public int itemPrice;
     public int maxStack = 1;
 
     public Item Create(int quantity = 1)
