@@ -1,7 +1,8 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    
     public PlayerInputs PlayerInputs { get; private set; }
     public PlayerInputs.PlayerActions PlayerActions { get; private set; }
 
