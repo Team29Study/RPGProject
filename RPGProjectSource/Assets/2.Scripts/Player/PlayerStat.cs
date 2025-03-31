@@ -5,7 +5,8 @@ using UnityEngine.Animations.Rigging;
 
 public interface IDamagable
 {
-    public void TakeDamage(int damage);
+    // attackTr 근접 공격, 원거리 공격의 HitBox Transform
+    public void TakeDamage(int damage, Transform attackTr = null);
 }
 
 public class PlayerStat : MonoBehaviour , IDamagable
@@ -27,9 +28,13 @@ public class PlayerStat : MonoBehaviour , IDamagable
         Def = player.Data.StatData.Def;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Transform attackTr = null)
     {
-        HP = Mathf.Max(HP - CalculateDef(damage), 0);
+        Vector3 attackDir = (attackTr.position - transform.position).normalized;
+
+        // 막기 불가능하다면 데미지를 입힘
+        if (!PossibleBlock(attackDir))
+            HP = Mathf.Max(HP - CalculateDef(damage), 0);
 
         if(HP == 0)
         {
@@ -42,6 +47,27 @@ public class PlayerStat : MonoBehaviour , IDamagable
     {
         return damage - Def;
     }
+
+    // 가드가 가능한지 확인
+    public bool PossibleBlock(Vector3 attackDir)
+    {
+        if (player.stateMachine.IsBlocking)
+        {
+            float dot = Vector3.Dot(transform.forward.normalized, attackDir.normalized);
+            float degree = Mathf.Acos(dot) * Mathf.Rad2Deg;
+
+            Debug.Log(degree);
+            if (degree > 30)
+                return false;
+            else
+                return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 
     public void OnAttackMonster()
     {
@@ -82,7 +108,7 @@ public class PlayerStat : MonoBehaviour , IDamagable
         }
     }
 
-    public void BlockAttack()
+    public void BlockAttack(Collider collider)
     {
         // 투사체 또는 공격이 캐릭터의 앞쪽인지 판단해야함
         Transform attack = null;
