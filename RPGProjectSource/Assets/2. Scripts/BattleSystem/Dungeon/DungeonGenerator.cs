@@ -4,6 +4,7 @@ using Unity.AI.Navigation;
 using UnityEngine;
 using Vector3 = System.Numerics.Vector3;
 
+// 각 방마다의 벽의 좌표를 저장한뒤 비교
 public class DungeonGenerator: MonoBehaviour
 {
     public List<Vector2> roomSizes; // 사이즈만 설정 - 혹은 이 또한 랜덤으로

@@ -243,6 +243,16 @@ public class JumpAttackNode : BTNode
     private bool isJumpingSuccess = false;
     private Transform landingPoint;
     
+    protected static Vector3 Parabola(Vector3 start, Vector3 end, float height, float t)
+    {
+        Func<float, float> f = x => -4 * height * x * x + 4 * height * x; // 공식 이해 필요
+
+        var mid = Vector3.Lerp(start, end, t);
+
+        return new Vector3(mid.x, f(t) + Mathf.Lerp(start.y, end.y, t), mid.z);
+    }
+
+    
     public override void Start()
     {
         agent.enabled = false; // 활성화 시 공중으로 이동 불가
@@ -346,7 +356,7 @@ public class ParabolaShotNode: BTNode
     
     protected static Vector3 Parabola(Vector3 start, Vector3 end, float height, float t)
     {
-        Func<float, float> f = x => -4 * height * x * x + 4 * height * x;
+        Func<float, float> f = x => -4 * height * x * x + 4 * height * x; // 공식 이해 필요
 
         var mid = Vector3.Lerp(start, end, t);
 
@@ -358,7 +368,10 @@ public class ParabolaShotNode: BTNode
         timer += Time.deltaTime;
         transform.rotation = Quaternion.LookRotation(target.transform.position - transform.position);
 
-        if (transform.position.y < startPos.y) return;
+        if (transform.position.y < startPos.y) // 이동이 완료된 경우
+        {
+            return;
+        }
         Vector3 tempPos = Parabola(startPos, endPos, 5, timer);
         transform.position = tempPos;
     }
