@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 // 거리 값 조절의 역할 누구에게 둘 것인가? - movementHandler
 public class IdleNode : BTNode
@@ -179,28 +181,56 @@ public class RangeAttackNode : BTNode
     }
 }
 
+public class MageAttack : BTNode
+{
+    public override void Start()
+    {
+        agent.velocity = Vector3.zero;
+        agent.isStopped = true;
+        controller.animationHandler.Set(EnemyAnimationHandler.Attack, true);
+        
+    }
+
+    public override void Update()
+    {
+        Vector3 direction = target.position - transform.position; direction.y = 0; // 공격하면서 회전 필요
+        transform.rotation = Quaternion.LookRotation(direction.normalized);
+
+        var distance = Vector3.Distance(transform.position, target.position);
+        if (distance > 5) SetState(State.Failure);
+    }
+
+    public override void OnAttackAnimated(bool isAttacking)
+    {
+        ProjectileManager.Instance.CreateRangeAttack(target.transform, 1, HitBox.Caster.Enemy);
+    }
+}
+
 public class DashAttackNode : BTNode // 점프든 대시든 같은 상황 돌진이므로
 {
     public override void Start()
     {
         agent.isStopped = true;
         agent.velocity = Vector3.zero;
+        
+        ProjectileManager.Instance.CreateMeleeAttack(transform, true);
     }
     
     public override void Update() // 애니메이션 끝날 때까지
     {
-        Vector3 direction = (transform.position - target.position).normalized;
-        transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, 1f * Time.deltaTime);
+        transform.rotation *= Quaternion.Euler(0, 4, 0);
+        // 너무 붙어버림
+        transform.position = Vector3.MoveTowards(transform.position, target.position, 1f * Time.deltaTime);
     }
 
     public override void OnAttackAnimated(bool isAttacking)
     {
-        if(!isAttacking) SetState(State.Success); // 공격 완료
     }
 
     
     public override void End() // 끝나면 춫격파를 발사할 수도 있음
     {
+        ProjectileManager.Instance.CreateMeleeAttack(transform, false);
         agent.isStopped = false;
     }
 }
@@ -209,16 +239,46 @@ public class DashAttackNode : BTNode // 점프든 대시든 같은 상황 돌진
 // 위로는 애니메이션이 처리되어 앞으로만 타겟을 따라 점진적으로 이동, 대상과 부딪히면 충돌 처리
 public class JumpAttackNode : BTNode
 {
+    private int maxHeight= 3;
+    private bool isJumpingSuccess = false;
+    private Transform landingPoint;
+    
     public override void Start()
     {
-        agent.isStopped = true;
-        agent.velocity = Vector3.zero;
+        agent.enabled = false; // 활성화 시 공중으로 이동 불가
+        landingPoint = target.transform;
     }
 
     public override void Update() // 애니메이션 끝날 때까지
     {
-        Vector3 direction = (transform.position - target.position).normalized;
-        transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, 1f * Time.deltaTime);
+
+        transform.position = Vector3.MoveTowards(transform.position, landingPoint.position, 3f * Time.deltaTime);
+        
+        if (!isJumpingSuccess && transform.position.y >= maxHeight)
+        {
+            isJumpingSuccess = true;
+            return;
+        }
+        
+        if (isJumpingSuccess)
+        {
+            if (transform.position.y <= 0)
+            {
+                var vector3 = transform.position; vector3.y = 0;
+                transform.position = vector3; // 위치 초기화
+                return;
+            }
+            
+            transform.position -= Vector3.up * 3f * Time.deltaTime;
+            return;
+        }
+
+
+        if(!isJumpingSuccess && transform.position.y <= maxHeight) // 애니메이션에 의존하는 것이 나을 듯
+        {
+            transform.position += Vector3.up * 3f * Time.deltaTime;
+        }
+        
     }
 
     public override void OnAttackAnimated(bool isAttacking)
@@ -231,6 +291,79 @@ public class JumpAttackNode : BTNode
         agent.isStopped = false;
     }
 }
+
+public class SpreeShotNode : BTNode
+{
+    
+    private float interval = 1f;
+    private float currInterval = 0;
+    
+    
+    public override void Start()
+    {
+
+        agent.enabled = false;
+        
+        controller.animationHandler.Set(EnemyAnimationHandler.Spree, true);
+        
+        // Vector3 direction = target.position - transform.position; direction.y = 0;
+        // transform.rotation = Quaternion.LookRotation(direction.normalized);
+
+    }
+
+    public override void Update()
+    {
+        
+        currInterval += Time.deltaTime;
+        transform.rotation *= Quaternion.Euler(0, 2, 0);
+        // 여기선 오히려 멀어지도록 처리
+    }
+
+    public override void End()
+    {
+        agent.enabled = true;
+    }
+
+    public override void OnAttackAnimated(bool isAttacking)
+    {
+        ProjectileManager.Instance.CreateRangeAttack(transform, 0, HitBox.Caster.Enemy);
+    }
+}
+
+public class ParabolaShotNode: BTNode
+{
+    private float timer = 0;
+    private Vector3 startPos;
+    private Vector3 endPos;
+
+    public override void Start()
+    {
+        agent.enabled = false;
+        
+        this.startPos = transform.position;
+        // this.endPos = target.transform.position + (endPos - startPos).normalized * Vector3.forward) * 3f;
+    }
+    
+    protected static Vector3 Parabola(Vector3 start, Vector3 end, float height, float t)
+    {
+        Func<float, float> f = x => -4 * height * x * x + 4 * height * x;
+
+        var mid = Vector3.Lerp(start, end, t);
+
+        return new Vector3(mid.x, f(t) + Mathf.Lerp(start.y, end.y, t), mid.z);
+    }
+    
+    public override void Update()
+    {
+        timer += Time.deltaTime;
+        transform.rotation = Quaternion.LookRotation(target.transform.position - transform.position);
+
+        if (transform.position.y < startPos.y) return;
+        Vector3 tempPos = Parabola(startPos, endPos, 5, timer);
+        transform.position = tempPos;
+    }
+}
+
 
 
 // hit 시퀀스 안에서 진행

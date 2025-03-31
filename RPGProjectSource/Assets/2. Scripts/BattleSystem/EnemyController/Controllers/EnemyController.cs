@@ -29,14 +29,14 @@ public class EnemyController: MonoBehaviour
         behaviourTree.Run();
     }
 
-    protected void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         behaviourTree.notify(BlackBoard.Trigger.Hit, true.ToString());
     }
 
     // 애니메이션 이벤트랑 상호작용
-    public void OnAttackAnimated(int isAttacking)
+    public void OnAttackAnimated(int isAttacking)// 상태 변경의 순간은 제외 필요
     {
-        behaviourTree.currentnode.OnAttackAnimated(isAttacking == 1);
+        behaviourTree.currentnode?.OnAttackAnimated(isAttacking == 1);
     }
 }

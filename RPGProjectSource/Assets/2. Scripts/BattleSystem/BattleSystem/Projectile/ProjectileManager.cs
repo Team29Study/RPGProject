@@ -59,7 +59,7 @@ public class ProjectileManager: Singleton<ProjectileManager>
     
     // 삭제하지 않고 비활성화
     // projectile이 본인에게도 맞는 상황
-    public void DestroyProjectile(Projectile projectile)
+    public void DestroyProjectile(IProjectile projectile)
     {
         projectile.gameObject.SetActive(false);
         projectile.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);

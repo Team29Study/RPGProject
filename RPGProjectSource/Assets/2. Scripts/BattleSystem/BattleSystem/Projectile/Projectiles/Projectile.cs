@@ -1,9 +1,10 @@
-using System;
 using UnityEngine;
+
+public abstract class IProjectile: MonoBehaviour {}
 
 // 말 그대로 투사체이므로 다형성을 가질 수 있도록 관리
 // 조건에 따라 반사, 일정 시간 뒤 폭팔
-public class Projectile: MonoBehaviour
+public class Projectile: IProjectile
 {
     public float duration = 1; 
     private float currDuration;
@@ -32,24 +33,27 @@ public class Projectile: MonoBehaviour
             return;
         }
 
-        if (currentType == ProjectileType.Straight) {
+        if (currentType == ProjectileType.Straight || currentType == ProjectileType.Reflection) {
             transform.position += transform.forward * (Time.deltaTime * moveSpeed); // 직진 공격
         }
         if (currentType == ProjectileType.Guided)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(target.position - transform.position); // 방향을 계산하여 회전
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
             
-            transform.position += transform.forward * (Time.deltaTime * moveSpeed);
+            Vector3 newForward = Vector3.Lerp(transform.forward, target.transform.position, Time.deltaTime * 3f); // y값 감소 필요
+            transform.forward = newForward;
+            
+            transform.position += transform.forward * (Time.deltaTime * 10);
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (currentType == ProjectileType.Reflection) // 반사
+        if (currentType == ProjectileType.Reflection)
         {
-            var reflectedDirection = Vector3.Reflect(transform.forward, other.transform.up);
+            var reflectedDirection = Vector3.Reflect(transform.forward, Vector3.forward); // 반사각 체크 필요
             transform.forward = reflectedDirection;
+
+            return;
         }
         
         ProjectileManager.Instance.DestroyProjectile(this);

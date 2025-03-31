@@ -11,6 +11,9 @@ public class EnemyAnimationHandler
     public static readonly int Defence = Animator.StringToHash("Defence");
     public static readonly int Escape = Animator.StringToHash("Escape");
 
+    // 궁수 전용 어디에 두는 것이 맞을까? - 일단 공통으로 쓰도록 처리
+    public static readonly int Spree = Animator.StringToHash("Spree");
+
     public Animator animator { get; private set; }
 
     public EnemyAnimationHandler(Animator animator)
