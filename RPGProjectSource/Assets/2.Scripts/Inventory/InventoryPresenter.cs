@@ -24,7 +24,7 @@ public class InventoryPresenter
 
     private void Initialize()
     {
-        view.InitializeView(model);
+        view.InitializeView(capacity);
 
         model.OnValueChanged += OnModelChanged;
         view.OnSlotSwap += OnViewSlotSwapped;
