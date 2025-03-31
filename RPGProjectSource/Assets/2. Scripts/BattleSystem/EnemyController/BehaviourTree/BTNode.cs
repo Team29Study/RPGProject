@@ -42,7 +42,7 @@ public abstract class BTNode
         controller = behaviourTree.controller;
         agent = controller.GetComponent<NavMeshAgent>();
         transform = controller.GetComponent<Transform>();
-        target = controller.target;
+        target = EnemyController.target;
     }
     
     private void SetParent(BTNode node) => parent = node;

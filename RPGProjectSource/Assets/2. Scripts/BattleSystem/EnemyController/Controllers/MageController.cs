@@ -1,5 +1,5 @@
 
-public class RogueController: EnemyController
+public class MageController: EnemyController
 {
     private void Start()
     {

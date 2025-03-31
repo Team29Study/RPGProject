@@ -32,16 +32,6 @@ public class IdleNode : BTNode
     {
         currIntevalImte = 0;
     }
-
-    public override void OnAnimated(EnemyAnimationBehaviour.Status status, AnimatorStateInfo stateInfo)
-    {
-        Debug.Log(status);
-    }
-
-    public override void OnAttackAnimated(bool isAttacking)
-    {
-        Debug.Log(isAttacking);
-    }
 }
 
 public class PatrolNode : BTNode
@@ -137,14 +127,8 @@ public class BoundaryNode : BTNode // 경계, 애니메이션 필요
     }
 }
 
-public class AttackNode : BTNode
+public class MeleeAttackNode : BTNode
 {
-    private AttackType currentAttackType;
-    public AttackNode(AttackType attackType)
-    {
-        currentAttackType = attackType;
-    }
-    
     public override void Start()
     {
         agent.velocity = Vector3.zero;
@@ -154,13 +138,44 @@ public class AttackNode : BTNode
         transform.rotation = Quaternion.LookRotation(direction.normalized);
         
         controller.animationHandler.Set(EnemyAnimationHandler.Attack, true);
-        // currentAttackType.Execute(transform);
+        
     }
 
     public override void Update()
     {
         var distance = Vector3.Distance(transform.position, target.position);
         if (distance > 5) SetState(State.Failure);
+    }
+
+    public override void OnAttackAnimated(bool isAttacking)
+    {
+        ProjectileManager.Instance.CreateMeleeAttack(transform, isAttacking);
+    }
+}
+
+// 레인지 어택
+public class RangeAttackNode : BTNode
+{
+    public override void Start()
+    {
+        agent.velocity = Vector3.zero;
+        agent.isStopped = true;
+        controller.animationHandler.Set(EnemyAnimationHandler.Attack, true);
+        
+    }
+
+    public override void Update()
+    {
+        Vector3 direction = target.position - transform.position; direction.y = 0; // 공격하면서 회전 필요
+        transform.rotation = Quaternion.LookRotation(direction.normalized);
+
+        var distance = Vector3.Distance(transform.position, target.position);
+        if (distance > 5) SetState(State.Failure);
+    }
+
+    public override void OnAttackAnimated(bool isAttacking)
+    {
+        ProjectileManager.Instance.CreateRangeAttack(transform, 0, HitBox.Caster.Enemy);
     }
 }
 

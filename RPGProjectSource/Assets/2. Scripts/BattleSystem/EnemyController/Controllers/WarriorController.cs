@@ -1,4 +1,4 @@
-public class MinionController: EnemyController
+public class WarriorController: EnemyController
 {
     private void Start()
     {
@@ -6,6 +6,6 @@ public class MinionController: EnemyController
             new SequenceNode(new HitNode()),
             new SequenceNode(new IdleNode(), new PatrolNode()),
             new SequenceNode(new TracingNode(), new MeleeAttackNode())
-            ));
+        ));
     }
 }
