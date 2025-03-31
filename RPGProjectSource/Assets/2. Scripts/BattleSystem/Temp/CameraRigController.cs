@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class CameraRigController: MonoBehaviour
 {
-    public Transform target;
+    private Transform target;
 
+    private void Awake()
+    {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+    
     private void Update()
     {
         transform.position = target.position;

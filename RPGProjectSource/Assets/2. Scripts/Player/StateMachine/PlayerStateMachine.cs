@@ -7,9 +7,11 @@ public class PlayerStateMachine : StateMachine
 
     // 플레이어 상태들이 받아갈 값들 세팅
     public Player Player { get; }
-    
+
     // 공격 중인지 체크
     public bool IsAttacking { get; set; }
+    public bool IsBlocking { get; set; }
+
     // 몇 번째 공격이 진행 중인지
     public int ComboIndex { get; set; }
 
@@ -30,6 +32,8 @@ public class PlayerStateMachine : StateMachine
     public PlayerFallState FallState { get; private set; }
 
     public PlayerComboAttackState ComboAttackState { get; private set; }
+    public PlayerNoneAttackState NoneAttackState { get; private set; }
+    public PlayerBlockState BlockState { get; private set; }
 
     // 클래스 초기화
     public PlayerStateMachine(Player player)
@@ -44,7 +48,9 @@ public class PlayerStateMachine : StateMachine
 
         FallState = new PlayerFallState(this);
 
+        NoneAttackState = new PlayerNoneAttackState(this);
         ComboAttackState = new PlayerComboAttackState(this);
+        BlockState = new PlayerBlockState(this);
 
         MovementSpeed = Player.Data.GroundData.BaseSpeed;
         RotationDamping = Player.Data.GroundData.BaseRotationDamping;
