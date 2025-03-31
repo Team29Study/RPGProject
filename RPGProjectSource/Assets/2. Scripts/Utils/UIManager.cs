@@ -7,14 +7,15 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance { get { return instance; } }
 
     // 항상 활성화 되는 UI 참조
-    private BaseUI baseUI;
+    [SerializeField] private BaseUI baseUI;
     public BaseUI BaseUI
     {
         get { return baseUI; }
-        private set { baseUI = value; } }
+        private set { baseUI = value; }
+    }
 
     // 상점 UI 참조
-    private ShopUI shopUI;
+    [SerializeField] private ShopUI shopUI;
     public ShopUI ShopUI
     {
         get { return shopUI; }
