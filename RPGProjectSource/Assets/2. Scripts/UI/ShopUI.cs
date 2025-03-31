@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,8 +15,9 @@ public class ShopUI : MonoBehaviour
 
     [SerializeField] private Transform slot;
     [SerializeField] private ShopSlot slotPrefab;
-    [SerializeField] private List<ItemData> shopItemDatas;
+    
     List<ShopSlot> shopSlots = new List<ShopSlot>();
+    List<ItemData> shopItemDatas;
 
     private void Start()
     {
@@ -25,6 +27,20 @@ public class ShopUI : MonoBehaviour
         closeBtn.onClick.AddListener(CloseShop);
         buyBtn.onClick.AddListener(Buy);
         sellBtn.onClick.AddListener(Sell);
+
+        InitShopSlot();
+
+
+    }
+
+    private void InitShopSlot()
+    {
+        // 기존 슬롯 제거
+        foreach (Transform child in slot)
+        {
+            Destroy(child.gameObject);
+        }
+        shopSlots.Clear();
 
         for (int i = 0; i < shopItemDatas.Count; i++)
         {
@@ -39,6 +55,11 @@ public class ShopUI : MonoBehaviour
             }
             shopSlots.Add(newSlot);
         }
+    }
+
+    public void SetData()
+    {
+
     }
 
     private void CloseShop()
