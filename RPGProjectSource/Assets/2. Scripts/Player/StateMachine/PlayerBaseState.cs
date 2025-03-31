@@ -32,9 +32,9 @@ public class PlayerBaseState : IPlayerState
         input.PlayerActions.Move.canceled += OnMovementCanceled;
         input.PlayerActions.Run.started += OnRunStarted;
         input.PlayerActions.Run.canceled += OnRunCanceled;
-        input.PlayerActions.Attack.started += OnAttackPerformed;
-        //input.PlayerActions.Attack.performed += OnAttackPerformed;
-        //input.PlayerActions.Attack.canceled += OnAttackCanceled;
+        input.PlayerActions.Attack.started += OnAttackStarted;
+        input.PlayerActions.Block.performed += OnBlockPerformed;
+        input.PlayerActions.Block.canceled += OnBlockCanceled;
     }
 
     protected virtual void RemoveInputActionCallbacks()
@@ -43,9 +43,9 @@ public class PlayerBaseState : IPlayerState
         input.PlayerActions.Move.canceled -= OnMovementCanceled;
         input.PlayerActions.Run.started -= OnRunStarted;
         input.PlayerActions.Run.canceled -= OnRunCanceled;
-        input.PlayerActions.Attack.started -= OnAttackPerformed;
-        //input.PlayerActions.Attack.performed -= OnAttackPerformed;
-        //input.PlayerActions.Attack.canceled -= OnAttackCanceled;
+        input.PlayerActions.Attack.started -= OnAttackStarted;
+        input.PlayerActions.Block.performed -= OnBlockPerformed;
+        input.PlayerActions.Block.canceled -= OnBlockCanceled;
     }
 
     public virtual void HandleInput()
@@ -81,7 +81,7 @@ public class PlayerBaseState : IPlayerState
 
     }
 
-    protected virtual void OnAttackPerformed(InputAction.CallbackContext context)
+    protected virtual void OnAttackStarted(InputAction.CallbackContext context)
     {
         stateMachine.IsAttacking = true;
     }
@@ -90,8 +90,17 @@ public class PlayerBaseState : IPlayerState
     {
         stateMachine.IsAttacking = false;
     }
+    protected virtual void OnBlockPerformed(InputAction.CallbackContext context)
+    {
+        stateMachine.IsBlocking = true;
+    }
 
-    
+    protected virtual void OnBlockCanceled(InputAction.CallbackContext context)
+    {
+        stateMachine.IsBlocking = false;
+    }
+
+
     // 모든 상태에 필요한 것들
     // 애니메이션 전환
     protected void StartAnimation(int animatorHash)

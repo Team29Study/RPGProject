@@ -18,6 +18,7 @@ public class PlayerComboAttackState : PlayerAttackState
         base.Enter();
         StartAnimation(stateMachine.Player.AnimationData.ComboAttackParameterHash);
 
+        stateMachine.IsAttacking = false;
         alreadyAppliedCombo = false;
         alreadyApplyForce = false;
 
@@ -66,7 +67,6 @@ public class PlayerComboAttackState : PlayerAttackState
             {
                 stateMachine.ChangeAttackState(stateMachine.NoneAttackState);
             }
-            stateMachine.IsAttacking = false;
         }
     }
 

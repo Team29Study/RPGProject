@@ -28,10 +28,20 @@ public class PlayerNoneAttackState : PlayerBaseState
             OnAttack();
             return;
         }
+
+        if(stateMachine.IsBlocking && stateMachine.IsGroundState())
+        {
+            OnBlock();
+            return;
+        }
     }
 
     protected virtual void OnAttack()
     {
         stateMachine.ChangeAttackState(stateMachine.ComboAttackState);
+    }
+    protected virtual void OnBlock()
+    {
+        stateMachine.ChangeAttackState(stateMachine.BlockState);
     }
 }
