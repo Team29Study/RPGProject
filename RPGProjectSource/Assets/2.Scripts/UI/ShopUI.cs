@@ -39,7 +39,7 @@ public class ShopUI : MonoBehaviour
         }
         shopSlots.Clear();
 
-        for (int i = 0; i < shopItemDatas.Count; i++)
+        for (int i = 0; i < 16; i++)
         {
             ShopSlot newSlot = GameObject.Instantiate(slotPrefab, slot);
 
