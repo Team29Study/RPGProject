@@ -17,12 +17,12 @@ public class Player : MonoBehaviour
     public ForceReceiver ForceReceiver { get; private set; }
 
     // 플레이어 상태 머신
-    private PlayerStateMachine stateMachine;
+    public PlayerStateMachine stateMachine;
 
     private void Awake()
     {
         AnimationData.Initialize();
-        Animator = GetComponentInChildren<Animator>();
+        Animator = GetComponent<Animator>();
         InputController = GetComponent<PlayerController>();
         CharController = GetComponent<CharacterController>();
         ForceReceiver = GetComponent<ForceReceiver>();

@@ -516,7 +516,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6606685393086321824}
-  - component: {fileID: 943784154478791017}
   m_Layer: 0
   m_Name: Knight
   m_TagString: Untagged
@@ -546,27 +545,6 @@ Transform:
   - {fileID: 3216745658635102236}
   m_Father: {fileID: 2634945630283660343}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &943784154478791017
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1462685833939190456}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 00f4ff57889d5154a88b712d95bbeb48, type: 3}
-  m_Controller: {fileID: 9100000, guid: 0f302d4efdc27ef46833aaffcbe84a56, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1483620249662062580
 GameObject:
   m_ObjectHideFlags: 0
@@ -1281,6 +1259,7 @@ GameObject:
   - component: {fileID: 8165082078536503098}
   - component: {fileID: 971276050311517600}
   - component: {fileID: 368845317996364570}
+  - component: {fileID: 2527386948730100536}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1303,6 +1282,7 @@ Transform:
   m_Children:
   - {fileID: 6606685393086321824}
   - {fileID: 6608290400224934710}
+  - {fileID: 2642022681802591191}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &8000335763927764449
@@ -1365,6 +1345,8 @@ MonoBehaviour:
     fallParameterName: Land
     attackParameterName: '@Attack'
     comboAttackParameterName: ComboAttack
+    blockStateParameterName: '@Block'
+    blockParameterName: Block
 --- !u!114 &368845317996364570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1379,6 +1361,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
   drag: 0.3
+--- !u!95 &2527386948730100536
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3277125581162598251}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 00f4ff57889d5154a88b712d95bbeb48, type: 3}
+  m_Controller: {fileID: 9100000, guid: 0f302d4efdc27ef46833aaffcbe84a56, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3413980359377327874
 GameObject:
   m_ObjectHideFlags: 0
@@ -2667,6 +2670,37 @@ Transform:
   - {fileID: 702366263483466551}
   - {fileID: 6402969711264053607}
   m_Father: {fileID: 549253738717859507}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7911091747699733515
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2642022681802591191}
+  m_Layer: 0
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2642022681802591191
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7911091747699733515}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.3, z: 0.92}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2634945630283660343}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8120277785865453971
 GameObject:
