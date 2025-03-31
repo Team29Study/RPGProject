@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
-public class PlayerStat : MonoBehaviour
+public interface IDamagable
+{
+    public void TakeDamage(int damage);
+}
+
+public class PlayerStat : MonoBehaviour , IDamagable
 {
     public Player player;
-    public Transform attackPos;
 
     public int MaxHP { get; set; }
     public int HP { get; set; }
@@ -38,16 +43,43 @@ public class PlayerStat : MonoBehaviour
         return damage - Def;
     }
 
-    public void AttackMonster()
+    public void OnAttackMonster()
+    {
+        // 히트박스 생성
+        ProjectileManager.Instance.CreateMeleeAttack(transform, true);
+        HitBox hitBox = GetComponentInChildren<HitBox>();
+
+        if(hitBox)
+        {
+            // 이벤트 등록
+            //hitBox.onTrigger += ;
+        }
+    }
+
+    public void OffAttackMonster()
+    {
+        ProjectileManager.Instance.CreateMeleeAttack(transform, false);
+
+        HitBox hitBox = GetComponentInChildren<HitBox>();
+
+        if(hitBox)
+        {
+            // 이벤트 해제
+            //hitBox.onTrigger -=;
+        }
+    }
+
+    public void Attack(Collider collider)
     {
         int attackDamage = player.Data.AttackData.AttackInfoDatas[player.stateMachine.ComboIndex].Damage;
         attackDamage += Atk;
 
-        // 몬스터 레이어 필요
-        Collider[] collider = Physics.OverlapSphere(attackPos.position, 1f);
-        // 몬스터인지 판단
-        // 데미지 입힘
-        Debug.Log("공격! 데미지 : " + attackDamage);
+        IDamagable enemy = collider.GetComponent<IDamagable>();
+
+        if (enemy != null)
+        {
+            enemy.TakeDamage(attackDamage);
+        }
     }
 
     public void BlockAttack()
