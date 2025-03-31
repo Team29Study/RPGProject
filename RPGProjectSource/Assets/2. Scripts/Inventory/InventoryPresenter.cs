@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class InventoryPresenter
 {
@@ -24,7 +23,7 @@ public class InventoryPresenter
 
     private void Initialize()
     {
-        view.InitializeView(model);
+        view.InitializeView(capacity);
 
         model.OnValueChanged += OnModelChanged;
         view.OnSlotSwap += OnViewSlotSwapped;

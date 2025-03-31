@@ -45,3 +45,4 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler
         OnDropEvent?.Invoke();
     }
 }
+

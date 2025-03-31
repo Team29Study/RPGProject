@@ -18,9 +18,9 @@ public class InventoryView : MonoBehaviour
     public List<Slot> Slots => slotsCache;
     public event Action<int, int> OnSlotSwap = delegate { };
 
-    public void InitializeView(InventoryModel model)
+    public void InitializeView(int capacity)
     {
-        for (int i = 0; i < model.Count(); i++)
+        for (int i = 0; i < capacity; i++)
         {
             int indexCache = i;
             var go = Instantiate(slotPrefab, slotParent);
