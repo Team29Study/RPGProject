@@ -14,7 +14,7 @@ public class PlayerStat : MonoBehaviour , IDamagable
     public Player player;
 
     public int MaxHP { get; set; }
-    public int HP { get; set; }
+    [field: SerializeField]public int HP { get; set; }
     public int Def { get; set; }
     // 추가 공격력
     public int Atk { get; set; } 
@@ -30,7 +30,7 @@ public class PlayerStat : MonoBehaviour , IDamagable
 
     public void TakeDamage(int damage, Transform attackTr = null)
     {
-        Vector3 attackDir = (attackTr.position - transform.position).normalized;
+        Vector3 attackDir = (new Vector3(attackTr.position.x, 0, attackTr.position.z) - new Vector3(transform.position.x, 0, transform.position.z)).normalized;
 
         // 막기 불가능하다면 데미지를 입힘
         if (!PossibleBlock(attackDir))

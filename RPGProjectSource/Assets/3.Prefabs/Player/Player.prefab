@@ -2949,6 +2949,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e9761e4633bc24991720266191271b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!114 &3525814822564115139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3021,4 +3024,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 3525814822564115139}
-  attackPos: {fileID: 7375761708264033013}
