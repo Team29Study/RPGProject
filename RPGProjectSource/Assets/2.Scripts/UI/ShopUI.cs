@@ -19,6 +19,13 @@ public class ShopUI : MonoBehaviour
     public List<ShopSlot> shopSlots = new();
     public List<ItemData> shopItemDatas = new();
 
+    private ShopSlot shopSlot;
+
+    private void Awake()
+    {
+        
+    }
+
     private void Start()
     {
         // UIManager에 ShopUI 연결
@@ -75,7 +82,8 @@ public class ShopUI : MonoBehaviour
 
     private void Buy()
     {
-
+        shopSlot.SoldOut(true);
+        description.text = null;
     }
 
     private void Sell()
@@ -86,5 +94,6 @@ public class ShopUI : MonoBehaviour
     private void CloseShop()
     {
         UIManager.Instance.ShopUI.gameObject.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }

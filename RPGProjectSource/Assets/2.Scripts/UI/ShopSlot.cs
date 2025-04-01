@@ -6,9 +6,10 @@ using UnityEngine.UI;
 public class ShopSlot : MonoBehaviour
 {
     [SerializeField] Image shopItemIcon;
+    [SerializeField] Image soldOutPanel;
     [SerializeField] Button shopItemBtn;
 
-    ItemData itemData;
+    private ItemData itemData;
 
     private void Start()
     {
@@ -18,12 +19,6 @@ public class ShopSlot : MonoBehaviour
     public void SetShopItem(ItemData data)
     {
         itemData = data;
-
-        if (shopItemIcon == null)
-        {
-            Debug.LogAssertion("iconImage가 연결되지 않음");
-            return;
-        }
 
         if (itemData.icon == null)
         {
@@ -40,6 +35,14 @@ public class ShopSlot : MonoBehaviour
         if (itemData != null)
         {
             UIManager.Instance.ShopUI.ShowDescription(itemData);
+        }
+    }
+
+    public void SoldOut(bool isSoldOut)
+    {
+        if (isSoldOut)
+        {
+            shopItemIcon = soldOutPanel;
         }
     }
 }
