@@ -33,6 +33,7 @@ public class Equipment : MonoBehaviour
         Model.OnUnEquipped -= InvokeUnEquip;
     }
 
+    //외부 접근용
     public void Equipped(EquipmentItemData equipData)
     {
         Model.Equipped(equipData.equipmentType, new EquipmentModel.EquipmentContainer(equipData));
@@ -46,7 +47,7 @@ public class Equipment : MonoBehaviour
         {
             for (int i = 0; i < val.Modifiers.Length; i++)
             {
-                InvokeModifier(val.Modifiers[i]);
+                InvokeAddModifier(val.Modifiers[i]);
             }
         }
     }
@@ -59,7 +60,7 @@ public class Equipment : MonoBehaviour
         val.Release();
     }
 
-    private void InvokeModifier(StatModifier<PlayerStatType> modifier)
+    private void InvokeAddModifier(StatModifier<PlayerStatType> modifier)
     {
         OnAddModifier?.Invoke(modifier);
     }

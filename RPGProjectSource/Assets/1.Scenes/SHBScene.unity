@@ -323,6 +323,7 @@ GameObject:
   - component: {fileID: 375219011}
   - component: {fileID: 375219013}
   - component: {fileID: 375219014}
+  - component: {fileID: 375219015}
   m_Layer: 0
   m_Name: Sample
   m_TagString: Untagged
@@ -381,7 +382,19 @@ MonoBehaviour:
       m_Calls: []
   OnUnEquipped:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 375219009}
+        m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
+        m_MethodName: DebugAddOneItem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnAddModifier:
     m_PersistentCalls:
       m_Calls:
@@ -427,7 +440,19 @@ MonoBehaviour:
         m_CallState: 2
   OnUseConsumableItem:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 375219015}
+        m_TargetAssemblyTypeName: PlayerHealth, Assembly-CSharp
+        m_MethodName: UseConsumableItem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &375219013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -455,6 +480,18 @@ MonoBehaviour:
   player: {fileID: 0}
   hp: 0
   defencePower: 0
+--- !u!114 &375219015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375219008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3928ce66aa8b34b4bb1c2100231d25da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &538062293
 GameObject:
   m_ObjectHideFlags: 0
