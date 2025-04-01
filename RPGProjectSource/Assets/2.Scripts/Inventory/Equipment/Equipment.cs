@@ -7,8 +7,8 @@ public class Equipment : MonoBehaviour
 {
     [SerializeField] private EquipmentView view;
 
-    public UnityEvent<EquipmentModel.EquipmentContainer> OnEquipped;
-    public UnityEvent<EquipmentModel.EquipmentContainer> OnUnEquipped;
+    public UnityEvent<EquipmentItemData> OnEquipped;
+    public UnityEvent<EquipmentItemData> OnUnEquipped;
 
     public UnityEvent<StatModifier<PlayerStatType>> OnAddModifier;
 
@@ -33,6 +33,7 @@ public class Equipment : MonoBehaviour
         Model.OnUnEquipped -= InvokeUnEquip;
     }
 
+    //외부 접근용
     public void Equipped(EquipmentItemData equipData)
     {
         Model.Equipped(equipData.equipmentType, new EquipmentModel.EquipmentContainer(equipData));
@@ -40,26 +41,26 @@ public class Equipment : MonoBehaviour
 
     private void InvokeEquip(EquipmentModel.EquipmentContainer val)
     {
-        OnEquipped.Invoke(val);
+        OnEquipped.Invoke(val.Data);
 
         if (val != null && val.Modifiers.Length != 0)
         {
             for (int i = 0; i < val.Modifiers.Length; i++)
             {
-                InvokeModifier(val.Modifiers[i]);
+                InvokeAddModifier(val.Modifiers[i]);
             }
         }
     }
 
     private void InvokeUnEquip(EquipmentModel.EquipmentContainer val)
     {
-        OnUnEquipped.Invoke(val);
+        OnUnEquipped.Invoke(val.Data);
 
         //임의로 추가
         val.Release();
     }
 
-    private void InvokeModifier(StatModifier<PlayerStatType> modifier)
+    private void InvokeAddModifier(StatModifier<PlayerStatType> modifier)
     {
         OnAddModifier?.Invoke(modifier);
     }
