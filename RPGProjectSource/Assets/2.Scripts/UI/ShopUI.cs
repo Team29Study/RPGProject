@@ -21,19 +21,13 @@ public class ShopUI : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log($"shopItemDatas.Count = {shopItemDatas.Count}");
-        for (int i = 0; i < shopItemDatas.Count; i++)
-        {
-            Debug.Log($"[{i}] 아이템 이름: {shopItemDatas[i]?.itemName}");
-        }
-
         // UIManager에 ShopUI 연결
         UIManager.Instance.SetShopUI(this);
 
         closeBtn.onClick.AddListener(CloseShop);
         buyBtn.onClick.AddListener(Buy);
         sellBtn.onClick.AddListener(Sell);
-        Debug.Log("InitShopSlot 호출됨");
+
         InitShopSlot();
     }
 
@@ -51,21 +45,12 @@ public class ShopUI : MonoBehaviour
 
             if (i < shopItemDatas.Count)
             {
-                Debug.Log($"SetShopItem 호출: {shopItemDatas[i].itemName}");
                 newSlot.SetShopItem(shopItemDatas[i]);
             }
 
 
             shopSlots.Add(newSlot);
         }
-    }
-
-    public void SetData()
-    {
-        new ItemData
-        {
-            
-        };
     }
 
     public void UpdateShopSlot()
@@ -85,7 +70,7 @@ public class ShopUI : MonoBehaviour
 
     public void ShowDescription(ItemData itemData)
     {
-        description.text = $"{itemData.itemName}\n{itemData.description}\n{itemData.itemPrice}";
+        description.text = $"{itemData.itemName}\n{itemData.description}\nPrice: {itemData.itemPrice}G";
     }
 
     private void Buy()

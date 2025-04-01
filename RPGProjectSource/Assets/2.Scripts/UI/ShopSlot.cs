@@ -17,37 +17,29 @@ public class ShopSlot : MonoBehaviour
 
     public void SetShopItem(ItemData data)
     {
-        Debug.Log("✅ SetShopItem 호출됨");
-
         itemData = data;
 
         if (shopItemIcon == null)
         {
-            Debug.LogError("❌ iconImage가 연결되어 있지 않습니다.");
+            Debug.LogAssertion("iconImage가 연결되지 않음");
             return;
         }
 
         if (itemData.icon == null)
         {
-            Debug.LogWarning("⚠️ itemData.icon이 null입니다.");
+            Debug.LogAssertion("itemData.icon 없음");
         }
         else
         {
-            Debug.Log($"🎯 아이콘 설정됨: {itemData.icon.name}");
             shopItemIcon.sprite = itemData.icon;
         }
     }
-
 
     private void SelectShopItem()
     {
         if (itemData != null)
         {
             UIManager.Instance.ShopUI.ShowDescription(itemData);
-        }
-        else
-        {
-            Debug.LogAssertion("Empty");
         }
     }
 }
