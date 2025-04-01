@@ -21,6 +21,6 @@ public class MageAttack : BTNode
 
     public override void OnAttackAnimated(bool isAttacking)
     {
-        ProjectileManager.Instance.CreateRangeAttack(target.transform, 1, HitBox.Caster.Enemy);
+        ProjectileManager.Instance.CreateRangeAttack(target.transform, 1, HitBox.Caster.Enemy, controller.resourceHandler.attack);
     }
 }

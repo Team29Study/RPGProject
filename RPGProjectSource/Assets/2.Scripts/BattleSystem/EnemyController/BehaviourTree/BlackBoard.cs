@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 
@@ -5,7 +6,7 @@ public class BlackBoard
 {
     public enum Trigger { Hit, Attack }
     
-    public Dictionary<Trigger, string> data = new();
+    [ItemCanBeNull] public Dictionary<Trigger, string> data = new();
 
     public BlackBoard()
     {

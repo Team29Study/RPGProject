@@ -3,18 +3,18 @@ using UnityEngine;
 public class WarriorController: EnemyController
 {
     public bool isDefenced = false;
+    public float tracingRange;
+
     private void Start()
     {
-        // behaviourTree.Generate(this, new SelectorNode(
-        // new SequenceNode(new HitNode(), new DieNode()),
-        // new SequenceNode(new IdleNode(), new PatrolNode()),
-        // new SequenceNode(new TracingNode(), new DefenceNode(), new MeleeAttackNode())
-        // ));
+        ProjectileManager.Instance.RegisterMeleeAttack(transform, Vector3.up + Vector3.forward,  Vector3.one * 2);
+
+        behaviourTree.Generate(this, new SelectorNode(
+        new SequenceNode(new HitNode(), new DieNode()),
+        new SequenceNode(new IdleNode(1, tracingRange), new PatrolNode(1)), // movementHandler로 처리
+        new SequenceNode(new TracingNode(tracingRange), new DefenceNode(), new MeleeAttackNode())
+        ));
     }
     
-    protected override void OnTriggerEnter(Collider other) // 방어중이면 Hit으로 처리 안함 
-    {
-        behaviourTree.notify(BlackBoard.Trigger.Hit, true.ToString());
-    }
-
+    // public override void TakeDamage(int damage, Transform attackTr = null) {}
 }

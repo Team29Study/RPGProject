@@ -1,15 +1,20 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public abstract class IProjectile: MonoBehaviour {}
+public interface IProjectile
+{
+    public int damage { get; set; }
+}
 
 // 말 그대로 투사체이므로 다형성을 가질 수 있도록 관리
 // 조건에 따라 반사, 일정 시간 뒤 폭팔
-public class Projectile: IProjectile
+public class Projectile: MonoBehaviour, IProjectile
 {
     public float duration = 1; 
     private float currDuration;
     public float moveSpeed = 20;
+    public int damage { get; set; } = 10;
+    
     public Transform target;
     
     public enum ProjectileType { Straight, Guided, Reflection }
@@ -17,7 +22,18 @@ public class Projectile: IProjectile
 
     private void Awake()
     {
-        if (!target) target = GameObject.FindGameObjectWithTag("Player").transform;
+        if (!target) target = GameObject.FindGameObjectWithTag("Player")?.transform;
+    }
+
+    private void Start()
+    {
+        GetComponent<HitBox>().onTrigger += (other) =>
+        {
+            if (other.TryGetComponent(out IDamagable damagable)) return;
+            
+            damagable.TakeDamage(damage, transform);
+            ProjectileManager.Instance.DestroyProjectile(gameObject);
+        };
     }
 
     public void OnEnable()
@@ -30,7 +46,7 @@ public class Projectile: IProjectile
         currDuration += Time.deltaTime;
         if (currDuration >= duration)
         {
-            ProjectileManager.Instance.DestroyProjectile(this);
+            ProjectileManager.Instance.DestroyProjectile(gameObject);
             return;
         }
 
@@ -59,7 +75,7 @@ public class Projectile: IProjectile
             return;
         }
         
-        ProjectileManager.Instance.DestroyProjectile(this);
+        ProjectileManager.Instance.DestroyProjectile(gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)

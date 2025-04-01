@@ -149,6 +149,9 @@ public class BoundaryNode : BTNode // 경계, 애니메이션 필요
 // hit 시퀀스 안에서 진행
 public class DieNode : BTNode
 {
+    private float currTime;
+    private float duration = 1f;
+    
     private bool isDeath = false;
     public override void Start()
     {
@@ -160,7 +163,17 @@ public class DieNode : BTNode
         if (isDeath == false)
         {
             isDeath = true;
+            currTime = 0;
             controller.animationHandler.Set(EnemyAnimationHandler.Die, true);
+        }
+    }
+
+    public override void Update()
+    {
+        currTime += Time.deltaTime;
+        if (currTime > duration)
+        {
+            controller.respawnArea.DestroyEnemy(controller.gameObject);
         }
     }
 }
@@ -173,7 +186,7 @@ public class HitNode : BTNode
     
     public override void Start()
     {
-        if (blackBoard.data[BlackBoard.Trigger.Hit] == false.ToString())
+        if (blackBoard.data[BlackBoard.Trigger.Hit] != true.ToString())
         {
             SetState(State.Failure);
             return;
@@ -181,12 +194,12 @@ public class HitNode : BTNode
 
         agent.enabled = false;
         curentKnockBackTime = 0;
-        
+
         // 체력 감소
         controller.animationHandler.Set(EnemyAnimationHandler.Hit);
-        controller.resourceHandler.health -= 10;
+        controller.resourceHandler.health -= controller.currDamagedInfo.Item1;
         
-        blackBoard.data[BlackBoard.Trigger.Hit] = false.ToString();
+        blackBoard.SetData(BlackBoard.Trigger.Hit, false.ToString());
     }
 
     public override void Update()

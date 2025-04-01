@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -18,6 +19,8 @@ public class EnemyRespawnArea: MonoBehaviour
     public Bounds respawnArea;
     private bool isGenerated = false;
 
+    public Action onClearWave;
+
     private BoxCollider collider;
     
     public void GenerateEnemy(int amount = 1) // 단일로 생성도 가능하도록 처리
@@ -29,6 +32,7 @@ public class EnemyRespawnArea: MonoBehaviour
             // drawing 영역을 벗어나는 현상 발생
             Vector3 spawnPosition = transform.position + new Vector3(Random.Range(respawnArea.min.x, respawnArea.max.x), 0, Random.Range(respawnArea.min.z, respawnArea.max.z));
             GameObject instance = Instantiate(enemyList[Random.Range(0, enemyList.Count)], spawnPosition, Quaternion.identity, transform);
+            instance.GetComponent<EnemyController>().SetArea(this);
             currentEnemies.Add(instance);
         }
     }
@@ -38,6 +42,9 @@ public class EnemyRespawnArea: MonoBehaviour
     {
         var selectedEnemy = currentEnemies.Find(enemy => enemy == gameObject);
         currentEnemies.Remove(selectedEnemy);
+        
+        if(currentEnemies.Count == 0) onClearWave?.Invoke();
+        
         Destroy(gameObject);
     }
     public void ClearEnemies() {}
