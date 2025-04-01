@@ -8,6 +8,8 @@ public class EnemyAnimationHandler
     public static readonly int Attack = Animator.StringToHash("Attack");
     
     public static readonly int Dash = Animator.StringToHash("Dash");
+    public static readonly int Rush = Animator.StringToHash("Rush");
+    
     public static readonly int Defence = Animator.StringToHash("Defence");
     public static readonly int Escape = Animator.StringToHash("Escape");
 

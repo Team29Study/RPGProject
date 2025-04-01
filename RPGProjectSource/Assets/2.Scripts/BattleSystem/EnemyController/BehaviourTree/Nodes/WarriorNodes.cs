@@ -2,32 +2,73 @@
 using System;
 using UnityEngine;
 
-public class DashAttackNode : BTNode // 점프든 대시든 같은 상황 돌진이므로
+public class DefenceNode : BTNode // 일단은 제자리에서 방어하도록 처리, 추적과 함께 할 것인지?
 {
+    private int interval;
+    
+    public override void Start()
+    {
+        agent.enabled = false;
+        controller.animationHandler.Set(EnemyAnimationHandler.Defence, true);
+    }
+
+    public override void Update()
+    {
+        transform.rotation = Quaternion.LookRotation(new Vector3(target.position.x - transform.position.x, 0, target.position.z - transform.position.z));
+    }
+
+    public override void End()
+    {
+        agent.enabled = true;
+        controller.animationHandler.Set(EnemyAnimationHandler.Defence, false);
+    }
+}
+
+// 직전 이동, 유도 이동, 튕기는 이동
+public class RushAttackMode : BTNode // 점프든 대시든 같은 상황 돌진이므로
+{
+    private Vector3 destination; // 도착지 방식
+    private float moveSpeed;
+    
+    private float duration; // 파훼법이 없기 때문에 일정 시간으로 변경
+    private float currTime;
+
+    public RushAttackMode(float duration = 2f, float moveSpeed = 2f)
+    {
+        this.duration = duration;
+        this.moveSpeed = moveSpeed;
+    }
+    
     public override void Start()
     {
         agent.isStopped = true;
-        agent.velocity = Vector3.zero;
+        agent.velocity = Vector3.zero; // 중복적인 부분
+
+        ProjectileManager.Instance.CreateMeleeAttack(transform, true); // 몸체 부분에서 진행되어야 함
+        controller.animationHandler.Set(EnemyAnimationHandler.Rush, true);
         
-        ProjectileManager.Instance.CreateMeleeAttack(transform, true);
+        currTime = 0;
     }
     
-    public override void Update() // 애니메이션 끝날 때까지
+    public override void Update()
     {
-        transform.rotation *= Quaternion.Euler(0, 4, 0);
-        // 너무 붙어버림
-        transform.position = Vector3.MoveTowards(transform.position, target.position, 1f * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, target.transform.position, 2f * Time.deltaTime);
+        transform.rotation *= Quaternion.Euler(0, 4, 0); // 애니메이션 잠금 뒤 직접 회전
+        
+        currTime += Time.deltaTime;
+        if (currTime >= duration)
+        {
+            Debug.Log("1");
+            SetState(State.Success);
+        }
     }
-
-    public override void OnAttackAnimated(bool isAttacking)
-    {
-    }
-
     
     public override void End() // 끝나면 춫격파를 발사할 수도 있음
     {
-        ProjectileManager.Instance.CreateMeleeAttack(transform, false);
         agent.isStopped = false;
+
+        ProjectileManager.Instance.CreateMeleeAttack(transform, false);
+        controller.animationHandler.Set(EnemyAnimationHandler.Rush, false);
     }
 }
 
