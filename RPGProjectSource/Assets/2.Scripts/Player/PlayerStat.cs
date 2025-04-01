@@ -9,15 +9,44 @@ public interface IDamagable
     public void TakeDamage(int damage, Transform attackTr = null);
 }
 
+public enum PlayerStatType
+{
+    AttakPower,     // 공격력
+    DefencePower   // 방어력
+}
+
 public class PlayerStat : MonoBehaviour , IDamagable
 {
     public Player player;
 
+    private StatMediator<PlayerStatType> mediator = new();
+
     public int MaxHP { get; set; }
     [field: SerializeField]public int HP { get; set; }
-    public int Def { get; set; }
-    // 추가 공격력
-    public int Atk { get; set; } 
+    private int attackPower;
+    public int AttackPower 
+    { 
+        get
+        {
+            var q = new ModifierQuery<PlayerStatType>(PlayerStatType.AttakPower, attackPower);
+            mediator.PerformQuery(q);
+
+            return (int)q.Value;
+        }
+        set => attackPower = value; 
+    }
+    public int defencePower;
+    public int DefencePower
+    {
+        get
+        {
+            var q = new ModifierQuery<PlayerStatType>(PlayerStatType.DefencePower, defencePower);
+            mediator.PerformQuery(q);
+
+            return (int)q.Value;
+        }
+        set => defencePower = value;
+    }
 
     private void Awake()
     {
@@ -25,7 +54,22 @@ public class PlayerStat : MonoBehaviour , IDamagable
 
         MaxHP = player.Data.StatData.MaxHP;
         HP = MaxHP;
-        Def = player.Data.StatData.Def;
+        attackPower = 0;
+        defencePower = player.Data.StatData.Def;
+    }
+
+    public void AddBuff(PlayerStatType statType, float buffValue, float time)
+    {
+        mediator.AddModifier(new StatModifier<PlayerStatType>(statType, new AddOperation(buffValue), time));
+    }
+    public void MulBuff(PlayerStatType statType, float buffValue, float time)
+    {
+        mediator.AddModifier(new StatModifier<PlayerStatType>(statType, new MultiplyOperation(buffValue), time));
+    }
+
+    private void Update()
+    {
+        mediator.Update(Time.deltaTime);
     }
 
     public void TakeDamage(int damage, Transform attackTr = null)
@@ -45,7 +89,7 @@ public class PlayerStat : MonoBehaviour , IDamagable
 
     private int CalculateDef(int damage)
     {
-        return damage - Def;
+        return damage - DefencePower;
     }
 
     // 가드가 가능한지 확인
@@ -97,8 +141,10 @@ public class PlayerStat : MonoBehaviour , IDamagable
 
     public void Attack(Collider collider)
     {
+        // 공격의 기본 데미지
         int attackDamage = player.Data.AttackData.AttackInfoDatas[player.stateMachine.ComboIndex].Damage;
-        attackDamage += Atk;
+        // 캐릭터의 공격력 추가
+        attackDamage += AttackPower;
 
         IDamagable enemy = collider.GetComponent<IDamagable>();
 

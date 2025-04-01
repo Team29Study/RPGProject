@@ -2951,7 +2951,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundMask:
     serializedVersion: 2
-    m_Bits: 16
+    m_Bits: 64
 --- !u!114 &3525814822564115139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3024,3 +3024,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 3525814822564115139}
+  <HP>k__BackingField: 0
+  defencePower: 0
