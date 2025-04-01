@@ -24,12 +24,6 @@ public class PlayerGroundState : PlayerBaseState
     public override void Update()
     {
         base.Update();
-
-        if(stateMachine.IsAttacking)
-        {
-            OnAttack();
-            return;
-        }
     }
 
     public override void PhysicsUpdate()
@@ -40,7 +34,7 @@ public class PlayerGroundState : PlayerBaseState
         // TODO : Fall 상태로 변환될 때 바닥의 높이를 체크할 수 있는 무언가를 만들어 계단이나 경사면에서는 fall 상태로 변환되지 않도록 하자
         if (!stateMachine.Player.CharController.isGrounded && stateMachine.Player.CharController.velocity.y < Physics.gravity.y * Time.fixedDeltaTime)
         {
-            stateMachine.ChangeState(stateMachine.FallState);
+            stateMachine.ChangeMovementState(stateMachine.FallState);
         }
     }
 
@@ -50,13 +44,8 @@ public class PlayerGroundState : PlayerBaseState
         if (stateMachine.MovementInput == Vector2.zero) return;
 
         // 기존에 입력이 있었다면 Idle로 전환
-        stateMachine.ChangeState(stateMachine.IdleState);
+        stateMachine.ChangeMovementState(stateMachine.IdleState);
 
         base.OnMovementCanceled(context);
-    }
-
-    protected virtual void OnAttack()
-    {
-        stateMachine.ChangeState(stateMachine.ComboAttackState);
     }
 }

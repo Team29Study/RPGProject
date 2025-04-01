@@ -18,6 +18,9 @@ public class PlayerAnimationData
     [SerializeField] private string attackParameterName = "@Attack";
     [SerializeField] private string comboAttackParameterName = "ComboAttack";
 
+    [SerializeField] private string blockStateParameterName = "@Block";
+    [SerializeField] private string blockParameterName = "Block";
+
     public int GroundParameterHash { get; private set; }
     public int IdleParameterHash { get; private set; }
     public int WalkParameterHash { get; private set; }
@@ -28,6 +31,9 @@ public class PlayerAnimationData
 
     public int AttackParameterHash { get; private set; }
     public int ComboAttackParameterHash { get; private set; }
+
+    public int BlockStateParameterHash { get; private set; }
+    public int BlockParameterHash { get; private set; }
 
     // String을 Hash값으로 변환
     public void Initialize()
@@ -42,5 +48,8 @@ public class PlayerAnimationData
 
         AttackParameterHash = Animator.StringToHash(attackParameterName);
         ComboAttackParameterHash = Animator.StringToHash(comboAttackParameterName);
+
+        BlockStateParameterHash = Animator.StringToHash(blockStateParameterName);
+        BlockParameterHash = Animator.StringToHash(blockParameterName);
     }
 }
