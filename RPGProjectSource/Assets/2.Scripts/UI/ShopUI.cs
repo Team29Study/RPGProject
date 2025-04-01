@@ -80,6 +80,11 @@ public class ShopUI : MonoBehaviour
         description.text = $"{itemData.itemName}\n{itemData.description}\nPrice: {itemData.itemPrice}G";
     }
 
+    public void SelectSlot(ShopSlot slot)
+    {
+        shopSlot = slot;
+    }
+
     private void Buy()
     {
         shopSlot.SoldOut(true);

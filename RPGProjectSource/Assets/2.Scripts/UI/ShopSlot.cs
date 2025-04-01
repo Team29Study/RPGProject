@@ -34,6 +34,7 @@ public class ShopSlot : MonoBehaviour
     {
         if (itemData != null)
         {
+            UIManager.Instance.ShopUI.SelectSlot(this);
             UIManager.Instance.ShopUI.ShowDescription(itemData);
         }
     }
@@ -42,7 +43,8 @@ public class ShopSlot : MonoBehaviour
     {
         if (isSoldOut)
         {
-            shopItemIcon = soldOutPanel;
+            soldOutPanel.gameObject.SetActive(true);
+            shopItemBtn.interactable = !isSoldOut;
         }
     }
 }
