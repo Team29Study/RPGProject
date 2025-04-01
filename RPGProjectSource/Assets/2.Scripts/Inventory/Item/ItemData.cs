@@ -12,7 +12,7 @@ public class ItemData : ScriptableObject
     public int itemPrice;
     public int maxStack = 1;
 
-    public Item Create(int quantity = 1)
+    public virtual Item Create(int quantity = 1)
     {
         return new Item(this, quantity);
     }

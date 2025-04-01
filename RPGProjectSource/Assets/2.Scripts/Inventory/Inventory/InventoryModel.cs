@@ -1,7 +1,8 @@
 using UnityEngine;
 using System;
 using System.Linq;
-using static UnityEditor.Progress;
+using System.Collections;
+using System.Collections.Generic;
 
 public class InventoryModel
 {
@@ -18,6 +19,12 @@ public class InventoryModel
     {
         this.capacity = capacity;
         Items = new(capacity);
+    }
+
+    public InventoryModel(int capacity, IList<Item> initialItems)
+    {
+        this.capacity = capacity;
+        Items = new(capacity, initialItems);
     }
 
     public int Count() => Items.Count;

@@ -11,6 +11,8 @@ public class Inventory : MonoBehaviour
 
     private InventoryPresenter presenter;
 
+    public InventoryModel Model => presenter.model;
+
     [SerializeField, Header("Debug")]
     private ItemData[] __debugItems;
     [SerializeField]
