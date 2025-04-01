@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class IProjectile: MonoBehaviour {}
@@ -48,6 +49,8 @@ public class Projectile: IProjectile
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!other.CompareTag("Player")) return;
+        
         if (currentType == ProjectileType.Reflection)
         {
             var reflectedDirection = Vector3.Reflect(transform.forward, Vector3.forward); // 반사각 체크 필요
