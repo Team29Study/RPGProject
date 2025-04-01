@@ -23,17 +23,29 @@ public class PlayerNoneAttackState : PlayerBaseState
     {
         base.Update();
 
-        if(stateMachine.IsAttacking && stateMachine.IsGroundState())
+        if(CanAttack())
         {
             OnAttack();
             return;
         }
 
-        if(stateMachine.IsBlocking && stateMachine.IsGroundState())
+        if(CanBlock())
         {
             OnBlock();
             return;
         }
+    }
+
+    // 공격이 가능한 상태인지 확인
+    private bool CanAttack()
+    {
+        return Cursor.lockState == CursorLockMode.None && stateMachine.IsAttacking && stateMachine.IsGroundState();
+    }
+
+    // 방어가 가능한 상태인지 확인
+    private bool CanBlock()
+    {
+        return Cursor.lockState == CursorLockMode.None && stateMachine.IsBlocking && stateMachine.IsGroundState();
     }
 
     protected virtual void OnAttack()
