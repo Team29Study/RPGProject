@@ -31,6 +31,7 @@ public class EnemyController: MonoBehaviour
 
     protected virtual void OnTriggerEnter(Collider other)
     {
+        // 워리어 또는 보스인 경우 Hit으로 상태 전의 발생 X
         behaviourTree.notify(BlackBoard.Trigger.Hit, true.ToString());
     }
 

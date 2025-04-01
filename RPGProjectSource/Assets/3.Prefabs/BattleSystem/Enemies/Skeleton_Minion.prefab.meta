@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:RPGProjectSource/Assets/3. Prefabs/Slot/ShopSlot.prefab.meta
-guid: 72a8c92488fb8864f808539f32d27111
-========
-guid: 2a95b676d66104a7f8e8a8e2a1730903
->>>>>>>> dev:RPGProjectSource/Assets/3. Prefabs/BattleSystem/Enemies/Skeleton_Minion.prefab.meta
+guid: 55bca99e86e9b4634a6aeee60be7c558
 PrefabImporter:
   externalObjects: {}
   userData: 

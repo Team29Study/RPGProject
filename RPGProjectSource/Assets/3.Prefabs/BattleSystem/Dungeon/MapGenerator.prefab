@@ -49,6 +49,7 @@ MonoBehaviour:
   roomSizes:
   - {x: 16, y: 24}
   - {x: 16, y: 20}
+  door: {fileID: 7946641988394942001, guid: 9bb5328c862c249dfba273befc3306e9, type: 3}
 --- !u!114 &4807906269137151137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,17 +62,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db1caab368cc4c1abde8e394f98166e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  titles:
-  - {fileID: 919132149155446097, guid: a14cf7898cc14de4282e33a5442257be, type: 3}
-  - {fileID: 919132149155446097, guid: a597386caaa367b4ca5e9d066e1bc980, type: 3}
-  - {fileID: 919132149155446097, guid: 9027812541d0c6d49ac5f45724111c22, type: 3}
-  - {fileID: 919132149155446097, guid: 9b2a9bcd1d99613438b2f0763193be18, type: 3}
-  roomSize: {x: 0, y: 0}
-  walls:
-  - {fileID: 919132149155446097, guid: b8534c6926c2bfa488fbe8f2e4cbc0bd, type: 3}
-  - {fileID: 919132149155446097, guid: 13bd33effb33fa4499dc5a6fad46b013, type: 3}
-  - {fileID: 919132149155446097, guid: 3f5e479ba4ecdfe479d98838a4b37a0c, type: 3}
-  corner: {fileID: 919132149155446097, guid: 83266bf3c7bea6540a0d213484be4897, type: 3}
+  EnemyRespawnArea: {fileID: 4550101175150694940, guid: f0f54140db3fa40fabb9675d5b9634bc, type: 3}
+  tileList:
+  - {fileID: 4717421857588261629, guid: cf152bc68a9434d3bab9f8ba5a7694e3, type: 3}
+  - {fileID: 9064310043271333095, guid: 19b781a504228421097e1aa49f33d920, type: 3}
+  wallList:
+  - {fileID: 3066350444773703753, guid: 2590c9133982441e9838f9ce35641fc2, type: 3}
+  - {fileID: 3390440537551297667, guid: fd9b32b2219734311a1ff14830143bd0, type: 3}
+  - {fileID: 396576806505359349, guid: 1a7bf57123c6740faa0c7faf12d03ca3, type: 3}
   items:
   - {fileID: 919132149155446097, guid: 28b26d2bb22c3a340b6a9fb6fa041218, type: 3}
   - {fileID: 919132149155446097, guid: fe8edb076b6f23347b53a2aad226eb3e, type: 3}
