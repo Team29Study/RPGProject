@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9534c13529d0f74e8e3d46a3bba5349, type: 3}
-  m_Name: Armor
+  m_Name: Ax
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: d659f7396cd57754eba78763cf986c51, type: 3}
-  itemName: "\uAC11\uC637"
-  description: "\u3141\u3134\u3147"
-  itemPrice: 2000
+  icon: {fileID: 21300000, guid: 719c2201c2f5f6c4aafffaeb5abdf5f9, type: 3}
+  itemName: "\uB3C4\uB07C"
+  description: sdf
+  itemPrice: 3000
   maxStack: 1
