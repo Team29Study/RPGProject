@@ -30,8 +30,6 @@ public class PlayerBaseState : IPlayerState
     {
         PlayerController input = stateMachine.Player.InputController;
         
-        Debug.Log(stateMachine.Player);
-        
         input.PlayerActions.Move.canceled += OnMovementCanceled;
         input.PlayerActions.Run.started += OnRunStarted;
         input.PlayerActions.Run.canceled += OnRunCanceled;

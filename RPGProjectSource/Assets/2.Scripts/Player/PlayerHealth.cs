@@ -1,0 +1,55 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerHealth : MonoBehaviour, IDamagable
+{
+    private Player player;
+    private PlayerStat playerStat;
+
+    private void Awake()
+    {
+        player = GetComponent<Player>();
+        playerStat = GetComponent<PlayerStat>();
+    }
+
+    public void TakeDamage(int damage, Transform attackTr = null)
+    {
+        Vector3 attackDir = (new Vector3(attackTr.position.x, 0, attackTr.position.z) - new Vector3(transform.position.x, 0, transform.position.z)).normalized;
+
+        // 막기 불가능하다면 데미지를 입힘
+        if (!PossibleBlock(attackDir))
+            playerStat.HP = Mathf.Max(playerStat.HP - CalculateDef(damage), 0);
+
+        if (playerStat.HP == 0)
+        {
+            // 죽음
+            Debug.Log("플레이어 사망");
+        }
+    }
+
+    private int CalculateDef(int damage)
+    {
+        return damage - playerStat.DefencePower;
+    }
+
+    // 가드가 가능한지 확인
+    public bool PossibleBlock(Vector3 attackDir)
+    {
+        if (player.stateMachine.IsBlocking)
+        {
+            float dot = Vector3.Dot(transform.forward.normalized, attackDir.normalized);
+            float degree = Mathf.Acos(dot) * Mathf.Rad2Deg;
+
+            Debug.Log(degree);
+            if (degree > 30)
+                return false;
+            else
+                return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+}

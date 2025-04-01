@@ -9,6 +9,12 @@ public class ProjectileManager: Singleton<ProjectileManager>
     private int maxProjectiles = 5;
     private List<(int index, GameObject gameObject)> pool = new();
 
+    private new void Awake()
+    {
+        GameObject hitBoxGo = Resources.Load<GameObject>("Prefabs/HitBox");
+        hitBox = hitBoxGo;
+    }
+
     // 총알이 종류가 다르거나, 최대 pool 용량을 가진 경우 active된 대상 중 가장 빠른(맨 앞) 친구 가져오기 허용할 지 고려
     public void CreateRangeAttack(Transform target, int index, HitBox.Caster caster)
     {
