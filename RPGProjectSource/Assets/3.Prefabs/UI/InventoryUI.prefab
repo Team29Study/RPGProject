@@ -513,7 +513,6 @@ GameObject:
   - component: {fileID: 8271997394626461302}
   - component: {fileID: 4016428658926877032}
   - component: {fileID: 5411077038291640318}
-  - component: {fileID: 8179279159955015662}
   m_Layer: 5
   m_Name: Slot
   m_TagString: Untagged
@@ -595,19 +594,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iconImage: {fileID: 2591237211128755075}
   countText: {fileID: 7192139595706722319}
---- !u!114 &8179279159955015662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4503452007008762990}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d54531977ecb194c95e2d3aa7a5d72a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ControlPath: <Mouse>/leftButton
 --- !u!1 &5102850216842780031
 GameObject:
   m_ObjectHideFlags: 0

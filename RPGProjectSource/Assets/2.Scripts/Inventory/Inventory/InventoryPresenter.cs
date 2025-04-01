@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using static UnityEditor.Progress;
 
 public class InventoryPresenter
 {
@@ -27,7 +23,9 @@ public class InventoryPresenter
         view.InitializeView(capacity);
 
         model.OnValueChanged += OnModelChanged;
+
         view.OnSlotSwap += OnViewSlotSwapped;
+        view.OnUseItem += OnViewUseItem;
 
         RefreshView();
     }
@@ -41,6 +39,17 @@ public class InventoryPresenter
     {
         //Combine 추가해야됨
         model.Swap(source, target);
+    }
+
+    private void OnViewUseItem(int index)
+    {
+        var item = model.GetItemAt(index);
+
+        if (item != null && item.usableCondition.Evaluate())
+        {
+            model.UseByIndex(index);
+            model.RemoveItemByIndex(index, 1);
+        }
     }
 
     private void RefreshView()

@@ -66,4 +66,9 @@ public class PlayerHealth : MonoBehaviour, IDamagable
             return false;
         }
     }
+
+    public void UseConsumableItem(ConsumableItemData itemData)
+    {
+
+    }
 }

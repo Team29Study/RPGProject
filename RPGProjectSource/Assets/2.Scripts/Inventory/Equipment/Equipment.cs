@@ -1,60 +1,66 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Equipment : MonoBehaviour
 {
-    public event Action<EquipmentItemData> OnEquipped = delegate { };
-    public event Action<EquipmentItemData> OnUnEquipped = delegate { };
+    [SerializeField] private EquipmentView view;
+
+    public UnityEvent<EquipmentModel.EquipmentContainer> OnEquipped;
+    public UnityEvent<EquipmentModel.EquipmentContainer> OnUnEquipped;
+
+    public UnityEvent<StatModifier<PlayerStatType>> OnAddModifier;
+
+    private EquipmentPresenter presenter;
+
+    public EquipmentModel Model => presenter.model;
 
     void Awake()
     {
-
-    }
-}
-
-public class EquipmentModel
-{
-    private ObserverArray<EquipmentItemData> Equips { get; }
-
-    public event Action<EquipmentItemData[]> OnValueChanged
-    {
-        add => Equips.AnyValueChanged += value;
-        remove => Equips.AnyValueChanged += value;
+        presenter = new EquipmentPresenter.Builder(view).Build();
     }
 
-    public EquipmentItemData this[SampleEquipmentType type] => Equips[(int)type];
-
-    public EquipmentModel()
+    void OnEnable()
     {
-        Equips = new((int)SampleEquipmentType.Count);
+        Model.OnEquipped += InvokeEquip;
+        Model.OnUnEquipped += InvokeUnEquip;
     }
 
-    public EquipmentModel(int capacity, IList<EquipmentItemData> initialEquips)
+    private void OnDisable()
     {
-        Equips = new(capacity, initialEquips);
+        Model.OnEquipped -= InvokeEquip;
+        Model.OnUnEquipped -= InvokeUnEquip;
     }
 
-    public void Set(SampleEquipmentType type, EquipmentContainer container)
+    public void Equipped(EquipmentItemData equipData)
     {
-
+        Model.Equipped(equipData.equipmentType, new EquipmentModel.EquipmentContainer(equipData));
     }
 
-    public class EquipmentContainer
+    private void InvokeEquip(EquipmentModel.EquipmentContainer val)
     {
-        public EquipmentItemData Data { get; }
-        public IOperationStrategy OperationStrategy { get; }
+        OnEquipped.Invoke(val);
 
-        public EquipmentContainer(EquipmentItemData data, IOperationStrategy operationStrategy)
+        if (val != null && val.Modifiers.Length != 0)
         {
-            Data = data;
-            OperationStrategy = operationStrategy;
+            for (int i = 0; i < val.Modifiers.Length; i++)
+            {
+                InvokeModifier(val.Modifiers[i]);
+            }
         }
     }
-}
 
-public class EquipmentPresenter
-{
+    private void InvokeUnEquip(EquipmentModel.EquipmentContainer val)
+    {
+        OnUnEquipped.Invoke(val);
 
+        //임의로 추가
+        val.Release();
+    }
+
+    private void InvokeModifier(StatModifier<PlayerStatType> modifier)
+    {
+        OnAddModifier?.Invoke(modifier);
+    }
 }
