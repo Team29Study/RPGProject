@@ -17,6 +17,8 @@ public class EnemyRespawnArea: MonoBehaviour
     public float respawnTime; // 전멸 또는 일정 시간 아무런 동작도 없을 경우
     public Bounds respawnArea;
     private bool isGenerated = false;
+
+    private BoxCollider collider;
     
     public void GenerateEnemy(int amount = 1) // 단일로 생성도 가능하도록 처리
     {
@@ -47,6 +49,11 @@ public class EnemyRespawnArea: MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(transform.position + respawnArea.center, respawnArea.size);
     }
+
+    private void Awake()
+    {
+        collider = GetComponent<BoxCollider>();
+    }
     
     // 영역 체크로 동적으로 관리
     public void OnTriggerEnter(Collider other)
@@ -66,5 +73,12 @@ public class EnemyRespawnArea: MonoBehaviour
         if (other.CompareTag("Player"))
         {
         }
+    }
+
+    public void Set(int maxCount, Vector3 detectSize, Vector3 respawnedSize)
+    {
+        this.maxEnemyCount = maxCount;
+        collider.size = detectSize;
+        respawnArea.size = respawnedSize;
     }
 }

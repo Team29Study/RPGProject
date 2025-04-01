@@ -146,7 +146,7 @@ MonoBehaviour:
   duration: 1
   moveSpeed: 20
   target: {fileID: 0}
-  currentType: 0
+  currentType: 2
 --- !u!65 &2698901296941307376
 BoxCollider:
   m_ObjectHideFlags: 0
