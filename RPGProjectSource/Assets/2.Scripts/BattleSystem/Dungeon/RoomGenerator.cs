@@ -23,7 +23,7 @@ public class RoomGenerator: MonoBehaviour
     public void Generate(Rect room, Room.RoomType roomType)
     {
         var currRoom = new Room(new Vector3(room.position.x, 0, room.position.y), transform);
-        currRoom.build();
+        currRoom.CreateDefaultMaps();
         
         // 타일 만들기
         for (int row = 0; row < room.size.y; row += tileSize)

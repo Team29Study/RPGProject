@@ -18,18 +18,19 @@ public class Room
         room = new GameObject("Room") { transform = { position = position, parent = parent } };
     }
 
-    public void build()
+    public GameObject CreateMap(string name)
     {
-        tileMap = new GameObject("TileMap") { transform = { position = room.transform.position, parent = room.transform } };
-        tileMap.transform.localPosition = Vector3.zero;
+        GameObject instance = new GameObject("TileMap") { transform = { position = room.transform.position, parent = room.transform } };
+        instance.transform.localPosition = Vector3.zero;
         
-        wallMap = new("WallMap");
-        wallMap.transform.SetParent(room.transform);
-        wallMap.transform.localPosition = Vector3.zero;
-        
-        itemMap = new("ItemMap");
-        itemMap.transform.SetParent(room.transform);
-        itemMap.transform.localPosition = Vector3.zero;
+        return instance;
+    }
+
+    public void CreateDefaultMaps()
+    {
+        tileMap = CreateMap("TileMap");
+        wallMap = CreateMap("WallMap");
+        itemMap = CreateMap("ItemMap");
     }
 
     public void AddWall(GameObject wall)
