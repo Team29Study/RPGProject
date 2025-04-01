@@ -55,5 +55,55 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 76ca19f97f602f240b3786c126136f13, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -8775862037682419312}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 76ca19f97f602f240b3786c126136f13, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3253870201881857818}
   m_SourcePrefab: {fileID: 100100000, guid: 76ca19f97f602f240b3786c126136f13, type: 3}
+--- !u!4 &2229187945745125018 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -3374732025483317573, guid: 76ca19f97f602f240b3786c126136f13, type: 3}
+  m_PrefabInstance: {fileID: 5748037583822528545}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4829064327117610352 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 76ca19f97f602f240b3786c126136f13, type: 3}
+  m_PrefabInstance: {fileID: 5748037583822528545}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &-8775862037682419312
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4829064327117610352}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.6, y: 0.60000026, z: 1.245803}
+  m_Center: {x: 0, y: 0.29999977, z: 0.022901058}
+--- !u!114 &3253870201881857818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4829064327117610352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5ba97fb025540d79a7eb673ce6ab007, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  topBox: {fileID: 2229187945745125018}
