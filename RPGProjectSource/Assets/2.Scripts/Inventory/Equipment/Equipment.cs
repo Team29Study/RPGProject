@@ -8,6 +8,9 @@ public class Equipment : MonoBehaviour
     public event Action<EquipmentItemData> OnEquipped = delegate { };
     public event Action<EquipmentItemData> OnUnEquipped = delegate { };
 
+    //readonly
+    public EquipmentModel Model;
+
     void Awake()
     {
 
@@ -36,7 +39,7 @@ public class EquipmentModel
         Equips = new(capacity, initialEquips);
     }
 
-    public void Set(SampleEquipmentType type, EquipmentContainer container)
+    public void Equip(SampleEquipmentType type, EquipmentContainer container)
     {
 
     }
@@ -56,5 +59,10 @@ public class EquipmentModel
 
 public class EquipmentPresenter
 {
+
+    public class Builder
+    {
+    
+    }
 
 }
