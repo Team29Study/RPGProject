@@ -48,16 +48,9 @@ public class ShopUI : MonoBehaviour
                 newSlot.SetShopItem(shopItemDatas[i]);
             }
 
+
             shopSlots.Add(newSlot);
         }
-    }
-
-    public void SetData()
-    {
-        new ItemData
-        {
-            
-        };
     }
 
     public void UpdateShopSlot()
@@ -75,9 +68,9 @@ public class ShopUI : MonoBehaviour
         }
     }
 
-    public void ShowDescription(ItemData itemdata)
+    public void ShowDescription(ItemData itemData)
     {
-        description.text = $"{itemdata.description}";
+        description.text = $"{itemData.itemName}\n{itemData.description}\nPrice: {itemData.itemPrice}G";
     }
 
     private void Buy()

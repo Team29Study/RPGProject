@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class UIManager : Singleton<UIManager>
 {
-    // 항상 활성화 되는 UI 참조
+    // 기본 UI 참조
     [SerializeField] private BaseUI baseUI;
     public BaseUI BaseUI
     {
