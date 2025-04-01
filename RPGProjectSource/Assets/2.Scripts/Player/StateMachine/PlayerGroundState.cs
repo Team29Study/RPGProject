@@ -31,12 +31,15 @@ public class PlayerGroundState : PlayerBaseState
         base.PhysicsUpdate();
 
         // 땅에 붙어있는 상태가 아니고 Controller의 y 속도가 원래의 중력값보다 작다면 떨어지고 있는 상태임
-        // TODO : Fall 상태로 변환될 때 바닥의 높이를 체크할 수 있는 무언가를 만들어 계단이나 경사면에서는 fall 상태로 변환되지 않도록 하자
-        if (!stateMachine.Player.CharController.isGrounded && stateMachine.Player.CharController.velocity.y < Physics.gravity.y * Time.fixedDeltaTime)
+        if (!stateMachine.Player.CharController.isGrounded 
+            && stateMachine.Player.CharController.velocity.y < Physics.gravity.y * Time.fixedDeltaTime
+            && stateMachine.Player.InputController.CheckFallHeight())
         {
             stateMachine.ChangeMovementState(stateMachine.FallState);
         }
     }
+
+    
 
     protected override void OnMovementCanceled(InputAction.CallbackContext context)
     {

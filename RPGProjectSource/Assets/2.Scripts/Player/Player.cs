@@ -15,9 +15,11 @@ public class Player : MonoBehaviour
     public PlayerController InputController { get; private set; }
     public CharacterController CharController { get; private set; }
     public ForceReceiver ForceReceiver { get; private set; }
+    public PlayerStat PlayerStat { get; set; }
 
     // 플레이어 상태 머신
     public PlayerStateMachine stateMachine;
+
 
     private void Awake()
     {
@@ -26,6 +28,7 @@ public class Player : MonoBehaviour
         InputController = GetComponent<PlayerController>();
         CharController = GetComponent<CharacterController>();
         ForceReceiver = GetComponent<ForceReceiver>();
+        PlayerStat = GetComponent<PlayerStat>();
 
         // 상태머신 생성
         stateMachine = new PlayerStateMachine(this);

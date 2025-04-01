@@ -11,8 +11,10 @@ public interface IObservableArray<T>
     int Count { get; }
     T this[int index] { get; }
 
-    void Swap(int index1, int index2);
+    void Swap(int source, int target);
     void Clear();
+    void Insert(int index, T item);
+    bool TryInsert(int index, T item);
     bool TryAdd(T item);
     bool TryAddAt(int index, T item);
     bool TryRemove(T item);
@@ -44,10 +46,26 @@ public class ObserverArray<T> : IObservableArray<T>
         Invoke();
     }
 
-    public void Swap(int index1, int index2)
+    public void Swap(int source, int target)
     {
-        (items[index1], items[index2]) = (items[index2], items[index1]);
+        (items[source], items[target]) = (items[target], items[source]);
         Invoke();
+    }
+
+    public void Insert(int index, T item)
+    {
+        if (index < 0 || index >= Count) return;
+
+        items[index] = item;
+        Invoke();
+    }
+
+    public bool TryInsert(int index, T item)
+    {
+        if (index < 0 || index >= Count || items[index] != null) return false;
+
+        Insert(index, item);
+        return true;
     }
 
     public bool TryAdd(T item)

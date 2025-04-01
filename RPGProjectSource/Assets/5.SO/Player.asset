@@ -43,3 +43,6 @@ MonoBehaviour:
       Damage: 10
       <Dealing_Start_TransitionTime>k__BackingField: 0
       <Dealing_End_TransitionTime>k__BackingField: 0
+  <StatData>k__BackingField:
+    <MaxHP>k__BackingField: 100
+    <Def>k__BackingField: 10

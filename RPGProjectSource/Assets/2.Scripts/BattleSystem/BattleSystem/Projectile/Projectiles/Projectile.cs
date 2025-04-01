@@ -58,5 +58,10 @@ public class Projectile: IProjectile
         
         ProjectileManager.Instance.DestroyProjectile(this);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log(collision.gameObject.name);
+    }
 }
 

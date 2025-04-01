@@ -37,10 +37,10 @@ public class InventoryPresenter
         RefreshView();
     }
 
-    private void OnViewSlotSwapped(int index1, int index2)
+    private void OnViewSlotSwapped(int source, int target)
     {
         //Combine 추가해야됨
-        model.Swap(index1, index2);
+        model.Swap(source, target);
     }
 
     private void RefreshView()
