@@ -227,6 +227,7 @@ GameObject:
   m_Component:
   - component: {fileID: 375219010}
   - component: {fileID: 375219009}
+  - component: {fileID: 375219011}
   m_Layer: 0
   m_Name: Inventory
   m_TagString: Untagged
@@ -267,6 +268,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &375219011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375219008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d8c77f41197f554a965d707721b3590, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &701512975 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1836557746989728339, guid: 10c98cf76c1c70144a13e2489ce0c31e, type: 3}
@@ -654,6 +667,18 @@ PrefabInstance:
     - target: {fileID: 5102850216842780031, guid: 10c98cf76c1c70144a13e2489ce0c31e, type: 3}
       propertyPath: m_Name
       value: InventoryUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 7395351996777172904, guid: 10c98cf76c1c70144a13e2489ce0c31e, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7395351996777172904, guid: 10c98cf76c1c70144a13e2489ce0c31e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7395351996777172904, guid: 10c98cf76c1c70144a13e2489ce0c31e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9018177699951627072, guid: 10c98cf76c1c70144a13e2489ce0c31e, type: 3}
       propertyPath: m_SizeDelta.y
