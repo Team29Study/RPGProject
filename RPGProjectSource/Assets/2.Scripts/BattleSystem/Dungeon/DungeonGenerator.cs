@@ -23,7 +23,7 @@ public class DungeonGenerator: MonoBehaviour
 
     void Start()
     {
-        currentRoomSize = Enumerable.Range(0, 9).Select(_ => new Rect(Vector2.zero, new Vector2(Random.Range(3, 6) * 4, Random.Range(3, 6) * 4))).ToList();
+        currentRoomSize = Enumerable.Range(0, 10).Select(_ => new Rect(Vector2.zero, new Vector2(Random.Range(4, 8) * 4, Random.Range(4, 8) * 4))).ToList();
         // rooms = roomSizes.Select(size => new Rect(Vector2.zero, size)).ToList();
         
         int startCount = currentRoomSize.Count;
@@ -35,7 +35,7 @@ public class DungeonGenerator: MonoBehaviour
                 Rect room = currentRoomSize[index];
                 
                 // 4의 배율을 가져야 타일을 유지한다.
-                Rect paddedRoom = new(currentRoomSize[index].position + new Vector2(1, 1), currentRoomSize[index].size - new Vector2(2, 2));
+                // Rect paddedRoom = new(currentRoomSize[index].position + new Vector2(1, 1), currentRoomSize[index].size - new Vector2(2, 2));
         
                 if (selectedRoomSized.Any(settledRoom => room.Overlaps(settledRoom)))
                 {
@@ -57,38 +57,23 @@ public class DungeonGenerator: MonoBehaviour
         foreach (var room in selectedRoomSized) { roomGenerator.Generate(room); }
 
         var rooms = roomGenerator.rooms;
-
-        
-        // Debug.Log("fisrt");
-        // for (int i = 0; i < rooms[0].walls.Count; i++)
-        // {
-        //     Debug.Log(rooms[0].walls[i].transform.position);
-        // }
-        //
-        // Debug.Log("second");
-        // for (int i = 0; i < rooms[1].walls.Count; i++)
-        // {
-        //     Debug.Log(rooms[1].walls[i].transform.position);
-        // }
         
         
-        float tolerance = 0.1f;  // 허용 오차 범위
-
         for (int index = 0; index < rooms.Count - 1; index++)
         {
             for (int nextIndex = index + 1; nextIndex < rooms.Count; nextIndex++)
             {
-                var overlapWalls1 = rooms[index].walls.Where(wall => rooms[nextIndex].walls.Any(otherWall =>  wall.transform.position == otherWall.transform.position));
-                var overlapWalls2 = rooms[nextIndex].walls.Where(wall => rooms[index].walls.Any(otherWall => wall.transform.position == otherWall.transform.position));
+                var currOverlapWalls = rooms[index].walls.Where(wall => rooms[nextIndex].walls.Any(otherWall =>  wall.transform.position == otherWall.transform.position));
+                var nextOverlapWalls = rooms[nextIndex].walls.Where(wall => rooms[index].walls.Any(otherWall => wall.transform.position == otherWall.transform.position));
 
-                foreach (GameObject overlapWall in overlapWalls1) Destroy(overlapWall);
+                foreach (GameObject overlapWall in currOverlapWalls) Destroy(overlapWall);
 
-                if (!overlapWalls2.Any()) continue;
+                if (!nextOverlapWalls.Any()) continue;
 
-                List<GameObject> overlapWallsList = overlapWalls2.ToList();
+                List<GameObject> overlapWallsList = nextOverlapWalls.ToList();
                 GameObject randomWall = overlapWallsList[Random.Range(0, overlapWallsList.Count)];
         
-                Instantiate(door, randomWall.transform.position, randomWall.transform.rotation);  // 문 생성
+                Instantiate(door, randomWall.transform.position, randomWall.transform.rotation, rooms[nextIndex].room.transform);  // 문 생성
                 Destroy(randomWall);  // 문으로 바꿀 벽 삭제
             }
         }

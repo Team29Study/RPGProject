@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class RoomGenerator: MonoBehaviour
 { 
+    public GameObject EnemyRespawnArea;
+    
     public List<GameObject> tileList; // 가중치 추가하기
     public List<GameObject> wallList;
     
@@ -59,7 +60,17 @@ public class RoomGenerator: MonoBehaviour
         }
         
         rooms.Add(currRoom);
-        // // 아이템 생성
-        Enumerable.Range(0, 4).ToList().ForEach(_ => Instantiate(items[Random.Range(0, items.Count)], Vector3.zero, Quaternion.identity, currRoom.room.transform).transform.localPosition = new Vector3(Random.Range(1, room.size.x - 1), 0, Random.Range(1, room.size.y - 1)));
+        // 아이템 생성
+        Enumerable.Range(0, 4).ToList().ForEach(_ =>
+        {
+            var item = Instantiate(items[Random.Range(0, items.Count)], Vector3.zero, Quaternion.identity, currRoom.room.transform);
+            item.transform.localPosition = new Vector3(Random.Range(1, room.size.x - 1), 0, Random.Range(1, room.size.y - 1));
+        });
+        
+        // 적 생성
+        var enemyRespawnArea = Instantiate(EnemyRespawnArea, Vector3.zero, Quaternion.identity, currRoom.room.transform);
+        enemyRespawnArea.transform.localPosition = new Vector3(room.size.x / 2, 0 ,room.size.y / 2);
+        
+        enemyRespawnArea.GetComponent<BoxCollider>().size = new Vector3(room.size.x, 0, room.size.y);
     }
 }
