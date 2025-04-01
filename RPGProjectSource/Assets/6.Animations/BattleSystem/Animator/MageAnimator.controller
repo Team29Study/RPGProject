@@ -299,7 +299,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: RogueController
+  m_Name: MageAnimator
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Die
@@ -391,13 +391,13 @@ AnimatorState:
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
-  m_WriteDefaultValues: 0
+  m_WriteDefaultValues: 1
   m_Mirror: 0
   m_SpeedParameterActive: 0
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7184730524187122830, guid: c4e42a2cd220cd34da5520bbce8376e6, type: 3}
+  m_Motion: {fileID: 1543802850930067805, guid: c4e42a2cd220cd34da5520bbce8376e6, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
