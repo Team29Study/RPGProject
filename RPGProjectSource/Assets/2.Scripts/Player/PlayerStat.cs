@@ -22,7 +22,13 @@ public class PlayerStat : MonoBehaviour
     private StatMediator<PlayerStatType> mediator = new();
 
     public int MaxHP { get; set; }
-    [field: SerializeField]public int HP { get; set; }
+    [SerializeField]
+    private int hp;
+    public int HP
+    {
+        get => hp;
+        set => hp = Mathf.Min(value, MaxHP);
+    }
     private int attackPower;
     public int AttackPower 
     { 
