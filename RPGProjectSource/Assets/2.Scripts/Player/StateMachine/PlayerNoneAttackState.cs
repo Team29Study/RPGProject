@@ -39,13 +39,13 @@ public class PlayerNoneAttackState : PlayerBaseState
     // 공격이 가능한 상태인지 확인
     private bool CanAttack()
     {
-        return Cursor.lockState == CursorLockMode.None && stateMachine.IsAttacking && stateMachine.IsGroundState();
+        return Cursor.lockState == CursorLockMode.Locked && stateMachine.IsAttacking && stateMachine.IsGroundState();
     }
 
     // 방어가 가능한 상태인지 확인
     private bool CanBlock()
     {
-        return Cursor.lockState == CursorLockMode.None && stateMachine.IsBlocking && stateMachine.IsGroundState();
+        return Cursor.lockState == CursorLockMode.Locked && stateMachine.IsBlocking && stateMachine.IsGroundState();
     }
 
     protected virtual void OnAttack()
