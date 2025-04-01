@@ -26,11 +26,11 @@ public class PlayerRunState : PlayerGroundState
         base.OnRunCanceled(context);
         if(stateMachine.MovementInput != Vector2.zero)
         {
-            stateMachine.ChangeState(stateMachine.WalkState);
+            stateMachine.ChangeMovementState(stateMachine.WalkState);
         }
         else
         {
-            stateMachine.ChangeState(stateMachine.IdleState);
+            stateMachine.ChangeMovementState(stateMachine.IdleState);
         }
     }
 }
