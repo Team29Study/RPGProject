@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,15 +8,26 @@ public class PlayerHealth : MonoBehaviour, IDamagable
     private Player player;
     private PlayerStat playerStat;
 
+    public bool isDie = false;
+    public event Action onDie;
+
+    private float hitDelayTime = 0.5f; // hit 딜레이 시간
+    private float lastHitTime;      // 마지막으로 hit된 시간
+
     private void Awake()
     {
         player = GetComponent<Player>();
         playerStat = GetComponent<PlayerStat>();
+        isDie = false;
     }
 
     public void TakeDamage(int damage, Transform attackTr = null)
     {
-        Vector3 attackDir = (new Vector3(attackTr.position.x, 0, attackTr.position.z) - new Vector3(transform.position.x, 0, transform.position.z)).normalized;
+        if (Time.time - lastHitTime < hitDelayTime) return;
+
+        lastHitTime = Time.time;
+
+        Vector3 attackDir = attackTr ? (new Vector3(attackTr.position.x, 0, attackTr.position.z) - new Vector3(transform.position.x, 0, transform.position.z)).normalized : Vector3.zero;
 
         // 막기 불가능하다면 데미지를 입힘
         if (!PossibleBlock(attackDir))
@@ -25,6 +37,8 @@ public class PlayerHealth : MonoBehaviour, IDamagable
         {
             // 죽음
             Debug.Log("플레이어 사망");
+            isDie = true;
+            onDie?.Invoke();
         }
     }
 

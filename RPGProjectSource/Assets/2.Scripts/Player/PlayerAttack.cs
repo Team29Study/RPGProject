@@ -48,6 +48,8 @@ public class PlayerAttack : MonoBehaviour
 
         IDamagable enemy = collider.GetComponent<IDamagable>();
 
+        Debug.Log(collider.name);
+
         if (enemy != null)
         {
             enemy.TakeDamage(attackDamage);
