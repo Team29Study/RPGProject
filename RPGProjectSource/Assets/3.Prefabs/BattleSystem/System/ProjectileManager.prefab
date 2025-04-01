@@ -44,5 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f47686e83e56469d9097a9bca861bf1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectiles:
-  - {fileID: 8210441028345039590, guid: d8fd95ee5066a4ce3871b47cda128a64, type: 3}
+  hitBox: {fileID: 603016754273456479, guid: c6a093ccab39f421da5af39d0dea2892, type: 3}
+  projectileList:
+  - {fileID: 9097259884504546612, guid: 55a5dc4c60c17401a8deaa8600da95ce, type: 3}

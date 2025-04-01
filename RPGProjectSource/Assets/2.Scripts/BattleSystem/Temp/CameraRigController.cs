@@ -6,7 +6,7 @@ public class CameraRigController: MonoBehaviour
 {
     private Transform target;
 
-    private void Awake()
+    private void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
     }

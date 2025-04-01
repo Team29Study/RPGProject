@@ -8,6 +8,8 @@ using Random = UnityEngine.Random;
 // notice: 애너미 매니저로 분리해버리면 라이프 사이클을 알필요 없음
 public class EnemyRespawnArea: MonoBehaviour
 {
+    [HideInInspector] public float duration;
+    
     public int maxEnemyCount;
     public List<GameObject> enemyList;
     private List<GameObject> currentEnemies = new();
@@ -16,7 +18,7 @@ public class EnemyRespawnArea: MonoBehaviour
     public Bounds respawnArea;
     private bool isGenerated = false;
     
-    public void GenerateEnemy(int amount = 1)
+    public void GenerateEnemy(int amount = 1) // 단일로 생성도 가능하도록 처리
     {
         if (enemyList.Count == 0) { Debug.LogWarning("No enemies assigned"); return; }
 
@@ -46,7 +48,6 @@ public class EnemyRespawnArea: MonoBehaviour
         Gizmos.DrawWireCube(transform.position + respawnArea.center, respawnArea.size);
     }
     
-
     // 영역 체크로 동적으로 관리
     public void OnTriggerEnter(Collider other)
     {
@@ -64,7 +65,6 @@ public class EnemyRespawnArea: MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("player exited");
         }
     }
 }
