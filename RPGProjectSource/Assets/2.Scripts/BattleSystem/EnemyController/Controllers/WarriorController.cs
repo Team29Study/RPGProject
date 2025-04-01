@@ -6,13 +6,11 @@ public class WarriorController: EnemyController
     private void Start()
     {
         behaviourTree.Generate(this, new SelectorNode(
-        new SequenceNode(new HitNode()),
+        new SequenceNode(new HitNode(), new DieNode()),
         new SequenceNode(new IdleNode(), new PatrolNode()),
-        new SequenceNode(new TracingNode(), new MeleeAttackNode())
+        new SequenceNode(new TracingNode(), new DefenceNode(), new MeleeAttackNode())
         ));
         
-        // behaviourTree.Generate(this, new DashAttackNode());
-        // behaviourTree.Generate(this, new JumpAttackNode());
     }
     
     protected override void OnTriggerEnter(Collider other) // 방어중이면 Hit으로 처리 안함 
