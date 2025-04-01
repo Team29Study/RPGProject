@@ -56,11 +56,11 @@ public class PlayerBaseState : IPlayerState
 
     public virtual void PhysicsUpdate()
     {
+        Move();
     }
 
     public virtual void Update()
     {
-        Move();
     }
     protected virtual void OnMovementCanceled(InputAction.CallbackContext context)
     {
@@ -150,7 +150,7 @@ public class PlayerBaseState : IPlayerState
     private void Move(Vector3 direction)
     {
         float movementSpeed = GetMovementSpeed();
-        stateMachine.Player.CharController.Move(((direction * movementSpeed) + stateMachine.Player.ForceReceiver.Movement) * Time.deltaTime);
+        stateMachine.Player.CharController.Move(((direction * movementSpeed) + stateMachine.Player.ForceReceiver.Movement) * Time.fixedDeltaTime);
     }
 
     private float GetMovementSpeed()

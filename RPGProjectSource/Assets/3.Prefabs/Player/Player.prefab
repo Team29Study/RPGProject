@@ -2936,7 +2936,7 @@ CharacterController:
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
-  m_SkinWidth: 0.08
+  m_SkinWidth: 0.01
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1.2, z: 0}
 --- !u!114 &9136618980829605260
@@ -3026,7 +3026,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 3525814822564115139}
-  <HP>k__BackingField: 0
+  hp: 0
   defencePower: 0
 --- !u!114 &7475563637640194801
 MonoBehaviour:
