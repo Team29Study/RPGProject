@@ -32,9 +32,7 @@ public class EnemyController: MonoBehaviour
     protected virtual void OnTriggerEnter(Collider other)
     {
         // 워리어 또는 보스인 경우 Hit으로 상태 전의 발생 X
-        Debug.Log(2);
-        if (!other.TryGetComponent<HitBox>(out HitBox hitBox)) return;
-        Debug.Log(1);
+        if (!other.TryGetComponent<HitBox>(out HitBox hitBox) || hitBox.caster == HitBox.Caster.Enemy) return;
         behaviourTree.notify(BlackBoard.Trigger.Hit, true.ToString());
     }
 
