@@ -17,5 +17,8 @@ MonoBehaviour:
   description: 
   itemPrice: 0
   maxStack: 1
-  equipmentType: 0
-  stats: []
+  equipmentType: 2
+  stats:
+  - modifierStatType: 0
+    operationType: 0
+    statValue: 0

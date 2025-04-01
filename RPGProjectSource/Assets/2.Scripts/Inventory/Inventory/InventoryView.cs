@@ -67,6 +67,7 @@ public class InventoryView : MonoBehaviour
     private void OnSlotBeginDrag(int index)
     {
         currentSlotIndex = index;
+        useButton?.gameObject.SetActive(false);
     }
 
     private void OnSlotDrop(int index)

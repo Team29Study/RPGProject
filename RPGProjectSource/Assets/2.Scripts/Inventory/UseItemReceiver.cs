@@ -18,13 +18,16 @@ public class UseItemReceiver : MonoBehaviour
         if (item == null || item.itemData == null)
             return;
 
-        if (item.itemData is EquipmentItemData)
+        switch (item.itemData)
         {
-            OnUseEquipmentItem?.Invoke(item.itemData as EquipmentItemData);
-        }
-        else if (item.itemData is ConsumableItemData)
-        {
-            OnUseConsumableItem?.Invoke(item.itemData as ConsumableItemData);
+            case EquipmentItemData equipment:
+                OnUseEquipmentItem?.Invoke(equipment);
+                break;
+
+            case ConsumableItemData consumable:
+                OnUseConsumableItem?.Invoke(consumable);
+                break;
+            default: break;
         }
     }
 }

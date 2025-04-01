@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using static UnityEditor.Progress;
 
 public class InventoryPresenter
 {
@@ -49,7 +45,7 @@ public class InventoryPresenter
     {
         var item = model.GetItemAt(index);
 
-        if (item != null)
+        if (item != null && item.usableCondition.Evaluate())
         {
             model.UseByIndex(index);
             model.RemoveItemByIndex(index, 1);

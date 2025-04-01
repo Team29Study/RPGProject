@@ -7,33 +7,29 @@ using System;
 public class EquipmentItemData : ItemData
 {
     [Header("Equipment Setting")]
-    public SampleEquipmentType equipmentType;
+    public EquipmentType equipmentType;
     public List<EquipmentStat> stats = new();
 
     [Serializable]
     public class EquipmentStat
     {
-        public SampleStat modifierStatType;
-        public SampleOperationType operationType;
+        public PlayerStatType modifierStatType;
+        public OperationType operationType;
         public float statValue;
     }
 }
 
-public enum SampleStat
-{
-    AttackPower,
-    Defensive
-}
-
-public enum SampleOperationType
+public enum OperationType
 {
     Add,
     Multiply
 }
 
-public enum SampleEquipmentType
+public enum EquipmentType
 {
     Weapon,
+    Armor,
+    Head,
 
     Count
 }

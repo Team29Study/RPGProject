@@ -18,17 +18,21 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler
     {
         iconImage ??= GetComponentInChildren<Image>();
         countText ??= GetComponentInChildren<TextMeshProUGUI>();
-
-        if (iconImage == null || countText == null)
-            Debug.LogError("Reference not set");
     }
 
-    public void Set(Sprite icon, int count)
+    public void Set(Sprite icon, int count = 0)
     {
-        iconImage.gameObject.SetActive(icon != null ? true : false);
-        iconImage.sprite = icon;
-        countText.text = count.ToString();
-        countText.gameObject.SetActive(count > 1 ? true : false);
+        if (iconImage != null)
+        {
+            iconImage.gameObject.SetActive(icon != null ? true : false);
+            iconImage.sprite = icon;
+        }
+
+        if (countText != null)
+        {
+            countText.text = count.ToString();
+            countText.gameObject.SetActive(count > 1 ? true : false);
+        }
     }
 
     public bool IsValid() => iconImage.gameObject.activeSelf;
