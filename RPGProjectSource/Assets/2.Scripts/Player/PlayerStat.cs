@@ -78,7 +78,7 @@ public class PlayerStat : MonoBehaviour , IDamagable
         if(hitBox)
         {
             // 이벤트 등록
-            //hitBox.onTrigger += ;
+            hitBox.onTrigger += Attack;
         }
     }
 
@@ -91,7 +91,7 @@ public class PlayerStat : MonoBehaviour , IDamagable
         if(hitBox)
         {
             // 이벤트 해제
-            //hitBox.onTrigger -=;
+            hitBox.onTrigger -= Attack;
         }
     }
 
@@ -106,12 +106,5 @@ public class PlayerStat : MonoBehaviour , IDamagable
         {
             enemy.TakeDamage(attackDamage);
         }
-    }
-
-    public void BlockAttack(Collider collider)
-    {
-        // 투사체 또는 공격이 캐릭터의 앞쪽인지 판단해야함
-        Transform attack = null;
-        Vector3 attackDir = (attack.position - transform.position).normalized;
     }
 }
