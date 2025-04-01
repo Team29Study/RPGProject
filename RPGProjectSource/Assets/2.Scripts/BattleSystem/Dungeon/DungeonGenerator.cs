@@ -14,18 +14,10 @@ public class DungeonGenerator: MonoBehaviour
     
     private RoomGenerator roomGenerator;
     private NavMeshSurface navMeshSurface;
-
-    private void Awake()
+    
+    // 해당 클래스의 역할
+    public void GenerateDungeon()
     {
-        roomGenerator = GetComponent<RoomGenerator>();
-        navMeshSurface = GetComponent<NavMeshSurface>();
-    }
-
-    void Start()
-    {
-        currentRoomSize = Enumerable.Range(0, 10).Select(_ => new Rect(Vector2.zero, new Vector2(Random.Range(4, 8) * 4, Random.Range(4, 8) * 4))).ToList();
-        // rooms = roomSizes.Select(size => new Rect(Vector2.zero, size)).ToList();
-        
         int startCount = currentRoomSize.Count;
         
         while (selectedRoomSized.Count != startCount)
@@ -34,9 +26,7 @@ public class DungeonGenerator: MonoBehaviour
             {
                 Rect room = currentRoomSize[index];
                 
-                // 4의 배율을 가져야 타일을 유지한다.
-                // Rect paddedRoom = new(currentRoomSize[index].position + new Vector2(1, 1), currentRoomSize[index].size - new Vector2(2, 2));
-        
+                // Rect paddedRoom = new(currentRoomSize[index].position + new Vector2(1, 1), currentRoomSize[index].size - new Vector2(2, 2));// 4의 배율을 가져야 타일을 유지한다.
                 if (selectedRoomSized.Any(settledRoom => room.Overlaps(settledRoom)))
                 {
         
@@ -53,11 +43,40 @@ public class DungeonGenerator: MonoBehaviour
                 index--;
             }
         }
+    }
     
-        foreach (var room in selectedRoomSized) { roomGenerator.Generate(room); }
 
-        var rooms = roomGenerator.rooms;
+    private void Awake()
+    {
+        roomGenerator = GetComponent<RoomGenerator>();
+        navMeshSurface = GetComponent<NavMeshSurface>();
+    }
+
+    void Start()
+    {
+        // rooms = roomSizes.Select(size => new Rect(Vector2.zero, size)).ToList(); // 인스펙터에서 등록하고 싶은 경우
+
+        currentRoomSize = Enumerable.Range(0, 7).Select(_ => new Rect(Vector2.zero, new Vector2(Random.Range(4, 8) * 4, Random.Range(4, 8) * 4))).ToList();
+        // currentRoomSize.Add(new Rect(Vector2.zero, new Vector2(40, 40))); // 보스룸
         
+        GenerateDungeon();
+        
+
+        foreach (var room in selectedRoomSized)
+        {
+            Room.RoomType currRoomType;
+            int index = selectedRoomSized.IndexOf(room);
+            
+            if(index == 0) currRoomType = Room.RoomType.StartPoint;
+            // else if (index == selectedRoomSized.Count - 1) currRoomType = Room.RoomType.Boss;
+            else currRoomType = Room.RoomType.Normal;
+            
+            roomGenerator.Generate(room, currRoomType);
+        }
+
+        // 각 방에게 인접된 방들을 정보를 알려준 뒤 플레이어가 있을 때 해당 맵 active
+        // 문 연결 - 룸 제너레이터의 역할
+        var rooms = roomGenerator.rooms;
         
         for (int index = 0; index < rooms.Count - 1; index++)
         {
@@ -78,7 +97,7 @@ public class DungeonGenerator: MonoBehaviour
             }
         }
 
-        navMeshSurface.BuildNavMesh();  // 네이비메시 다시 생성
+        navMeshSurface.BuildNavMesh();
 
     }
 }
