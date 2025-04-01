@@ -13,6 +13,7 @@ public class PlayerAttackState : PlayerBaseState
         //stateMachine.MovementSpeedModifier = 0;
         base.Enter();
         StartAnimation(stateMachine.Player.AnimationData.AttackParameterHash);
+        ProjectileManager.Instance.CreateMeleeAttack(stateMachine.Player.transform, true);
     }
 
     public override void Exit()

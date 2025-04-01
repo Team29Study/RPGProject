@@ -155,12 +155,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132149155446097}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2608407188852321665}
+  m_Father: {fileID: 6103855513804591323}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &-5754084199372789682
 MeshFilter:
@@ -743,7 +743,8 @@ Transform:
   m_LocalPosition: {x: 8.4187235e-10, y: 0.096125245, z: -0.057499886}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: -8679921383154817045}
   m_Father: {fileID: 629690147979462641}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3699852863986908865
@@ -788,6 +789,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3390595735352192667}
   - component: {fileID: 8690476173420456412}
+  - component: {fileID: 5861025372832712845}
   m_Layer: 10
   m_Name: Skeleton_Minion_Body
   m_TagString: Untagged
@@ -904,6 +906,27 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.00004002452, y: 0.9005158, z: 0.002573818}
     m_Extent: {x: 0.36881453, y: 0.5241163, z: 0.344004}
   m_DirtyAABB: 0
+--- !u!65 &5861025372832712845
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3715770119044867695}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.95, y: 2.01, z: 0.93}
+  m_Center: {x: -0.000040025134, y: 1.02, z: 0.0025737786}
 --- !u!1 &3884977258526932349
 GameObject:
   m_ObjectHideFlags: 0
@@ -950,6 +973,7 @@ GameObject:
   - component: {fileID: 1397709011504617649}
   - component: {fileID: 6358770573913924052}
   - component: {fileID: 3189878153439977902}
+  - component: {fileID: 7158497467684119530}
   m_Layer: 10
   m_Name: Skeleton_Minion
   m_TagString: Untagged
@@ -966,7 +990,7 @@ Transform:
   m_GameObject: {fileID: 3930027446389678756}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1016,8 +1040,8 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 1.6
+  m_AngularSpeed: 360
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -1038,6 +1062,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentEnemyType: 0
+  tracingRange: 10
 --- !u!114 &3189878153439977902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1052,7 +1077,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   attack: 10
-  DetectedDistance: 10
+--- !u!54 &7158497467684119530
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3930027446389678756}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &3958660546199682002
 GameObject:
   m_ObjectHideFlags: 0
@@ -1376,8 +1427,7 @@ Transform:
   m_LocalPosition: {x: -8.419292e-10, y: 0.096125245, z: -0.057499886}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: -8679921383154817045}
+  m_Children: []
   m_Father: {fileID: 3056577401494731011}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4636636807940491700
