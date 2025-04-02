@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2477,6 +2477,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1001 &733579637
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 141535542102743771, guid: 867fe163412684157b55cd28b4f86931, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.8558497
+      objectReference: {fileID: 0}
+    - target: {fileID: 141535542102743771, guid: 867fe163412684157b55cd28b4f86931, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.36854827
+      objectReference: {fileID: 0}
+    - target: {fileID: 141535542102743771, guid: 867fe163412684157b55cd28b4f86931, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 10.731071
+      objectReference: {fileID: 0}
+    - target: {fileID: 141535542102743771, guid: 867fe163412684157b55cd28b4f86931, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.30573037
+      objectReference: {fileID: 0}
+    - target: {fileID: 141535542102743771, guid: 867fe163412684157b55cd28b4f86931, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 141535542102743771, guid: 867fe163412684157b55cd28b4f86931, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.95211816
+      objectReference: {fileID: 0}
+    - target: {fileID: 141535542102743771, guid: 867fe163412684157b55cd28b4f86931, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 141535542102743771, guid: 867fe163412684157b55cd28b4f86931, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 141535542102743771, guid: 867fe163412684157b55cd28b4f86931, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 215.604
+      objectReference: {fileID: 0}
+    - target: {fileID: 141535542102743771, guid: 867fe163412684157b55cd28b4f86931, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 773780757294350433, guid: 867fe163412684157b55cd28b4f86931, type: 3}
+      propertyPath: m_Name
+      value: stair
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 867fe163412684157b55cd28b4f86931, type: 3}
 --- !u!1001 &743339864
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2495,11 +2552,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1875382507485884286, guid: b080cbbf93c633342b4516b2c67fdebb, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000008383045
+      value: 0.000000008383051
       objectReference: {fileID: 0}
     - target: {fileID: 1875382507485884286, guid: b080cbbf93c633342b4516b2c67fdebb, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000019337487
+      value: 0.0000000019337496
       objectReference: {fileID: 0}
     - target: {fileID: 2196724115262447388, guid: b080cbbf93c633342b4516b2c67fdebb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3548,7 +3605,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.22477117, y: -0.000000033532192, z: -0.000000007734997, w: 0.9744116}
+  m_LocalRotation: {x: -0.22477117, y: 0.000000033532192, z: 0.000000007734997, w: 0.9744116}
   m_LocalPosition: {x: 0, y: 0.14000002, z: -2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6430,3 +6487,4 @@ SceneRoots:
   - {fileID: 743339864}
   - {fileID: 1838846035}
   - {fileID: 243680956}
+  - {fileID: 733579637}
