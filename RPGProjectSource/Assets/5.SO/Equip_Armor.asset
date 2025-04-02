@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9534c13529d0f74e8e3d46a3bba5349, type: 3}
+  m_Name: Equip_Armor
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 567fdd2e557fefc478f8aaa7ae56fb11, type: 3}
+  itemName: "\uB0A1\uC740 \uAC11\uC637"
+  description: "\uACF5\uACA9\uB825 5 \uC99D\uAC00"
+  itemPrice: 3000
+  maxStack: 1
+  equipmentType: 1
+  stats:
+  - modifierStatType: 0
+    operationType: 0
+    statValue: 5
