@@ -1,4 +1,5 @@
 using Cinemachine;
+using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -28,6 +29,8 @@ public class PlayerCamera : MonoBehaviour
 
         cameraYSpeed = cinemachineCamera.m_YAxis.m_MaxSpeed;
         cameraXSpeed = cinemachineCamera.m_XAxis.m_MaxSpeed;
+
+        UIManager.Instance.cameraMove += ToggleCameraSpeed;
     }
 
     public void ToggleCameraSpeed()

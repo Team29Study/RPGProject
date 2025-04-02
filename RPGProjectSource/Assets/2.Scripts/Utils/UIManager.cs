@@ -7,6 +7,8 @@ public class UIManager : Singleton<UIManager>
 {
     private Dictionary<Type, PopUpUI> popupDict = new();
 
+    public event Action cameraMove;
+
     public void RegisterPopUp(PopUpUI popUpUI)
     {
         var type = popUpUI.GetType();
@@ -52,6 +54,7 @@ public class UIManager : Singleton<UIManager>
         else
         {
             Cursor.lockState = CursorLockMode.None;
-        }    
+        }
+        cameraMove?.Invoke();
     }
 }
