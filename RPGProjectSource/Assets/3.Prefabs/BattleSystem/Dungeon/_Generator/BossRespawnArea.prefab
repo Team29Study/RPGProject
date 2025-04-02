@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &636853653032486105
+--- !u!1 &8763623729383531924
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2401187102709039306}
-  - component: {fileID: 1453216201971703231}
+  - component: {fileID: 1002498785811071103}
+  - component: {fileID: 2035428342292100893}
   m_Layer: 0
-  m_Name: ProjectileManager
+  m_Name: BossRespawnArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2401187102709039306
+--- !u!4 &1002498785811071103
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 636853653032486105}
+  m_GameObject: {fileID: 8763623729383531924}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,19 +32,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1453216201971703231
+--- !u!114 &2035428342292100893
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 636853653032486105}
+  m_GameObject: {fileID: 8763623729383531924}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f47686e83e56469d9097a9bca861bf1e, type: 3}
+  m_Script: {fileID: 11500000, guid: 4115eb61c5d34772a9c99f3f54a57b93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitBoxPrefab: {fileID: 603016754273456479, guid: c6a093ccab39f421da5af39d0dea2892, type: 3}
-  projectileList:
-  - {fileID: 9097259884504546612, guid: 55a5dc4c60c17401a8deaa8600da95ce, type: 3}
-  - {fileID: 5323351657404176340, guid: c06bcfd52a31943fe97cd4b51787a243, type: 3}
+  duration: 0
+  maxEnemyCount: 1
+  enemyList: []
+  respawnTime: 1
+  respawnArea:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}

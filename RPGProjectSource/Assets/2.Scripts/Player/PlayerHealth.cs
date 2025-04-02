@@ -35,8 +35,6 @@ public class PlayerHealth : MonoBehaviour, IDamagable
 
         if (playerStat.HP == 0)
         {
-            // 죽음
-            Debug.Log("플레이어 사망");
             isDie = true;
             onDie?.Invoke();
         }
@@ -55,11 +53,16 @@ public class PlayerHealth : MonoBehaviour, IDamagable
             float dot = Vector3.Dot(transform.forward.normalized, attackDir.normalized);
             float degree = Mathf.Acos(dot) * Mathf.Rad2Deg;
 
-            Debug.Log(degree);
             if (degree > 30)
+            {
+                Debug.Log("가드 실패");
                 return false;
+            }
             else
+            {
+                Debug.Log("가드 성공");
                 return true;
+            }
         }
         else
         {

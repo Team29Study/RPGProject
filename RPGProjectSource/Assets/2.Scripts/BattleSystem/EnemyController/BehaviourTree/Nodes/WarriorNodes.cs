@@ -4,17 +4,28 @@ using UnityEngine;
 
 public class DefenceNode : BTNode // 일단은 제자리에서 방어하도록 처리, 추적과 함께 할 것인지?
 {
-    private int interval;
+    private float duration = 4f; // 파훼법이 없기 때문에 일정 시간으로 변경
+    private float currTime;
+    
     
     public override void Start()
     {
+        currTime = 0f;
         agent.enabled = false;
+        
+        controller.animationHandler.Set(EnemyAnimationHandler.Move, 0f);
         controller.animationHandler.Set(EnemyAnimationHandler.Defence, true);
     }
 
     public override void Update()
     {
         transform.rotation = Quaternion.LookRotation(new Vector3(target.position.x - transform.position.x, 0, target.position.z - transform.position.z));
+        
+        currTime += Time.deltaTime;
+        if (currTime >= duration)
+        {
+            SetState(State.Success);
+        }
     }
 
     public override void End()
@@ -33,7 +44,7 @@ public class RushAttackMode : BTNode // 점프든 대시든 같은 상황 돌진
     private float duration; // 파훼법이 없기 때문에 일정 시간으로 변경
     private float currTime;
 
-    public RushAttackMode(float duration = 2f, float moveSpeed = 2f)
+    public RushAttackMode(float duration = 1f, float moveSpeed = 3f)
     {
         this.duration = duration;
         this.moveSpeed = moveSpeed;
@@ -44,7 +55,9 @@ public class RushAttackMode : BTNode // 점프든 대시든 같은 상황 돌진
         agent.isStopped = true;
         agent.velocity = Vector3.zero; // 중복적인 부분
 
+        
         ProjectileManager.Instance.CreateMeleeAttack(transform, true); // 몸체 부분에서 진행되어야 함
+        controller.animationHandler.Set(EnemyAnimationHandler.Move, 0f);
         controller.animationHandler.Set(EnemyAnimationHandler.Rush, true);
         
         currTime = 0;
@@ -53,12 +66,11 @@ public class RushAttackMode : BTNode // 점프든 대시든 같은 상황 돌진
     public override void Update()
     {
         transform.position = Vector3.MoveTowards(transform.position, target.transform.position, 2f * Time.deltaTime);
-        transform.rotation *= Quaternion.Euler(0, 4, 0); // 애니메이션 잠금 뒤 직접 회전
+        transform.rotation *= Quaternion.Euler(0, 8, 0); // 애니메이션 잠금 뒤 직접 회전
         
         currTime += Time.deltaTime;
         if (currTime >= duration)
         {
-            Debug.Log("1");
             SetState(State.Success);
         }
     }
