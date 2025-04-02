@@ -44,9 +44,10 @@ public static class SceneLoader
         if (mode == LoadSceneMode.Additive)
         {
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
-            OnSceneLoaded?.Invoke(SceneManager.GetSceneByName(sceneName));
             activeScenes.Add(sceneName);
         }
+
+        OnSceneLoaded?.Invoke(SceneManager.GetSceneByName(sceneName));
     }
 
     private static async UniTask UnloadSceneAsny(string sceneName)
@@ -55,7 +56,7 @@ public static class SceneLoader
 
         await op;
 
-        OnSceneUnloaded?.Invoke(SceneManager.GetSceneByName(sceneName));
         activeScenes.Remove(sceneName);
+        OnSceneUnloaded?.Invoke(SceneManager.GetSceneByName(sceneName));
     }
 }
