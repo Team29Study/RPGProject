@@ -1,32 +1,85 @@
+using System.Collections.Generic;
+using UnityEditor.PackageManager.UI;
 using UnityEngine;
+using System;
 
 public class UIManager : Singleton<UIManager>
 {
-    // 기본 UI 참조
-    [SerializeField] private BaseUI baseUI;
-    public BaseUI BaseUI
+    //private List<IPopupUI> windows = new();
+    //private List<PopUpUI> popUpUIs = new();
+
+    private Dictionary<Type, PopUpUI> popupDict = new();
+
+    //// 기본 UI 참조
+    //[SerializeField] private BaseUI baseUI;
+    //public BaseUI BaseUI
+    //{
+    //    get { return baseUI; }
+    //    private set { baseUI = value; }
+    //}
+
+    //// 상점 UI 참조
+    //[SerializeField] private ShopUI shopUI;
+    //public ShopUI ShopUI
+    //{
+    //    get { return shopUI; }
+    //    private set { shopUI = value; }
+    //}
+
+    //public void RegisterUI(IPopupUI window)
+    //{
+    //    if (!windows.Contains(window))
+    //        windows.Add(window);
+
+    //    // 타입별로 자동 연결
+    //    switch (window)
+    //    {
+    //        case BaseUI baseUI:
+    //            BaseUI = baseUI;
+    //            break;
+
+    //        case ShopUI shopUI:
+    //            ShopUI = shopUI;
+    //            break;
+    //    }
+    //}
+
+    public void RegisterPopUp(PopUpUI popUpUI)
     {
-        get { return baseUI; }
-        private set { baseUI = value; }
+        var type = popUpUI.GetType();
+
+        if (!popupDict.TryGetValue(type, out var value))
+        {
+            popupDict.Add(type, popUpUI);
+            popUpUI.onChanged += PopUpChange;
+        }
     }
 
-    // 상점 UI 참조
-    [SerializeField] private ShopUI shopUI;
-    public ShopUI ShopUI
+    public void DeregisterPopUp(PopUpUI popUpUI)
     {
-        get { return shopUI; }
-        private set { shopUI = value; }
+        var type = popUpUI.GetType();
+
+        if (popupDict.TryGetValue(type, out var value))
+        {
+            popupDict.Remove(type);
+            popUpUI.onChanged -= PopUpChange;
+        }
     }
 
-    // 기본 UI 연결
-    public void SetBaseUI(BaseUI baseUI)
+    public T GetUI<T>() where T : class
     {
-        BaseUI = baseUI;
+        var type = typeof(T);
+
+        if (popupDict.TryGetValue(type, out var value))
+        {
+            return value as T;
+        }
+
+        return default;
     }
 
-    // 상점 UI 연결
-    public void SetShopUI(ShopUI shopUI)
+    private void PopUpChange()
     {
-        ShopUI = shopUI;
+
     }
 }

@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BaseUI : MonoBehaviour
+public class BaseUI : PopUpUI
 {
     [Header("Bar")]
     [SerializeField] private Image hpBar;
@@ -23,7 +23,7 @@ public class BaseUI : MonoBehaviour
     private void Start()
     {
         // UIManager에 BaseUI 연결
-        UIManager.Instance.SetBaseUI(this);
+        UIManager.Instance.RegisterPopUp(this);
 
         // 일시정지 및 실행 버튼 연결
         pauseBtn.onClick.AddListener(OnPause);
