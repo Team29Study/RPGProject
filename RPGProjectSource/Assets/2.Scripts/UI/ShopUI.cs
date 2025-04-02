@@ -82,10 +82,15 @@ public class ShopUI : MonoBehaviour
 
     private void Buy()
     {
+        // 선택하지 않은 경우
+        if (shopSlot == null)
+        {
+            return;
+        }
+
         shopSlot.SoldOut(true); // 아이템 구매 시 아이템 품절 처리
         description.text = null; // 아이템 설명 초기화
 
-        // 선택되지 않은 경우에 대한 추가 로직 필요
     }
 
     private void Sell()
