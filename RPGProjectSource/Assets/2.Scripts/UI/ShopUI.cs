@@ -10,6 +10,7 @@ public class ShopUI : PopUpUI
     [SerializeField] private Button buyBtn;
     [SerializeField] private Button sellBtn;
     [SerializeField] private TextMeshProUGUI description;
+    [SerializeField] private TextMeshProUGUI goldText;
 
     [Header("Buy")]
     [SerializeField] private Transform buyContent;
@@ -19,19 +20,53 @@ public class ShopUI : PopUpUI
     [Header("Reference")]
     [SerializeField] private ShopSlot slotPrefab;
 
+    private Inventory inventoryCache = null;
+
     private List<ShopSlot> buySlotsCache = new List<ShopSlot>();
     private List<ShopSlot> sellSlotsCache = new List<ShopSlot>();
 
+    [SerializeField]
     private ItemData targetBuyItems = null;
-    private ItemData targetSellItems = null;
+    [SerializeField]
+    private ItemData targetSellItem = null;
 
     private void Start()
     {
         UIManager.Instance.RegisterPopUp(this);
         Close();
+
+        buyBtn.onClick.AddListener(() =>
+        {
+            if (targetBuyItems != null && inventoryCache.Model.TryUsedGold(targetBuyItems.itemPrice))
+            {
+                inventoryCache.Model.TryAdd(targetBuyItems, 1);
+                targetBuyItems = null;
+            }
+
+            Close();
+        });
+
+        sellBtn.onClick.AddListener(() =>
+        {
+            if (targetSellItem != null && inventoryCache.Model.TryRemove(targetSellItem, 1))
+            {
+                inventoryCache.Model.AddGold(targetSellItem.itemPrice);
+                targetSellItem = null;
+            }
+
+            Close();
+        });
+
+        closeBtn.onClick.AddListener(Close);
     }
 
-    public void InitializeSellingDatas(IList<ItemData> itemDatas, Action<Inventory> action = null)
+    public void SetInventory(Inventory inventory)
+    {
+        inventoryCache = inventory;
+        goldText.text = inventory.Model.Gold.ToString();
+    }
+
+    public void InitializeSellingDatas(IList<ItemData> itemDatas)
     {
         sellSlotsCache?.ForEach(e => Destroy(e.gameObject));
         sellSlotsCache?.Clear();
@@ -47,19 +82,17 @@ public class ShopUI : PopUpUI
             {
                 description.gameObject.SetActive(true);
                 description.text = itemDatas[indexCache].description;
-                targetSellItems = itemDatas[indexCache];
+                targetSellItem = itemDatas[indexCache];
             };
 
             sellSlotsCache.Add(slot);
         }
     }
 
-    public void InitializeBuyDatas(IList<ItemData> itemDatas, Inventory inventory = null)
+    public void InitializeBuyDatas(IList<ItemData> itemDatas)
     {
         buySlotsCache?.ForEach(e => Destroy(e.gameObject));
         buySlotsCache?.Clear();
-
-        Debug.Log("a");
 
         for (int i = 0; i < itemDatas.Count; i++)
         {

@@ -21,13 +21,20 @@ public class PlayerStat : MonoBehaviour
 
     private StatMediator<PlayerStatType> mediator = new();
 
+    [SerializeField]
+    private BoundedValueGameEvent hpEvent;
+
     public int MaxHP { get; set; }
     [SerializeField]
     private int hp;
     public int HP
     {
         get => hp;
-        set => hp = Mathf.Min(value, MaxHP);
+        set 
+        {
+            hp = Mathf.Min(value, MaxHP);
+            hpEvent?.Raise(new BoundedValue(hp, MaxHP));
+        }
     }
     private int attackPower;
     public int AttackPower 

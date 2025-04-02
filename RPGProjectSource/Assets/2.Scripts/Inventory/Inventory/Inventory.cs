@@ -25,7 +25,7 @@ public class Inventory : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.L))
         {
             presenter.model.TryAdd(__debugItems[Random.Range(0, __debugItems.Length)], 1);
         }

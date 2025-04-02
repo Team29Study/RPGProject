@@ -9,7 +9,7 @@ public class InventoryModel
     private ObserverArray<Item> Items { get; }
     private readonly int capacity;
 
-    public int Gold { get; private set; }
+    public int Gold { get; private set; } = 99999;
 
     public event Action<Item[]> OnValueChanged
     {
@@ -32,8 +32,6 @@ public class InventoryModel
     }
 
     public int Count() => Items.Count;
-
-    public int GetItemCount() => Items.items.Count(x => x != default);
 
     public Item GetItemAt(int index) => Items[index];
 
@@ -69,6 +67,7 @@ public class InventoryModel
         if (CanRemove(item, quantity))
         {
             RemoveItem(item, quantity);
+            return true;
         }
         return false;
     }

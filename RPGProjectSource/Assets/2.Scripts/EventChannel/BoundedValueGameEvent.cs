@@ -20,6 +20,6 @@ public struct BoundedValue
         this.maxValue = maxValue;
     }
 
-    public float Ratio => value / maxValue;
+    public float Ratio => (float)value / (float)maxValue;
 }
 

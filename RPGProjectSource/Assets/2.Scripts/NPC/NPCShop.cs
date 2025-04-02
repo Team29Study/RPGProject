@@ -12,8 +12,6 @@ public class NPCShop : NPC
         var shopRef = UIManager.Instance.GetUI<ShopUI>();
         shopRef.Open();
 
-        Debug.Log(shopRef);
-
         base.Interaction(player);
 
         if (shopRef)
@@ -30,6 +28,7 @@ public class NPCShop : NPC
                 }
             }
 
+            shopRef.SetInventory(player.Inventory);
             shopRef.InitializeSellingDatas(myItems);
             shopRef.InitializeBuyDatas(sellingDatas);
         }
