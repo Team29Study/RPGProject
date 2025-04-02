@@ -3116,6 +3116,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sellingDatas:
   - {fileID: 11400000, guid: 2b5dc4fb52306774aaf76a2b5d92a7bb, type: 2}
+  - {fileID: 11400000, guid: 8fd5e24c6c83b8349bdbc626a15400b5, type: 2}
+  - {fileID: 11400000, guid: 0473ea535af4d764cac0861c9060bfdd, type: 2}
   - {fileID: 11400000, guid: 04f51fe0cdad3f04db291daafecbea02, type: 2}
 --- !u!1 &1215633388 stripped
 GameObject:
