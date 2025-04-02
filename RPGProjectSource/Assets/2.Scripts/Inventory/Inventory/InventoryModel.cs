@@ -9,6 +9,8 @@ public class InventoryModel
     private ObserverArray<Item> Items { get; }
     private readonly int capacity;
 
+    public int Gold { get; private set; }
+
     public event Action<Item[]> OnValueChanged
     {
         add => Items.AnyValueChanged += value;
@@ -31,7 +33,10 @@ public class InventoryModel
 
     public int Count() => Items.Count;
 
+    public int GetItemCount() => Items.items.Count(x => x != default);
+
     public Item GetItemAt(int index) => Items[index];
+
 
     public ItemData GetItemDataAt(int index) => Items[index]?.itemData;
 
@@ -95,6 +100,22 @@ public class InventoryModel
         OnUseItem?.Invoke(Items[index]);
 
         return true;
+    }
+
+    public void AddGold(int amount)
+    {
+        Gold += amount;
+    }
+
+    public bool TryUsedGold(int amount)
+    {
+        if (Gold >= amount)
+        {
+            Gold -= amount;
+            return true;
+        }
+
+        return false;
     }
 
     #region internal method
