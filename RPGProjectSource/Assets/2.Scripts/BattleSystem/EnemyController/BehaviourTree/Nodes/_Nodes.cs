@@ -152,20 +152,29 @@ public class DieNode : BTNode
     private float currTime;
     private float duration = 1f;
     
-    private bool isDeath = false;
     public override void Start()
     {
-        if (controller.resourceHandler.health != 0) {
-            SetState(State.Success); // 통과
+        agent.enabled = false;
+
+        if (blackBoard.data[BlackBoard.Trigger.Hit] != true.ToString())
+        {
+            SetState(State.Failure);
+            return;
+        }
+        
+        
+        controller.resourceHandler.health -= controller.currDamagedInfo.Item1;
+        blackBoard.SetData(BlackBoard.Trigger.Hit, false.ToString());
+
+        if (controller.resourceHandler.health > 0) {
+            SetState(State.Success);
             return;
         }
 
-        if (isDeath == false)
-        {
-            isDeath = true;
-            currTime = 0;
-            controller.animationHandler.Set(EnemyAnimationHandler.Die, true);
-        }
+        currTime = 0;
+        controller.animationHandler.animator.SetLayerWeight(1, 0f);
+        controller.animationHandler.Set(EnemyAnimationHandler.Die, true);
+        controller.GetComponent<BoxCollider>().enabled = false; // fix: 죽고 나서도 공격 당하는 경우 발생
     }
 
     public override void Update()
@@ -176,47 +185,57 @@ public class DieNode : BTNode
             controller.respawnArea.DestroyEnemy(controller.gameObject);
         }
     }
+
+    public override void End()
+    {
+        agent.enabled = true;
+    }
 }
 
 // 넉백이 구현된 형태
 public class HitNode : BTNode
 {
-    public float knockBackTime = 1;
-    private float curentKnockBackTime = 0;
+    public float knockBackTime = 0.5f;
+    private float curentKnockBackTime;
+    
+    private bool isIgnoreKnockBack;
+
+    public HitNode(bool isIgnore = false)
+    {
+        this.isIgnoreKnockBack = isIgnore;
+    }
     
     public override void Start()
     {
-        if (blackBoard.data[BlackBoard.Trigger.Hit] != true.ToString())
-        {
-            SetState(State.Failure);
-            return;
-        }
-
-        agent.enabled = false;
-        curentKnockBackTime = 0;
-
-        // 체력 감소
-        controller.animationHandler.Set(EnemyAnimationHandler.Hit);
-        controller.resourceHandler.health -= controller.currDamagedInfo.Item1;
         
-        blackBoard.SetData(BlackBoard.Trigger.Hit, false.ToString());
+        agent.enabled = false;
+        
+        curentKnockBackTime = 0;
+        controller.animationHandler.animator.SetLayerWeight(1, 0f);
+        
+        if(isIgnoreKnockBack)
+        {
+            SetState(State.Success);
+        }
+        
+        controller.animationHandler.Set(EnemyAnimationHandler.Hit);
     }
 
     public override void Update()
     {
-        // 넉백을 주는 경우
-        // curentKnockBackTime += Time.deltaTime;
-        // if (curentKnockBackTime >= knockBackTime)
-        // {
+        curentKnockBackTime += Time.deltaTime;
+        if (curentKnockBackTime >= knockBackTime)
+        {
             SetState(State.Success);
-            // return;
-        // }
-        
-        // transform.position += Vector3.back * 3f * Time.deltaTime;
+            return;
+        }
+
+        transform.position += (transform.position - target.position).normalized * 1f * Time.deltaTime;
     }
 
     public override void End()
     {
+        controller.animationHandler.animator.SetLayerWeight(1, 1f);
         agent.enabled = true;
     }
 }
