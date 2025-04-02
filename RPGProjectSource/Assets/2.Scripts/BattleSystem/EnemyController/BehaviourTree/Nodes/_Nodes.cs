@@ -167,13 +167,14 @@ public class DieNode : BTNode
         blackBoard.SetData(BlackBoard.Trigger.Hit, false.ToString());
 
         if (controller.resourceHandler.health > 0) {
-            SetState(State.Success); // 통과
+            SetState(State.Success);
             return;
         }
 
         currTime = 0;
         controller.animationHandler.animator.SetLayerWeight(1, 0f);
         controller.animationHandler.Set(EnemyAnimationHandler.Die, true);
+        controller.GetComponent<BoxCollider>().enabled = false; // fix: 죽고 나서도 공격 당하는 경우 발생
     }
 
     public override void Update()
