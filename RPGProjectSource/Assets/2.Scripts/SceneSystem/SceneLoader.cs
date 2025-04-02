@@ -48,6 +48,7 @@ public static class SceneLoader
         }
 
         OnSceneLoaded?.Invoke(SceneManager.GetSceneByName(sceneName));
+        OnSceneLoaded = delegate { };
     }
 
     private static async UniTask UnloadSceneAsny(string sceneName)
@@ -58,5 +59,6 @@ public static class SceneLoader
 
         activeScenes.Remove(sceneName);
         OnSceneUnloaded?.Invoke(SceneManager.GetSceneByName(sceneName));
+        OnSceneUnloaded = delegate { };
     }
 }

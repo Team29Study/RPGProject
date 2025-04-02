@@ -463,6 +463,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9816f27f7ff7e34db69a18af389c263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadMode: 1
+  sceneAsset: {fileID: 102900000, guid: b648eea7fb3255a45a8bdde77f3f8870, type: 3}
   sceneName: LoadTestScene
 --- !u!4 &243680956
 Transform:
