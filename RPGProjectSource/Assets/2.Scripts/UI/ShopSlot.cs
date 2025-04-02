@@ -9,8 +9,6 @@ public class ShopSlot : MonoBehaviour
 
     private ItemData itemData;
 
-    public bool isSelected = false;
-
     private void Start()
     {
         shopItemBtn.onClick.AddListener(SelectShopItem); // 아이템 슬롯 선택 버튼에 리스너 추가
@@ -39,7 +37,6 @@ public class ShopSlot : MonoBehaviour
         {
             UIManager.Instance.ShopUI.SelectSlot(this); // 현재 슬롯 선택
             UIManager.Instance.ShopUI.ShowDescription(itemData); // 아이템 설명 표시
-            isSelected = true; // 선택된 상태로 변경
         }
     }
 

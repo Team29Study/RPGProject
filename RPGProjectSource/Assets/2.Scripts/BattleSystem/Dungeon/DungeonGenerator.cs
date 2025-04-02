@@ -118,6 +118,5 @@ public class DungeonGenerator: MonoBehaviour
         }
 
         navMeshSurface.BuildNavMesh();
-
     }
 }
