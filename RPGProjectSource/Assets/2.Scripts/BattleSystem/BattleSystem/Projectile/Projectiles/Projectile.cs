@@ -29,7 +29,8 @@ public class Projectile: MonoBehaviour, IProjectile
     {
         GetComponent<HitBox>().onTrigger += (other) =>
         {
-            if (other.TryGetComponent(out IDamagable damagable)) return;
+            
+            if (!other.CompareTag("Player") || !other.TryGetComponent(out IDamagable damagable)) return;
             
             damagable.TakeDamage(damage, transform);
             ProjectileManager.Instance.DestroyProjectile(gameObject);

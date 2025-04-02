@@ -205,14 +205,14 @@ public class HitNode : BTNode
     public override void Update()
     {
         // 넉백을 주는 경우
-        curentKnockBackTime += Time.deltaTime;
-        if (curentKnockBackTime >= knockBackTime)
-        {
+        // curentKnockBackTime += Time.deltaTime;
+        // if (curentKnockBackTime >= knockBackTime)
+        // {
             SetState(State.Success);
-            return;
-        }
+            // return;
+        // }
         
-        transform.position += Vector3.back * 3f * Time.deltaTime;
+        // transform.position += Vector3.back * 3f * Time.deltaTime;
     }
 
     public override void End()

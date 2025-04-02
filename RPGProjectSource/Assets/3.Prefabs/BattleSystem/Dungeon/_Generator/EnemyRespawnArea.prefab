@@ -50,6 +50,8 @@ MonoBehaviour:
   enemyList:
   - {fileID: 3930027446389678756, guid: 55bca99e86e9b4634a6aeee60be7c558, type: 3}
   - {fileID: 3301797590130890890, guid: bd275c58156154a73bc731c496333dad, type: 3}
+  - {fileID: 3355299004261606620, guid: c72782db9016c435b9e2b649563ceb00, type: 3}
+  - {fileID: 3802252601460653237, guid: d1513aeaa4e7d47449931794f5daf9a0, type: 3}
   respawnTime: 0
   respawnArea:
     m_Center: {x: 0, y: 0, z: 0}

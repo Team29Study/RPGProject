@@ -25,11 +25,14 @@ public class ProjectileManager: Singleton<ProjectileManager>
         {
             selectedProjectile.gameObject.transform.SetPositionAndRotation(target.position + Vector3.up, target.rotation);
             selectedProjectile.gameObject.GetComponent<IProjectile>().damage = damage; 
+
             selectedProjectile.gameObject.gameObject.SetActive(true);
             return;
         }
         
-        var projectile = Instantiate(projectileList[Random.Range(0, projectileList.Count)], target.position + Vector3.up, target.rotation, transform);
+        var projectile = Instantiate(projectileList[index], target.position + Vector3.up, target.rotation, transform);
+        projectile.gameObject.GetComponent<IProjectile>().damage = damage; 
+
         // var hitBox = projectile.AddComponent<HitBox>(); // 또는 무기 종류가 각자 정해졌다면 인스펙터에서 직접 등록하도록 처리
         // hitBox.caster = caster;
         pool.Add((index, projectile));
@@ -64,12 +67,14 @@ public class ProjectileManager: Singleton<ProjectileManager>
         if(selectedHitBox) selectedHitBox.gameObject.SetActive(false);
     }
 
-    public void RegisterMeleeAttack(Transform target, Vector3 position, Vector3 size)
+    public HitBox RegisterMeleeAttack(Transform target, Vector3 position, Vector3 size)
     {
         GameObject hitBox = Instantiate(this.hitBoxPrefab, target.position, target.rotation, target.transform);
         hitBox.gameObject.SetActive(false);
         hitBox.transform.localPosition = position;
         hitBox.transform.localScale = size;
+        
+        return hitBox.GetComponent<HitBox>();
     }
     
     // 삭제하지 않고 비활성화

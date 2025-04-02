@@ -4,35 +4,40 @@ public class MagicZone: MonoBehaviour, IProjectile
 {
     public int damage { get; set; }
 
-    public float delay = 1f;
-    public float duration = 0.5f; 
+    public float delay;
+    public float duration; 
     private float currDuration;
     private bool isExploded;
     
     private HitBox hitBox;
+    public GameObject particle;
     
     private void Awake()
     {
         hitBox = GetComponentInChildren<HitBox>(true);
     }
     
-    private void Start()
+    public void RegisterDamage(Collider other)
     {
-        hitBox.onTrigger += (other) =>
-        {
-            if (other.TryGetComponent(out IDamagable damagable)) return;
+        if (!other.TryGetComponent(out PlayerHealth damagable)) return;
             
-            damagable.TakeDamage(damage, transform);
-            ProjectileManager.Instance.DestroyProjectile(gameObject);
-        };
+        damagable.TakeDamage(damage, transform);
+        hitBox.gameObject.SetActive(false);
     }
-
 
     public void OnEnable()
     {
+        hitBox.onTrigger += RegisterDamage;
+
         currDuration = 0;
         isExploded = false;
         hitBox.gameObject.SetActive(false);
+        particle.gameObject.SetActive(false);
+    }
+
+    public void OnDisable()
+    {
+        hitBox.onTrigger -= RegisterDamage;
     }
 
     private void Update()
@@ -42,19 +47,14 @@ public class MagicZone: MonoBehaviour, IProjectile
         {
             isExploded = true;
             hitBox.gameObject.SetActive(true);
+            particle.gameObject.SetActive(true);
             currDuration = 0;
         }
 
         if (currDuration >= duration)
         {
             ProjectileManager.Instance.DestroyProjectile(gameObject);
+
         }
-
     }
-
-    private void OnTriggerEnter(Collider other) // 콜라이더를 hitBox만 가지도록 하여 처리
-    {
-        ProjectileManager.Instance.DestroyProjectile(gameObject);
-    }
-
 }
