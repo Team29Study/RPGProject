@@ -4,6 +4,7 @@ using System.Linq;
 using Unity.AI.Navigation;
 using UnityEngine;
 
+// 시작 지점 알아야 함
 public class DungeonGenerator: MonoBehaviour
 {
     public List<Vector2> roomSizes; // 사이즈만 설정 - 혹은 이 또한 랜덤으로
@@ -14,7 +15,20 @@ public class DungeonGenerator: MonoBehaviour
     
     private RoomGenerator roomGenerator;
     private NavMeshSurface navMeshSurface;
+
+    [Range(2, 10)] public int roomLength;
+    public int currClearRoomLength = 0;
+
+    public Vector3 startPosition;
     
+    public void OnClearRoom()
+    {
+        currClearRoomLength += 1;
+        if (currentRoomSize.Count >= roomSizes.Count)
+        {
+            Debug.Log("모든 방을 클리어 했습니다."); // 플레이어 위치 앞에 포탈 또는 다리 생성
+        }
+    }
     // 해당 클래스의 역할
     public void GenerateDungeon()
     {
@@ -54,13 +68,18 @@ public class DungeonGenerator: MonoBehaviour
 
     void Start()
     {
+        currClearRoomLength = 0;
         // rooms = roomSizes.Select(size => new Rect(Vector2.zero, size)).ToList(); // 인스펙터에서 등록하고 싶은 경우
 
-        currentRoomSize = Enumerable.Range(0, 7).Select(_ => new Rect(Vector2.zero, new Vector2(Random.Range(4, 8) * 4, Random.Range(4, 8) * 4))).ToList();
+        currentRoomSize = Enumerable.Range(0, roomLength).Select(_ => new Rect(Vector2.zero, new Vector2(Random.Range(4, 8) * 4, Random.Range(4, 8) * 4))).ToList();
         // currentRoomSize.Add(new Rect(Vector2.zero, new Vector2(40, 40))); // 보스룸
         
         GenerateDungeon();
         
+        // 플레이어 시작 위치 배정
+        startPosition = new Vector3(selectedRoomSized[0].size.y / 2 , 0, selectedRoomSized[0].size.x / 2);
+        // GameObject player = GameObject.FindWithTag("Player");
+        // if (player) player.transform.position = startPosition;
 
         foreach (var room in selectedRoomSized)
         {
@@ -71,7 +90,7 @@ public class DungeonGenerator: MonoBehaviour
             // else if (index == selectedRoomSized.Count - 1) currRoomType = Room.RoomType.Boss;
             else currRoomType = Room.RoomType.Normal;
             
-            roomGenerator.Generate(room, currRoomType);
+            roomGenerator.Generate(room, currRoomType, OnClearRoom);
         }
 
         // 각 방에게 인접된 방들을 정보를 알려준 뒤 플레이어가 있을 때 해당 맵 active

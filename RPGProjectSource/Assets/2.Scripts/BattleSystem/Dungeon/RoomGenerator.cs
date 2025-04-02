@@ -1,7 +1,7 @@
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -12,15 +12,16 @@ public class RoomGenerator: MonoBehaviour
     public List<GameObject> tileList; // 가중치 추가하기
     public List<GameObject> wallList;
     public List<GameObject> items;
-    
+    public List<GameObject> stairs; // 시작과 나가는 다리
+
     private int tileSize = 2;
     private float wallGap = 0.5f;
     public List<Room> rooms = new();
     
     public Room StartRoom { get; private set; }
-    public Room BOssRoom { get; private set; }
+    public Room BossRoom { get; private set; }
     
-    public void Generate(Rect room, Room.RoomType roomType)
+    public void Generate(Rect room, Room.RoomType roomType, Action clearCallback)
     {
         var currRoom = new Room(new Vector3(room.position.x, 0, room.position.y), transform);
         currRoom.CreateDefaultMaps();
@@ -59,28 +60,35 @@ public class RoomGenerator: MonoBehaviour
             currRoom.AddWall(carrWall);
         }
         
-        // 아이템 생성
-        Enumerable.Range(0, 4).ToList().ForEach(_ =>
-        {
-            var item = Instantiate(items[Random.Range(0, items.Count)], Vector3.zero, Quaternion.identity, currRoom.itemMap.transform);
-            item.transform.localPosition = new Vector3(Random.Range(1, room.size.x - 1), 0, Random.Range(1, room.size.y - 1));
-        });
-        
-        // 적 생성
         if (roomType == Room.RoomType.Normal)
         {
+            // 아이템 생성
+            Enumerable.Range(0, 4).ToList().ForEach(_ =>
+            {
+                var item = Instantiate(items[Random.Range(0, items.Count)], Vector3.zero, Quaternion.identity, currRoom.itemMap.transform);
+                item.transform.localPosition = new Vector3(Random.Range(1, room.size.x - 1), 0, Random.Range(1, room.size.y - 1));
+            });
+            
+            // 적 생성
             var enemyArea = Instantiate(EnemyRespawnArea, Vector3.zero, Quaternion.identity, currRoom.room.transform);
             enemyArea.transform.localPosition = new Vector3(room.size.x / 2, 0 ,room.size.y / 2);
-            
-            enemyArea.GetComponent<EnemyRespawnArea>().Set(
-                Mathf.FloorToInt(room.size.x * room.size.y / 100),
-                new Vector3(room.size.x, 1, room.size.y),
-                new Vector3(room.size.x - 2, 1, room.size.y - 2)
-            );
+
+            EnemyRespawnArea respawnArea = enemyArea.GetComponent<EnemyRespawnArea>();
+            respawnArea.Set(Mathf.FloorToInt(room.size.x * room.size.y / 100), new Vector3(room.size.x, 1, room.size.y), new Vector3(room.size.x - 2, 1, room.size.y - 2));
+            respawnArea.onClearWave += clearCallback;
         }
-      
-        if (roomType == Room.RoomType.StartPoint) StartRoom = currRoom;
-        if (roomType == Room.RoomType.Boss) BOssRoom = currRoom;
+
+        if (roomType == Room.RoomType.StartPoint)
+        {
+            StartRoom = currRoom;
+            Instantiate(stairs[0], transform).transform.localPosition = new Vector3(room.size.x / 2, 0, room.size.y / 2);
+        }
+
+        if (roomType == Room.RoomType.Boss)
+        {
+            BossRoom = currRoom;
+        }
+        
         rooms.Add(currRoom);
     }
 }
