@@ -2,12 +2,16 @@ using UnityEngine;
 
 public class MageAttack : BTNode
 {
+    public MageAttack()
+    {
+        
+    }
+    
     public override void Start()
     {
-        agent.velocity = Vector3.zero;
-        agent.isStopped = true;
+        agent.enabled = false;
+        controller.animationHandler.Set(EnemyAnimationHandler.Move, 0f);
         controller.animationHandler.Set(EnemyAnimationHandler.Attack, true);
-        
     }
 
     public override void Update()
@@ -16,11 +20,17 @@ public class MageAttack : BTNode
         transform.rotation = Quaternion.LookRotation(direction.normalized);
 
         var distance = Vector3.Distance(transform.position, target.position);
-        if (distance > 5) SetState(State.Failure);
+        if (distance > agent.stoppingDistance) SetState(State.Failure);
+    }
+
+    public override void End()
+    {
+        agent.enabled = true;
+        controller.animationHandler.Set(EnemyAnimationHandler.Attack, false);
     }
 
     public override void OnAttackAnimated(bool isAttacking)
     {
-        ProjectileManager.Instance.CreateRangeAttack(target.transform, 1, HitBox.Caster.Enemy);
+        ProjectileManager.Instance.CreateRangeAttack(target.transform, 1, HitBox.Caster.Enemy, controller.resourceHandler.attack);
     }
 }

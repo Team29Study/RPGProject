@@ -50,6 +50,9 @@ MonoBehaviour:
   - {x: 16, y: 24}
   - {x: 16, y: 20}
   door: {fileID: 7946641988394942001, guid: 9bb5328c862c249dfba273befc3306e9, type: 3}
+  roomLength: 2
+  currClearRoomLength: 0
+  startPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &4807906269137151137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,7 +81,9 @@ MonoBehaviour:
   - {fileID: 274445682885180990, guid: c402d7bba84724faea95109d42b23968, type: 3}
   - {fileID: 707145060779304770, guid: 297ec61344daf4983ba84a503b85d2b5, type: 3}
   - {fileID: 1635199702780552547, guid: c11b1de6608cf4b99928321497378cab, type: 3}
-  - {fileID: 128030770266537489, guid: 0b895cb78bda640828f995137598c1b0, type: 3}
+  - {fileID: 4829064327117610352, guid: 0360adb0019544a37a62c3a7c27701b2, type: 3}
+  stairs:
+  - {fileID: 773780757294350433, guid: 867fe163412684157b55cd28b4f86931, type: 3}
 --- !u!114 &6539436998529065597
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -32,7 +32,7 @@ public class RangeAttackNode : BTNode
 
     public override void OnAttackAnimated(bool isAttacking)
     {
-        ProjectileManager.Instance.CreateRangeAttack(transform, 0, HitBox.Caster.Enemy);
+        ProjectileManager.Instance.CreateRangeAttack(transform, 0, HitBox.Caster.Enemy, controller.resourceHandler.attack);
     }
 }
 
@@ -70,7 +70,7 @@ public class SpreeShotNode : BTNode
 
     public override void OnAttackAnimated(bool isAttacking)
     {
-        ProjectileManager.Instance.CreateRangeAttack(transform, 0, HitBox.Caster.Enemy);
+        ProjectileManager.Instance.CreateRangeAttack(transform, 0, HitBox.Caster.Enemy, controller.resourceHandler.attack);
     }
 }
 
