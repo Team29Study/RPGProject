@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopUI : MonoBehaviour, IPopupUI
+public class ShopUI : PopUpUI
 {
     [SerializeField] private Button closeBtn;
     [SerializeField] private Button buyBtn;
@@ -29,9 +29,6 @@ public class ShopUI : MonoBehaviour, IPopupUI
 
     private void Start()
     {
-        // ShopUI를 UIManager에 연결
-        UIManager.Instance.RegisterUI(this);
-
         closeBtn.onClick.AddListener(Close); // 상점 닫기 버튼에 리스너 추가
         buyBtn.onClick.AddListener(Buy); // 아이템 구매 버튼에 리스너 추가
         sellBtn.onClick.AddListener(Sell); // 아이템 판매 버튼에 리스너 추가
@@ -40,6 +37,9 @@ public class ShopUI : MonoBehaviour, IPopupUI
         InitSellSlot();
         description.text = null;
     }
+
+    void OnEnable() => UIManager.Instance.RegisterPopUp(this);
+    void OnDisable() => UIManager.Instance.DeregisterPopUp(this);
 
     private void InitShopSlot()
     {
@@ -148,15 +148,5 @@ public class ShopUI : MonoBehaviour, IPopupUI
     private void Sell()
     {
         // 아이템 판매 로직 (추가 필요)
-    }
-
-    public void Open()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void Close()
-    {
-        throw new System.NotImplementedException();
     }
 }

@@ -35,8 +35,13 @@ public class ShopSlot : MonoBehaviour
         // 아이템 데이터가 있을 경우, UI에 아이템 선택 처리
         if (itemData != null)
         {
-            UIManager.Instance.ShopUI.SelectSlot(this); // 현재 슬롯 선택
-            UIManager.Instance.ShopUI.ShowDescription(itemData); // 아이템 설명 표시
+            //UIManager.Instance.ShopUI.SelectSlot(this); // 현재 슬롯 선택
+            //UIManager.Instance.ShopUI.ShowDescription(itemData); // 아이템 설명 표시
+
+            var shopUI = UIManager.Instance.GetUI<ShopUI>();
+
+            shopUI.SelectSlot(this);
+            shopUI.ShowDescription(itemData);
         }
     }
 
