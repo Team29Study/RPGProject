@@ -30,6 +30,11 @@ public class SellSlot : MonoBehaviour
         }
     }
 
+    public ItemData GetItemData()
+    {
+        return itemData;
+    }
+
     private void SelectSellItem()
     {
         // 아이템 데이터가 있을 경우, UI에 아이템 선택 처리
@@ -38,7 +43,7 @@ public class SellSlot : MonoBehaviour
             var shopUI = UIManager.Instance.GetUI<ShopUI>();
 
             shopUI?.SelectSellSlot(this);
-            shopUI?.ShowDescription(itemData);
+            shopUI?.ShowSellDescription(itemData);
         }
     }
 }
