@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     public CharacterController CharController { get; private set; }
     public ForceReceiver ForceReceiver { get; private set; }
     public PlayerStat PlayerStat { get; set; }
+    public PlayerHealth PlayerHealth { get; set; }
 
     // 플레이어 상태 머신
     public PlayerStateMachine stateMachine;
@@ -29,6 +30,9 @@ public class Player : MonoBehaviour
         CharController = GetComponent<CharacterController>();
         ForceReceiver = GetComponent<ForceReceiver>();
         PlayerStat = GetComponent<PlayerStat>();
+        PlayerHealth = GetComponent<PlayerHealth>();
+
+        PlayerHealth.onDie += OnDie;
 
         // 상태머신 생성
         stateMachine = new PlayerStateMachine(this);
@@ -50,5 +54,11 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         stateMachine.PhysicsUpdate();
+    }
+
+    public void OnDie()
+    {
+        Animator.SetTrigger("Death");
+        enabled = false;
     }
 }

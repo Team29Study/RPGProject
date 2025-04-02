@@ -15,6 +15,8 @@ public class InventoryModel
         remove => Items.AnyValueChanged -= value;
     }
 
+    public event Action<Item> OnUseItem = delegate { };
+
     public InventoryModel(int capacity)
     {
         this.capacity = capacity;
@@ -73,6 +75,27 @@ public class InventoryModel
     public void Clear() => Items.Clear();
 
     public void Swap(int source, int target) => Items.Swap(source, target);
+
+    public bool RemoveItemByIndex(int index, int quantity)
+    {
+        if (index < 0 || index >= Count()) return false;
+
+        if (Items[index].quantity < quantity) return false;
+
+        Items[index].quantity -= quantity;
+
+        if (Items[index].quantity == 0) RemoveAt(index);
+
+        Invoke();
+        return true;
+    }
+
+    public bool UseByIndex(int index)
+    {
+        OnUseItem?.Invoke(Items[index]);
+
+        return true;
+    }
 
     #region internal method
     private void AddItem(ItemData data, int quantity)

@@ -2,62 +2,73 @@ using UnityEngine;
 
 public class IdleNode : BTNode
 {
-    private float currIntevalImte = 0;
-    private float maxIntervalTime = 1;
+    private float currTime;
+    
+    private float duration;
+    private float detectionRange;
+
+    public IdleNode(float duration, float detectionRange)
+    {
+        this.duration = duration;
+        this.detectionRange = detectionRange;
+    }
     
     // 가만히 있는다.
     public override void Start()
     {
-        // 공격이 뒤에 있다면 모든 정보 초기화
-        agent.isStopped = true;
-        controller.animationHandler.Set(EnemyAnimationHandler.Run, false);
-        controller.animationHandler.Set(EnemyAnimationHandler.Attack, false);
+        currTime = 0;
+        agent.enabled = false;
+        controller.animationHandler.Set(EnemyAnimationHandler.Move, 0f);
     }
 
     public override void Update()
     {
-        currIntevalImte += Time.deltaTime;
+        if (currTime > duration) SetState(State.Success);
 
-        if (Vector3.Distance(transform.position, target.position) <= 8) // 감지 거리
+        if (Vector3.Distance(transform.position, target.position) <= detectionRange)
         {
             SetState(State.Failure);
             return;
         }
-        if (currIntevalImte > maxIntervalTime) SetState(State.Success);
+        
+        currTime += Time.deltaTime;
     }
 
     public override void End()
     {
-        currIntevalImte = 0;
+        agent.enabled = true;
     }
 }
 
 public class PatrolNode : BTNode
 {
-    private float currIntevalImte = 0;
-    private float maxIntervalTime = 1;
-    private Vector3 currentDirection;
+    private float currTime;
+    private float duration;
+    
+    private Vector3 randomDirection;
 
-    private void SetRandomDirection()
+    public PatrolNode(float duration)
     {
-        float randomX = Random.Range(-1f, 1f);
-        float randomZ = Random.Range(-1f, 1f);
-        currentDirection = new Vector3(randomX, 0, randomZ).normalized;
+        this.duration = duration;
     }
     
     public override void Start()
     {
-        controller.animationHandler.Set(EnemyAnimationHandler.Run, true);
-        SetRandomDirection();
-        transform.rotation = Quaternion.LookRotation(currentDirection);
+        currTime = 0;
+        controller.animationHandler.Set(EnemyAnimationHandler.Move, 1f);
+        
+        float randomX = Random.Range(-1f, 1f);
+        float randomZ = Random.Range(-1f, 1f);
+        randomDirection = new Vector3(randomX, 0, randomZ).normalized;
+        transform.rotation = Quaternion.LookRotation(randomDirection);
     }
     
     
 
     public override void Update()
     {
-        currIntevalImte += Time.deltaTime;
-        transform.position += currentDirection * Time.deltaTime;
+        currTime += Time.deltaTime;
+        transform.position += randomDirection * Time.deltaTime * 2f;
 
         if (Vector3.Distance(transform.position, target.position) <= 8)
         {
@@ -65,37 +76,46 @@ public class PatrolNode : BTNode
             return;
         }
 
-        if (currIntevalImte > maxIntervalTime)
+        if (currTime > duration)
         {
             SetState(State.Success);
         }
-    }
-
-    public override void End()
-    {
-        currIntevalImte = 0;
     }
 }
 
 public class TracingNode : BTNode // 추격
 {
+    protected float tracingRange;
+    public TracingNode(float tracingRange)
+    {
+        this.tracingRange = tracingRange;
+    }
+
     public override void Start()
     {
-        controller.animationHandler.Set(EnemyAnimationHandler.Run, true);
-        agent.isStopped = false;
+        var distance = Vector3.Distance(transform.position, target.position);
+        if (distance > tracingRange) { SetState(State.Failure); return; }
+        
+        controller.animationHandler.Set(EnemyAnimationHandler.Move, 1.8f);
     }
 
     public override void Update()
     {
         var distance = Vector3.Distance(transform.position, target.position);
-        if (distance > 10) SetState(State.Failure);
+ 
+        if (distance > tracingRange)
+        {
+            SetState(State.Failure);
+            return;
+        }
+        
         if (distance < agent.stoppingDistance)
         {
             SetState(State.Success);
             return;
         }
         
-        agent.SetDestination(target.position); // 추격
+        agent.SetDestination(target.position);
     }
 }
 
@@ -129,9 +149,19 @@ public class BoundaryNode : BTNode // 경계, 애니메이션 필요
 // hit 시퀀스 안에서 진행
 public class DieNode : BTNode
 {
+    private bool isDeath = false;
     public override void Start()
     {
-        if (controller.resourceHandler.health != 0) SetState(State.Failure);
+        if (controller.resourceHandler.health != 0) {
+            SetState(State.Success); // 통과
+            return;
+        }
+
+        if (isDeath == false)
+        {
+            isDeath = true;
+            controller.animationHandler.Set(EnemyAnimationHandler.Die, true);
+        }
     }
 }
 
@@ -149,9 +179,10 @@ public class HitNode : BTNode
             return;
         }
 
-        agent.isStopped = true;
-        agent.velocity = Vector3.zero;
+        agent.enabled = false;
+        curentKnockBackTime = 0;
         
+        // 체력 감소
         controller.animationHandler.Set(EnemyAnimationHandler.Hit);
         controller.resourceHandler.health -= 10;
         
@@ -160,6 +191,7 @@ public class HitNode : BTNode
 
     public override void Update()
     {
+        // 넉백을 주는 경우
         curentKnockBackTime += Time.deltaTime;
         if (curentKnockBackTime >= knockBackTime)
         {
@@ -172,7 +204,7 @@ public class HitNode : BTNode
 
     public override void End()
     {
-        curentKnockBackTime = 0;
+        agent.enabled = true;
     }
 }
 

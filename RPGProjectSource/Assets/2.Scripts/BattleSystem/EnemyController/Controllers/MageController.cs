@@ -4,9 +4,9 @@ public class MageController: EnemyController
     private void Start()
     {
         behaviourTree.Generate(this, new SelectorNode(
-            new SequenceNode(new HitNode(), new DieNode()),
-            new SequenceNode(new IdleNode(), new PatrolNode()),
-            new SequenceNode(new TracingNode(), new RangeAttackNode())
+            new SequenceNode(new DieNode(), new HitNode()),
+            new SequenceNode(new TracingNode(10), new MeleeAttackNode()),
+            new SequenceNode(new IdleNode(1, 10), new PatrolNode(1))
         ));
     } 
 }

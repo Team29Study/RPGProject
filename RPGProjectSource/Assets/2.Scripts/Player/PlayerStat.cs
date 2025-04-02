@@ -73,6 +73,11 @@ public class PlayerStat : MonoBehaviour
         mediator.AddModifier(new StatModifier<PlayerStatType>(statType, new MultiplyOperation(buffValue), time));
     }
 
+    public void AddModifier(StatModifier<PlayerStatType> modifier)
+    {
+        mediator.AddModifier(modifier);
+    }
+
     private void Update()
     {
         mediator.Update(Time.deltaTime);

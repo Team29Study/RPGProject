@@ -7,19 +7,27 @@ public class RangeAttackNode : BTNode
 {
     public override void Start()
     {
-        agent.velocity = Vector3.zero;
-        agent.isStopped = true;
+        agent.enabled = false;
+        controller.animationHandler.Set(EnemyAnimationHandler.Move, 0f);
         controller.animationHandler.Set(EnemyAnimationHandler.Attack, true);
         
     }
 
     public override void Update()
     {
-        Vector3 direction = target.position - transform.position; direction.y = 0; // 공격하면서 회전 필요
+        Vector3 direction = target.position - transform.position; 
+        // direction.y = 0;
         transform.rotation = Quaternion.LookRotation(direction.normalized);
 
         var distance = Vector3.Distance(transform.position, target.position);
         if (distance > 10) SetState(State.Failure); // 공격 범위
+    }
+
+    public override void End()
+    {
+        agent.enabled = false;
+        controller.animationHandler.Set(EnemyAnimationHandler.Attack, false);
+
     }
 
     public override void OnAttackAnimated(bool isAttacking)

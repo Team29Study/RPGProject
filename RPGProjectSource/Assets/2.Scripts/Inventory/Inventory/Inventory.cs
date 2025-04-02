@@ -35,4 +35,14 @@ public class Inventory : MonoBehaviour
             presenter.model.TryRemove(__removeItem, 1);
         }
     }
+
+    public void DebugAddOneItem(EquipmentModel.EquipmentContainer item)
+    {
+        Model.TryAdd(item.Data, 1);
+    }
+
+    public void AddOneItem(ItemData item)
+    {
+        Model.TryAdd(item, 1);
+    }
 }
