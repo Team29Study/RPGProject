@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BaseUI : MonoBehaviour
+public class BaseUI : MonoBehaviour, IWindow
 {
     [Header("Bar")]
     [SerializeField] private Image hpBar;
@@ -20,10 +20,12 @@ public class BaseUI : MonoBehaviour
     [SerializeField] private Button exitBtn;
     [SerializeField] private GameObject pauseWindow;
 
+    bool isOpen;
+
     private void Start()
     {
         // UIManager에 BaseUI 연결
-        UIManager.Instance.SetBaseUI(this);
+        UIManager.Instance.RegisterUI(this);
 
         // 일시정지 및 실행 버튼 연결
         pauseBtn.onClick.AddListener(OnPause);
@@ -78,5 +80,21 @@ public class BaseUI : MonoBehaviour
     private void SetGold()
     {
 
+    }
+
+    public void Open()
+    {
+        isOpen = true;
+
+    }
+
+    public void Close()
+    {
+        isOpen = false;
+    }
+
+    public bool IsOpen()
+    {
+        return isOpen;
     }
 }

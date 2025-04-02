@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopUI : MonoBehaviour
+public class ShopUI : MonoBehaviour, IWindow
 {
     [SerializeField] private Button closeBtn;
     [SerializeField] private Button buyBtn;
@@ -30,9 +30,9 @@ public class ShopUI : MonoBehaviour
     private void Start()
     {
         // ShopUI를 UIManager에 연결
-        UIManager.Instance.SetShopUI(this);
+        UIManager.Instance.RegisterUI(this);
 
-        closeBtn.onClick.AddListener(CloseShop); // 상점 닫기 버튼에 리스너 추가
+        closeBtn.onClick.AddListener(Close); // 상점 닫기 버튼에 리스너 추가
         buyBtn.onClick.AddListener(Buy); // 아이템 구매 버튼에 리스너 추가
         sellBtn.onClick.AddListener(Sell); // 아이템 판매 버튼에 리스너 추가
 
@@ -150,10 +150,13 @@ public class ShopUI : MonoBehaviour
         // 아이템 판매 로직 (추가 필요)
     }
 
-    private void CloseShop()
+    public void Open()
     {
-        // 상점을 닫고, 커서를 잠금 상태로 설정
-        UIManager.Instance.ShopUI.gameObject.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
+        throw new System.NotImplementedException();
+    }
+
+    public void Close()
+    {
+        throw new System.NotImplementedException();
     }
 }
