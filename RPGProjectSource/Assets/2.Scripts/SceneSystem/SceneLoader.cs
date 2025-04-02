@@ -19,7 +19,7 @@ public static class SceneLoader
         InternalLoadSceneAsync(sceneName, mode).Forget();
     }
 
-    public static void UnloadSceneAsnycTest(string sceneName)
+    public static void UnloadSceneAsnyc(string sceneName)
     {
         UnloadSceneAsny(sceneName).Forget();
     }

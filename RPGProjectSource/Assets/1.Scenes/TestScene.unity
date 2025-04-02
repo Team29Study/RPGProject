@@ -157,11 +157,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1836557746989728339, guid: 10c98cf76c1c70144a13e2489ce0c31e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 605.1229
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 1836557746989728339, guid: 10c98cf76c1c70144a13e2489ce0c31e, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 795.8979
+      value: 584
       objectReference: {fileID: 0}
     - target: {fileID: 1836557746989728339, guid: 10c98cf76c1c70144a13e2489ce0c31e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -217,6 +217,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3004714963082684946, guid: 10c98cf76c1c70144a13e2489ce0c31e, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3004714963082684946, guid: 10c98cf76c1c70144a13e2489ce0c31e, type: 3}
+      propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5102850216842780031, guid: 10c98cf76c1c70144a13e2489ce0c31e, type: 3}
@@ -443,7 +447,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 243680956}
-  - component: {fileID: 243680955}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -451,21 +454,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &243680955
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 243680954}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9816f27f7ff7e34db69a18af389c263, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  loadMode: 1
-  sceneAsset: {fileID: 102900000, guid: b648eea7fb3255a45a8bdde77f3f8870, type: 3}
-  sceneName: LoadTestScene
 --- !u!4 &243680956
 Transform:
   m_ObjectHideFlags: 0
@@ -5528,6 +5516,10 @@ PrefabInstance:
       propertyPath: view
       value: 
       objectReference: {fileID: 118531257}
+    - target: {fileID: 4212815580008532251, guid: 9e8dfec774d3983488948afbccfbd401, type: 3}
+      propertyPath: maxCapacity
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 4212815580008532251, guid: 9e8dfec774d3983488948afbccfbd401, type: 3}
       propertyPath: __removeItem
       value: 
