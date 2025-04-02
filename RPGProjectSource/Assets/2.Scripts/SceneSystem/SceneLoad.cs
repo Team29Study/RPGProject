@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class SceneLoad : MonoBehaviour
 {
     [SerializeField] LoadSceneMode loadMode;
-    
-    [SerializeField, Header("Debug")] private string sceneName;
 
 #if UNITY_EDITOR
     public SceneAsset sceneAsset;
@@ -19,6 +20,8 @@ public class SceneLoad : MonoBehaviour
             sceneName = sceneAsset.name;    
     }
 #endif
+
+    [SerializeField, Header("Debug")] private string sceneName;
 
     [ContextMenu("Load Scene")]
     public void LoadScene()
