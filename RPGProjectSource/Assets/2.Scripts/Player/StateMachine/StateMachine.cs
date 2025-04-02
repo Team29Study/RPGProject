@@ -12,17 +12,9 @@ public interface IPlayerState
 public abstract class StateMachine
 {
     // 현재 상태
-    //protected IPlayerState currentState;
     protected IPlayerState currentMovementState;
     protected IPlayerState currentAttackState;
 
-    // 상태 변경
-    //public void ChangeState(IPlayerState state)
-    //{
-    //    currentState?.Exit();
-    //    currentState = state;
-    //    currentState?.Enter();
-    //}
     public void ChangeMovementState(IPlayerState state)
     {
         currentMovementState?.Exit();
