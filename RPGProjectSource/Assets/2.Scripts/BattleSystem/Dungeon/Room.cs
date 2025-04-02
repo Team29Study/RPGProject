@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Room
 {
-    
     public GameObject room;
 
     public GameObject tileMap;
@@ -15,7 +14,8 @@ public class Room
 
     public Room(Vector3 position, Transform parent)
     {
-        room = new GameObject("Room") { transform = { position = position, parent = parent } };
+        room = new GameObject("Room") { transform = { position = Vector3.zero, parent = parent } };
+        room.transform.localPosition = position;
     }
 
     public GameObject CreateMap(string name)

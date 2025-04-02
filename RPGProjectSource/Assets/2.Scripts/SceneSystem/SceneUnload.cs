@@ -22,8 +22,13 @@ public class SceneUnload : MonoBehaviour
     [SerializeField, Header("Debug")] private string sceneName;
 
     [ContextMenu("Load Scene")]
-    public void LoadScene()
+    public void UnloadScene()
     {
         SceneLoader.UnloadSceneAsnyc(sceneName);
+    }
+
+    public void UnloadCurrentScene()
+    {
+        SceneLoader.UnloadSceneAsnyc(SceneManager.GetActiveScene().name);
     }
 }

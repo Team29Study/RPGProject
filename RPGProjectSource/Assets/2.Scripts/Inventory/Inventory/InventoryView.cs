@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class InventoryView : MonoBehaviour
+public class InventoryView : PopUpUI
 {
     [SerializeField] private Transform slotParent;
     [SerializeField] private Slot slotPrefab;
@@ -20,6 +20,12 @@ public class InventoryView : MonoBehaviour
 
     public event Action<int, int> OnSlotSwap = delegate { };
     public event Action<int> OnUseItem = delegate { };
+
+    void Start()
+    {
+        UIManager.Instance.RegisterPopUp(this);
+        Close();
+    }
 
     public void InitializeView(int capacity)
     {

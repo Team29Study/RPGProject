@@ -1,32 +1,56 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class UIManager : Singleton<UIManager>
 {
-    // 기본 UI 참조
-    [SerializeField] private BaseUI baseUI;
-    public BaseUI BaseUI
+    private Dictionary<Type, PopUpUI> popupDict = new();
+
+    public void RegisterPopUp(PopUpUI popUpUI)
     {
-        get { return baseUI; }
-        private set { baseUI = value; }
+        var type = popUpUI.GetType();
+
+        if (!popupDict.TryGetValue(type, out var value))
+        {
+            popupDict.Add(type, popUpUI);
+            popUpUI.onChanged += PopUpChange;
+        }
     }
 
-    // 상점 UI 참조
-    [SerializeField] private ShopUI shopUI;
-    public ShopUI ShopUI
+    public void DeregisterPopUp(PopUpUI popUpUI)
     {
-        get { return shopUI; }
-        private set { shopUI = value; }
+        var type = popUpUI.GetType();
+
+        if (popupDict.TryGetValue(type, out var value))
+        {
+            popupDict.Remove(type);
+            popUpUI.onChanged -= PopUpChange;
+        }
     }
 
-    // 기본 UI 연결
-    public void SetBaseUI(BaseUI baseUI)
+    public T GetUI<T>() where T : PopUpUI
     {
-        BaseUI = baseUI;
+        var type = typeof(T);
+
+        if (popupDict.TryGetValue(type, out var value))
+        {
+            return value as T;
+        }
+
+        return default;
     }
 
-    // 상점 UI 연결
-    public void SetShopUI(ShopUI shopUI)
+    private void PopUpChange()
     {
-        ShopUI = shopUI;
+        Debug.LogAssertion("1");
+        bool isAllClosed = popupDict.All(e => e.Value.IsOpen() == false);
+
+        if (isAllClosed)
+        {
+            Debug.LogAssertion("2");
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 }

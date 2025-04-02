@@ -425,3 +425,4 @@ MonoBehaviour:
   shopItemIcon: {fileID: 8472002527370870559}
   soldOutPanel: {fileID: 8740681591963854826}
   shopItemBtn: {fileID: 2388531501258583310}
+  isSelected: 0

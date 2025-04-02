@@ -2981,6 +2981,10 @@ MonoBehaviour:
     comboAttackParameterName: ComboAttack
     blockStateParameterName: '@Block'
     blockParameterName: Block
+  interactionLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  rangeRadius: 5
 --- !u!114 &3063158720721277617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3068,10 +3072,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bf960a8efb215940b46f29466da05f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCapacity: 10
+  maxCapacity: 60
   view: {fileID: 0}
-  __debugItems: []
-  __removeItem: {fileID: 0}
+  __debugItems:
+  - {fileID: 11400000, guid: c2a0a970fa4707943a80783236e33236, type: 2}
+  - {fileID: 11400000, guid: 7a2f55e1ec6fb3849acbd8433397c197, type: 2}
+  __removeItem: {fileID: 11400000, guid: 7a2f55e1ec6fb3849acbd8433397c197, type: 2}
 --- !u!114 &7625338757315775360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3130,7 +3136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b20f594a1d6ca2c4dbc18d75638b52f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 0}
+  inventory: {fileID: 4212815580008532251}
   OnUseEquipmentItem:
     m_PersistentCalls:
       m_Calls:
