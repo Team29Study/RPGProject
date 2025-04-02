@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 // 플레이어의 Component들을 관리하는 클래스
@@ -9,7 +10,11 @@ public class Player : MonoBehaviour
     [field: SerializeField] public PlayerSO Data { get; private set; }
 
     [field:Header("Animations")]
-    [field: SerializeField] public PlayerAnimationData AnimationData { get; private set; } 
+    [field: SerializeField] public PlayerAnimationData AnimationData { get; private set; }
+
+    [Header("Interaction")]
+    [SerializeField] private LayerMask interactionLayers;
+    [SerializeField] private float rangeRadius = 2f;
 
     public Animator Animator { get; private set; }
     public PlayerController InputController { get; private set; }
@@ -20,7 +25,6 @@ public class Player : MonoBehaviour
 
     // 플레이어 상태 머신
     public PlayerStateMachine stateMachine;
-
 
     private void Awake()
     {
@@ -36,6 +40,8 @@ public class Player : MonoBehaviour
 
         // 상태머신 생성
         stateMachine = new PlayerStateMachine(this);
+
+        InputController.PlayerActions.Interaction.started += (ctx) => OnInteraction();
     }
 
     private void Start()
@@ -61,5 +67,27 @@ public class Player : MonoBehaviour
     {
         Animator.SetTrigger("Death");
         enabled = false;
+    }
+
+    private void OnInteraction()
+    {
+        var others = Physics.OverlapSphere(transform.position, rangeRadius, interactionLayers);
+
+        if (others.Length != 0)
+        {
+            foreach (var iter in others)
+            {
+                if (iter.TryGetComponent(out IInteractable<Player> interactable))
+                {
+                    interactable.Interaction(this);
+                    return;
+                }
+            }
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position, rangeRadius);
     }
 }
