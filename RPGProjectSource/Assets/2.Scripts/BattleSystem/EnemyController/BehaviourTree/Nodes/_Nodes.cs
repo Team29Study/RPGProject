@@ -197,12 +197,25 @@ public class HitNode : BTNode
     public float knockBackTime = 0.5f;
     private float curentKnockBackTime;
     
+    private bool isIgnoreKnockBack;
+
+    public HitNode(bool isIgnore = false)
+    {
+        this.isIgnoreKnockBack = isIgnore;
+    }
+    
     public override void Start()
     {
         agent.enabled = false;
         
         curentKnockBackTime = 0;
         controller.animationHandler.animator.SetLayerWeight(1, 0f);
+        
+        if(isIgnoreKnockBack)
+        {
+            SetState(State.Success);
+        }
+        
         controller.animationHandler.Set(EnemyAnimationHandler.Hit);
     }
 
@@ -214,7 +227,7 @@ public class HitNode : BTNode
             SetState(State.Success);
             return;
         }
-        
+
         transform.position += (transform.position - target.position).normalized * 1f * Time.deltaTime;
     }
 
