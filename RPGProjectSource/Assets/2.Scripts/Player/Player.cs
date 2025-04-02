@@ -84,7 +84,8 @@ public class Player : MonoBehaviour
 
     private void OnInteraction()
     {
-        var others = Physics.OverlapSphere(transform.position, rangeRadius, interactionLayers);
+        var others = Physics.OverlapSphere(transform.position, rangeRadius, interactionLayers,
+            QueryTriggerInteraction.Collide);
 
         if (others.Length != 0)
         {

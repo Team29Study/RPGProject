@@ -29,6 +29,9 @@ public class ShopUI : PopUpUI
 
     private void Start()
     {
+        UIManager.Instance.RegisterPopUp(this);
+        Close();
+
         closeBtn.onClick.AddListener(Close); // 상점 닫기 버튼에 리스너 추가
         buyBtn.onClick.AddListener(Buy); // 아이템 구매 버튼에 리스너 추가
         sellBtn.onClick.AddListener(Sell); // 아이템 판매 버튼에 리스너 추가
@@ -37,9 +40,6 @@ public class ShopUI : PopUpUI
         InitSellSlot();
         description.text = null;
     }
-
-    void OnEnable() => UIManager.Instance.RegisterPopUp(this);
-    void OnDisable() => UIManager.Instance.DeregisterPopUp(this);
 
     private void InitShopSlot()
     {
