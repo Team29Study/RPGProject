@@ -206,6 +206,7 @@ public class HitNode : BTNode
     
     public override void Start()
     {
+        
         agent.enabled = false;
         
         curentKnockBackTime = 0;
