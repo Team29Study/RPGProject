@@ -15,7 +15,7 @@ GameObject:
   m_Layer: 0
   m_Name: MapGenerator
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -50,7 +50,7 @@ MonoBehaviour:
   - {x: 16, y: 24}
   - {x: 16, y: 20}
   door: {fileID: 7946641988394942001, guid: 9bb5328c862c249dfba273befc3306e9, type: 3}
-  roomLength: 2
+  roomLength: 6
   currClearRoomLength: 0
   startPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &4807906269137151137
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AgentTypeID: 0
-  m_CollectObjects: 0
+  m_CollectObjects: 2
   m_Size: {x: 10, y: 10, z: 10}
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:

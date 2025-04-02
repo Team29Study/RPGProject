@@ -24,9 +24,10 @@ public class DungeonGenerator: MonoBehaviour
     public void OnClearRoom()
     {
         currClearRoomLength += 1;
-        if (currentRoomSize.Count >= roomSizes.Count)
+        if (currClearRoomLength >= roomLength - 1)
         {
-            Debug.Log("모든 방을 클리어 했습니다."); // 플레이어 위치 앞에 포탈 또는 다리 생성
+            var player = GameObject.FindWithTag("Player");
+            Instantiate(roomGenerator.stairs[0], player.transform.position + Vector3.forward * 2, Quaternion.identity);
         }
     }
     // 해당 클래스의 역할
@@ -117,6 +118,5 @@ public class DungeonGenerator: MonoBehaviour
         }
 
         navMeshSurface.BuildNavMesh();
-
     }
 }

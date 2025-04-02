@@ -15,6 +15,8 @@ public class DefenceNode : BTNode // 일단은 제자리에서 방어하도록 �
         
         controller.animationHandler.Set(EnemyAnimationHandler.Move, 0f);
         controller.animationHandler.Set(EnemyAnimationHandler.Defence, true);
+
+        if (controller is WarriorController warriorController) { warriorController.isDefenced = true; } // 컨트롤러가 다른 부분 처리 필요
     }
 
     public override void Update()
@@ -24,6 +26,7 @@ public class DefenceNode : BTNode // 일단은 제자리에서 방어하도록 �
         currTime += Time.deltaTime;
         if (currTime >= duration)
         {
+            if (controller is WarriorController warriorController) { warriorController.isDefenced = false; } // 컨트롤러가 다른 부분 처리 필요
             SetState(State.Success);
         }
     }
@@ -52,6 +55,12 @@ public class RushAttackMode : BTNode // 점프든 대시든 같은 상황 돌진
     
     public override void Start()
     {
+        if (controller is WarriorController warriorController && warriorController.isDefenced)
+        {
+            SetState(State.Success);
+            return;
+        }
+
         agent.isStopped = true;
         agent.velocity = Vector3.zero; // 중복적인 부분
 
