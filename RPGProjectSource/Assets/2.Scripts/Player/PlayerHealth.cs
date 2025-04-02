@@ -72,6 +72,6 @@ public class PlayerHealth : MonoBehaviour, IDamagable
 
     public void UseConsumableItem(ConsumableItemData itemData)
     {
-
+        playerStat.HP += itemData.hpRecorvery;
     }
 }

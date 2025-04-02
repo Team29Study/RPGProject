@@ -17,3 +17,4 @@ MonoBehaviour:
   description: "Hp 10 \uD68C\uBCF5"
   itemPrice: 500
   maxStack: 99
+  hpRecorvery: 20

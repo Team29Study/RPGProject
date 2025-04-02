@@ -36,6 +36,7 @@ public class BaseUI : PopUpUI
     {
         Time.timeScale = 0f;
         pauseWindow.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
     }
 
     // 일시정지 해제
@@ -43,6 +44,7 @@ public class BaseUI : PopUpUI
     {
         Time.timeScale = 1f;
         pauseWindow.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // 게임 종료(임시)

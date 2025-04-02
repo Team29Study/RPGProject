@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "SO/Item Details/Consumable")]
 public class ConsumableItemData : ItemData
 {
-
+    public int hpRecorvery;
 }

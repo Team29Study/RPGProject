@@ -65,6 +65,11 @@ public class Player : MonoBehaviour
 
             equipmentUI?.Toggle();
         };
+        InputController.PlayerActions.Pause.started += (ctx) =>
+        {
+            Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ?
+            CursorLockMode.None : CursorLockMode.Locked;
+        };
     }
 
     private void Update()
