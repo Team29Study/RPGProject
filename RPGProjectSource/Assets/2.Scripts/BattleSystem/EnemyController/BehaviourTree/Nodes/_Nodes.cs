@@ -155,7 +155,7 @@ public class DieNode : BTNode
     private bool isDeath = false;
     public override void Start()
     {
-        if (controller.resourceHandler.health != 0) {
+        if (controller.resourceHandler.health > 0) {
             SetState(State.Success); // 통과
             return;
         }
