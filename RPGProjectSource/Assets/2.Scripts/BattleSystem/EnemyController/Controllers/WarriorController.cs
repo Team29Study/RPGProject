@@ -19,7 +19,7 @@ public class WarriorController: EnemyController
         ProjectileManager.Instance.RegisterMeleeAttack(transform, Vector3.up + Vector3.forward,  Vector3.one * 2);
         
         behaviourTree.Generate(this, new SelectorNode(
-            new SequenceNode(new DieNode(), new HitNode()),
+            new SequenceNode(new DieNode(), new HitNode(true)),
             new SequenceNode(new TracingNode(tracingRange), new RushAttackMode(), new DefenceNode()),
             new SequenceNode(new IdleNode(1, tracingRange), new PatrolNode(1))
         ));
