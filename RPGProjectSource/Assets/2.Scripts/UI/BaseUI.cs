@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BaseUI : MonoBehaviour, IWindow
+public class BaseUI : MonoBehaviour, IPopupUI
 {
     [Header("Bar")]
     [SerializeField] private Image hpBar;

@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopUI : MonoBehaviour, IWindow
+public class ShopUI : MonoBehaviour, IPopupUI
 {
     [SerializeField] private Button closeBtn;
     [SerializeField] private Button buyBtn;

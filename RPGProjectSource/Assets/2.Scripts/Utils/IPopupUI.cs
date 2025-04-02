@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IWindow
+public interface IPopupUI
 {
     void Open();
     void Close();
