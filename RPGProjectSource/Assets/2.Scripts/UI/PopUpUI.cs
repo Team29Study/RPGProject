@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PopUpUI : MonoBehaviour, IPopupUI
@@ -13,8 +11,6 @@ public class PopUpUI : MonoBehaviour, IPopupUI
         isOpen = true;
         gameObject.SetActive(true);
         onChanged?.Invoke();
-
-        Debug.Log("!1");
     }
 
     public virtual void Close()

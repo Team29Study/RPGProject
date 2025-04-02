@@ -78,7 +78,7 @@ public class ShopUI : PopUpUI
         {
             SellSlot newSlot = GameObject.Instantiate(sellSlotPrefab, sSlot);
 
-            if (i < shopItemDatas.Count)
+            if (i < invenItemDatas.Count)
             {
                 newSlot.SetSellItem(invenItemDatas[i]); // 아이템 데이터 설정
             }
@@ -87,39 +87,16 @@ public class ShopUI : PopUpUI
         }
     }
 
-    //public void UpdateShopSlot()
-    //{
-    //    // 구매목록 슬롯 갱신
-    //    for (int i = 0; shopSlots.Count > i; i++)
-    //    {
-    //        if (i < shopItemDatas.Count)
-    //        {
-    //            shopSlots[i].SetShopItem(shopItemDatas[i]); // 아이템 데이터 갱신
-    //        }
-    //        else
-    //        {
-    //            shopSlots.Add(null); // 빈 슬롯 추가
-    //        }
-    //    }
-
-    //    // 판매목록 슬롯 갱신
-    //    for (int i = 0; sellSlots.Count > i; i++)
-    //    {
-    //        if (i < invenItemDatas.Count)
-    //        {
-    //            sellSlots[i].SetSellItem(invenItemDatas[i]); // 아이템 데이터 갱신
-    //        }
-    //        else
-    //        {
-    //            sellSlots.Add(null); // 빈 슬롯 추가
-    //        }
-    //    }
-    //}
-
     public void ShowDescription(ItemData itemData)
     {
         // 아이템 설명을 UI에 표시
-        description.text = $"{itemData.itemName}\n{itemData.description}\nPrice: {itemData.itemPrice}G";
+        description.text = $"{itemData.itemName}\n{itemData.description}\n가격: {itemData.itemPrice}G";
+    }
+
+    public void ShowSellDescription(ItemData itemData)
+    {
+        // 아이템 설명을 UI에 표시
+        description.text = $"{itemData.itemName}\n{itemData.description}\n판매가: {itemData.itemPrice / 2}G";
     }
 
     public void SelectSlot(ShopSlot slot)
@@ -140,13 +117,36 @@ public class ShopUI : PopUpUI
             return;
         }
 
+        ItemData itemData = shopSlot.GetItemData();
+        if (itemData != null)
+        {
+            invenItemDatas.Add(itemData);
+        }
+
         shopSlot.SoldOut(true); // 아이템 구매 시 아이템 품절 처리
         description.text = null; // 아이템 설명 초기화
+        shopSlot = null;
 
+        InitSellSlot();
     }
 
     private void Sell()
     {
-        // 아이템 판매 로직 (추가 필요)
+        // 선택하지 않은 경우
+        if (sellSlot == null)
+        {
+            return;
+        }
+
+        ItemData itemData = sellSlot.GetItemData();
+        if (itemData != null)
+        {
+            invenItemDatas.Remove(itemData);
+        }
+
+        description.text = null; // 아이템 설명 초기화
+        sellSlot = null;
+
+        InitSellSlot();
     }
 }

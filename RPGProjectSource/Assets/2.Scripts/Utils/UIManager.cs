@@ -1,48 +1,11 @@
-using System.Collections.Generic;
-using UnityEditor.PackageManager.UI;
-using UnityEngine;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 public class UIManager : Singleton<UIManager>
 {
-    //private List<IPopupUI> windows = new();
-    //private List<PopUpUI> popUpUIs = new();
-
     private Dictionary<Type, PopUpUI> popupDict = new();
-
-    //// 기본 UI 참조
-    //[SerializeField] private BaseUI baseUI;
-    //public BaseUI BaseUI
-    //{
-    //    get { return baseUI; }
-    //    private set { baseUI = value; }
-    //}
-
-    //// 상점 UI 참조
-    //[SerializeField] private ShopUI shopUI;
-    //public ShopUI ShopUI
-    //{
-    //    get { return shopUI; }
-    //    private set { shopUI = value; }
-    //}
-
-    //public void RegisterUI(IPopupUI window)
-    //{
-    //    if (!windows.Contains(window))
-    //        windows.Add(window);
-
-    //    // 타입별로 자동 연결
-    //    switch (window)
-    //    {
-    //        case BaseUI baseUI:
-    //            BaseUI = baseUI;
-    //            break;
-
-    //        case ShopUI shopUI:
-    //            ShopUI = shopUI;
-    //            break;
-    //    }
-    //}
 
     public void RegisterPopUp(PopUpUI popUpUI)
     {
@@ -80,6 +43,14 @@ public class UIManager : Singleton<UIManager>
 
     private void PopUpChange()
     {
+        Debug.LogAssertion("1");
+        bool isAllClosed = popupDict.All(e => e.Value.IsOpen() == false);
 
+        if (isAllClosed)
+        {
+            Debug.LogAssertion("2");
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 }
