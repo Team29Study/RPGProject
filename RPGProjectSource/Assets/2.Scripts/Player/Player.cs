@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     public ForceReceiver ForceReceiver { get; private set; }
     public PlayerStat PlayerStat { get; set; }
     public PlayerHealth PlayerHealth { get; set; }
+    public Inventory Inventory { get; private set; }
 
     // 플레이어 상태 머신
     public PlayerStateMachine stateMachine;
@@ -35,6 +36,7 @@ public class Player : MonoBehaviour
         ForceReceiver = GetComponent<ForceReceiver>();
         PlayerStat = GetComponent<PlayerStat>();
         PlayerHealth = GetComponent<PlayerHealth>();
+        Inventory = GetComponent<Inventory>();
 
         PlayerHealth.onDie += OnDie;
 

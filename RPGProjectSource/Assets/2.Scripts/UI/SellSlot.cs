@@ -42,8 +42,8 @@ public class SellSlot : MonoBehaviour
         {
             var shopUI = UIManager.Instance.GetUI<ShopUI>();
 
-            shopUI?.SelectSellSlot(this);
-            shopUI?.ShowSellDescription(itemData);
+            //shopUI?.SelectSellSlot(this);
+            //shopUI?.ShowSellDescription(itemData);
         }
     }
 }

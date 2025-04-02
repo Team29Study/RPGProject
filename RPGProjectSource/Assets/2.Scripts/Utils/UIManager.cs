@@ -43,14 +43,15 @@ public class UIManager : Singleton<UIManager>
 
     private void PopUpChange()
     {
-        Debug.LogAssertion("1");
         bool isAllClosed = popupDict.All(e => e.Value.IsOpen() == false);
 
         if (isAllClosed)
         {
-            Debug.LogAssertion("2");
             Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
         }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }    
     }
 }
