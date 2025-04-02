@@ -40,8 +40,6 @@ public class Player : MonoBehaviour
 
         // 상태머신 생성
         stateMachine = new PlayerStateMachine(this);
-
-        InputController.PlayerActions.Interaction.started += (ctx) => OnInteraction();
     }
 
     private void Start()
@@ -50,6 +48,21 @@ public class Player : MonoBehaviour
 
         stateMachine.ChangeMovementState(stateMachine.IdleState);
         stateMachine.ChangeAttackState(stateMachine.NoneAttackState);
+
+        InputController.PlayerActions.Interaction.started += (ctx) => OnInteraction();
+        InputController.PlayerActions.Inventory.started += (ctx) =>
+        {
+            var inventoryUI = UIManager.Instance.GetUI<InventoryView>();
+            Debug.Log(inventoryUI);
+            inventoryUI?.Toggle();
+
+        };
+        InputController.PlayerActions.Equipment.started += (ctx) =>
+        {
+            var equipmentUI = UIManager.Instance.GetUI<EquipmentView>();
+
+            equipmentUI?.Toggle();
+        };
     }
 
     private void Update()

@@ -6,5 +6,6 @@ public interface IPopupUI
 {
     void Open();
     void Close();
+    void Toggle();
     bool IsOpen();
 }

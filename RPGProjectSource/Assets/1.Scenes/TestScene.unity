@@ -1375,10 +1375,14 @@ MonoBehaviour:
   description: {fileID: 787269139}
   slot: {fileID: 982610209}
   slotPrefab: {fileID: 2341449636137794548, guid: 43cf6a762e250ab458600e0458750b83, type: 3}
+  sSlot: {fileID: 0}
+  sellSlotPrefab: {fileID: 0}
   shopSlots: []
   shopItemDatas:
   - {fileID: 11400000, guid: 2b5dc4fb52306774aaf76a2b5d92a7bb, type: 2}
   - {fileID: 11400000, guid: 04f51fe0cdad3f04db291daafecbea02, type: 2}
+  sellSlots: []
+  invenItemDatas: []
 --- !u!224 &530086168
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4948,8 +4952,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eccb328b3b8937d4f88fed448afbb80c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseUI: {fileID: 985888957}
-  shopUI: {fileID: 530086167}
 --- !u!114 &1539417889
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -66,7 +66,7 @@ public class UIManager : Singleton<UIManager>
         }
     }
 
-    public T GetUI<T>() where T : class
+    public T GetUI<T>() where T : PopUpUI
     {
         var type = typeof(T);
 

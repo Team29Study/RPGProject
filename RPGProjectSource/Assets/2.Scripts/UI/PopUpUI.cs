@@ -10,13 +10,24 @@ public class PopUpUI : MonoBehaviour, IPopupUI
 
     public virtual void Open()
     {
+        isOpen = true;
         gameObject.SetActive(true);
-        onChanged?.Invoke();   
+        onChanged?.Invoke();
+
+        Debug.Log("!1");
     }
 
     public virtual void Close()
     {
+        isOpen = false;
         gameObject.SetActive(false);
+        onChanged?.Invoke();
+    }
+
+    public void Toggle()
+    {
+        isOpen = !isOpen;
+        gameObject.SetActive(gameObject.activeInHierarchy ? false : true);
         onChanged?.Invoke();
     }
 
